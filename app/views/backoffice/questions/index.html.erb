@@ -1,0 +1,66 @@
+<h1 class="page-header">Questões</h1>
+
+<div class="row">
+  <div class="col-md-12">
+    <div class="well">      
+      <%= form_tag backoffice_questions_path, method: 'get', id: "questions_search", class: "form-inline" do %>
+      <h4>Filtro</h4>
+
+      <div class="row" >
+
+        <div class="form-group col-md-12" style="margin-bottom: 12px;">
+          <label for="title">Título da questão</label>
+          <%= text_field_tag :keyword, "", class: 'form-control', id: "title", style: "width: 100%" %>
+        </div>
+
+        <div class="field form-group col-md-4">
+          <label for="course">Curso</label>
+
+          <%= collection_select(
+            :course, :course_id, Course.all, :id, :title, 
+            {:prompt => true}, 
+            {:class=>'js-example-basic-single form-control', style: "width: 100%",}
+            ) 
+          %>
+        </div>
+
+        <div class="field form-group col-md-4">
+          <label for="course">Nível</label>
+
+          <%= collection_select(
+            :level, :level_id, [], :id, :title, 
+            {:prompt => true}, 
+            {:class=>'js-example-basic-single form-control', style: "width: 100%",}
+            ) 
+          %>
+
+        </div>
+
+        <div class="form-group col-md-4" style="margin-bottom: 10px;">
+          <label for="path">Lição</label>
+          <%= collection_select(nil, :by_paths, [ ], :id, :title, 
+          {:prompt => true}, 
+          {
+            :class=>'js-example-basic-single form-control', 
+            style: "width: 100%",
+            multiple: true,
+            id: "by_paths",
+          }
+          ) %>
+
+          
+        </div>
+
+      </div>
+        <%= submit_tag "Filtrar", :name => nil, class: "btn btn-default" %>
+        <%= link_to "Limpar Filtro", backoffice_questions_path, class: "btn btn-default" %>
+      <% end %>
+    <br>
+  </div>
+</div>
+
+ 
+<div class="row">
+  <div id="questions"><%= render 'question_list' %></div>
+</div>
+<br>

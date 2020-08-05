@@ -1,0 +1,59 @@
+
+$("#licao").click(function(){
+    console.log("sdf");
+  $("#questao-1").removeClass("intro");
+});
+
+var prox =  <%=@quiz.question.id%> + 1;
+
+if("<%= @quiz.question.type_question %>" == "Múltipla Escolha"){
+  let ordem = <%=@quiz.question.id %>
+
+  if (<%= @acerto %>){
+    $("#certo-questao-"+ordem).removeClass("d-none");
+    $("#botao-"+ordem).attr("disabled", "disabled");
+    $("#certo-questao-"+ordem).addClass("bounceInLeft");
+
+    setTimeout(function(){
+      $("#form-"+ordem).addClass("bounceOutLeft");
+      $("#form-"+ordem).addClass("hide");
+      $("#form-"+prox).removeClass("hide");
+      $("#form-"+prox).addClass("bounceInRight");
+    }, 2500);
+
+  }else{
+    $("#errado-questao-"+ordem).removeClass("d-none");
+    $("#botao-"+ordem).attr("disabled", "disabled");
+    $("#errado-questao-"+ordem).addClass("bounceInLeft");
+     setTimeout(function(){
+      $("#form-"+ordem).addClass("bounceOutLeft");
+      $("#form-"+ordem).addClass("hide");
+      $("#form-"+prox).removeClass("hide");
+      $("#form-"+prox).addClass("bounceInRight");
+    }, 2500);
+  }
+}else if("<%= @quiz.question.type_question %>" == "Questão Aberta"){
+  let ordem = <%=@quiz.question.id %>
+  if (<%= @acerto %>){
+    $("#certo-questao-"+ordem).removeClass("d-none");
+    $("#botao-"+ordem).attr("disabled", "disabled");
+    $("#certo-questao-"+ordem).addClass("bounceInLeft");
+
+    setTimeout(function(){
+      $("#form-"+ordem).addClass("bounceOutLeft");
+      $("#form-"+ordem).addClass("hide");
+      $("#form-"+prox).removeClass("hide");
+      $("#form-"+prox).addClass("bounceInRight");
+    }, 2500);
+  }else{
+    $("#errado-questao-"+ordem).removeClass("d-none");
+    $("#botao-"+ordem).attr("disabled", "disabled");
+    $("#errado-questao-"+ordem).addClass("bounceInLeft");
+     setTimeout(function(){
+      $("#form-"+ordem).addClass("bounceOutLeft");
+      $("#form-"+ordem).addClass("hide");
+      $("#form-"+prox).removeClass("hide");
+      $("#form-"+prox).addClass("bounceInRight");
+    }, 2000);
+  }
+}

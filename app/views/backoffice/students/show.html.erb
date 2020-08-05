@@ -1,0 +1,225 @@
+
+<h1 class="page-header">Alunos</h1>
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @student.name %>
+    </div>
+    <div class="panel-body">
+      <p>  
+        <%# image_tag user_avatar(@student, 100), id: "avatar", class: "img-circle" %>
+        <%= image_tag @student.student_avatar.thumb.url || "avatar.png", id: "avatar", class: "img-circle",  width: "100px", height: "100px" %>
+      </p>
+      
+      <p>
+        <strong>Nome:</strong>
+        <%= @student.name %>
+      </p>
+      <p>
+        <strong>Admin:</strong>
+        <% if @student.admin %>
+        Sim
+        <% else %>
+        Não
+        <% end %>
+
+      </p>
+      <p>
+        <strong>Nascimento:</strong>
+        <%= l(@student.birthday) %>
+      </p>
+  
+      <p>
+        <strong>Email:</strong>
+        <%= @student.email %>
+      </p>
+      <p>
+        <strong>Telefone:</strong>
+        <%= @student.phone %>
+      </p>
+      <p>
+        <strong>Unidade:</strong>
+        <%= @student.unit.title %>
+      </p>
+      <p>
+        <strong>Cadastro realizado em:</strong>
+        <%= @student.created_at.strftime("%d/%m/%Y às %T") %>
+      </p>
+      <p>
+        <strong>Nível atual:</strong>
+        <% if @student.errolments.any? %>
+          <%= @student.current_level %>
+        <% end %>
+      </p>
+     
+      <br>
+
+      <%= link_to 'Editar', edit_backoffice_student_path(@student), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_student_path(@student),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>   
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Logins
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Dias acessados:</strong>
+        <%= @student.count_day_logins %>
+      </p>
+      <p>
+        <strong>Último acesso:</strong>
+        <% if @student.current_sign_in_at %>
+          <%= @student.current_sign_in_at.strftime("%d/%m/%Y às %T") %>
+        <% end %>
+      </p>
+      <p>
+        <strong>IP do último acesso:</strong>
+        <%= @student.current_sign_in_ip %>
+      </p>
+      
+    
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Pontuação
+    </div>
+    <div class="panel-body">
+     <p>
+        <strong>Pontos:</strong>
+        <%= @student.points %>
+      </p>
+      <p>
+        <strong>Pontos de prática(critério para conquistas de águia):</strong>
+        <%= @student.pratice_points %>
+      </p>
+
+        <p>
+        <strong>Lições finalizadas:</strong>
+        <%= @student.quizzes_finished %>
+      </p>
+      
+    
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <h3 class="">Conquistas</h3>
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+          <tr>
+            <th>ID</th>
+            <th>Conquista</th>
+            <th>Badge</th>
+            <th>Data da conquista</th>
+          </tr>
+      </thead>
+      <tbody>
+      <% @student.student_achievements.each do |student_achievement| %>
+        <tr>
+          <td><%= student_achievement.id %></td>
+          <td><%= student_achievement.achievement.description %></td>
+          <td><%= image_tag student_achievement.achievement.badge_path, width: "30px" %></td>
+          <td><%= student_achievement.created_at.strftime("%d/%m/%Y às %T") %></td>
+
+        </tr>
+      <% end %>
+          
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<div class="col-md-12">
+  <h3 class="">Matrículas</h3>
+
+  <div class="table-responsive">
+      <table class="table table-hover">
+          <thead>
+              <tr>
+                <th>Nível</th>
+                <th>Matrícula</th>
+                <th>Status</th>
+                <th>Validade</th>
+                <th></th>
+                
+              </tr>
+          </thead>
+          <tbody>
+              <% @student.levels.each do |level| %>
+                  <tr>
+                      
+                      <td><%= level.title %></td>
+                      <td><%= level.errolments.last.created_at.strftime("%d/%m/%Y às %T") %></td>
+                      <td><%= level.errolments.last.status %></td>
+                      <td><%= level.errolments.last.expiration ? level.errolments.last.expiration.strftime("%d/%m/%Y às %T"):"" %></td>
+                      <td>
+                        <% unless level.errolments.last.active %>
+                          <%= link_to 'Ativar', backoffice_student_change_status_path(level.errolments.last),  class: "btn btn-outline btn-success", data: { confirm: 'Are you sure?' }, method: :put %>                  
+                        <% else %>
+                          <%= link_to 'Inativar', backoffice_student_change_status_path(level.errolments.last),  class: "btn btn-outline btn-danger", data: { confirm: 'Are you sure?' }, method: :put %>
+                        <% end %>
+                      </td>
+                      
+
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+  </div>
+  <br>
+</div>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Lições
+    </div>
+    <div class="panel-body">
+     
+<table class="table table-hover">
+          <thead>
+              <tr>
+                <th>ID</th>
+                <th>Nível</th>
+                <th>Lição</th>
+                <th>Iniciado</th>
+                <th>Percentual</th>
+                <th></th>
+                
+              </tr>
+          </thead>
+          <tbody>
+              <% @student.quizzes.each do |lesson| %>
+                  <tr>
+                      
+                      <td><%= lesson.id %></td>
+                      <td><%= lesson.path.level.title %></td>
+                      <td><%= lesson.path.title %></td>
+                      <td><%= lesson.created_at.strftime("%d/%m/%Y às %T") %></td>
+                      <td><%= lesson.percentage %>%</td>
+                      <% if current_unit.admin? %>
+                        <td>
+                          <%= link_to 'Excluir', backoffice_student_delete_lesson_path(lesson),  class: "btn btn-outline btn-danger", data: { confirm: 'Are you sure?' }, method: :get %>
+                        </td>
+                      <% end %>
+                      
+
+                  </tr>
+              <% end %>
+          </tbody>
+      </table>
+      
+    
+    </div>
+  </div>
+</div>

@@ -1,0 +1,11 @@
+<% if path.show_create_quiz?(current_student.id)  %>
+    <%= form_with(model: [:site, @quiz], local: true, url: site_start_lesson_path, :html => {:id => 'start-lesson'}) do |form| %>
+        <%= form.hidden_field :student_id, :value => current_student.id %>
+        <%= form.hidden_field :path_id, :value => path.id %>
+
+        <%= form.submit "Iniciar Lição " + path.title, 
+            class: "btn btn-light",
+            data: { disable_with: "Por favor, aguarde..." }
+        %>
+    <% end %>
+<% end  %>

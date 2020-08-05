@@ -1,0 +1,346 @@
+<div class="lesson">
+    <!-- Icons -->
+    <div class="icons-wrapper">
+        <% if quiz.percentage >= 100 %>
+
+            <a href="#" class="icon pratice-icon red-tooltip" 
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Praticar"
+                data-delay='{"show":"150", "hide":"200"}'
+            >
+                <%= image_tag "praticar.png", 
+                    data:{ 
+                        toggle:"modal", 
+                        target:"#modal-pratice-quiz-"+quiz.id.to_s, 
+                        backdrop:"static", 
+                        keyboard:"false" 
+                    } 
+                %>
+            </a>
+        
+        <% else %>
+
+            <div class="icon learn-icon"
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Aprender" 
+                data-delay='{"show":"150", "hide":"200"}'
+            >
+                <%= image_tag "aprender.png", 
+                    data:{ 
+                        toggle:"modal", 
+                        target:"#modal-learn-quiz-"+quiz.id.to_s, 
+                        backdrop:"static", 
+                        keyboard:"false" 
+                    } 
+                %>
+            </div>
+        
+        <% end %>
+    </div>
+    <!-- Icons -->
+
+    <div class="progress-bar" style="width: 100%;">
+        <div class="progress-bar-inner" style="width:<%= quiz.percentage %>%; height: 75px;">
+            <div class="lesson-wrapper">
+                <p class="lesson-name">
+                    <%= quiz.path.title %> - <%= quiz.count_questions_hitted %>/<%= quiz.how_many_questions %>
+                </p>
+                <p class="lesson-percentage"> </p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Modal Aprender -->
+    <div class="modal fade" 
+        id="modal-learn-quiz-<%=quiz.id%>" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+    >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div id="modal-content-quiz-<%=quiz.id%>" class="modal-content <%=quiz.finished%>">
+            
+            <!-- Modal header Aprender-->
+            <div class="modal-header">
+                <!-- progress   -->
+                <div class="progress-bar" style="width: 100%; height: 8px;">
+                    <div class="progress-bar-inner progress-bar-inner-quiz-<%=quiz.id%>" style="width:<%= quiz.percentage %>%"></div>
+                </div>
+                <div id="percentage-quiz-<%=quiz.id%>" style="display: none;">0</div>
+                <!-- progress   -->
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal header-->
+        
+            <!-- Modal body Aprender-->
+            <div class="modal-body">
+
+                <%= render 'quiz_finalizado', quiz: quiz%>
+
+                <% order = quiz.quiz_questions.first.order if quiz.quiz_questions.any?  %>
+
+                <% quiz.questions_not_hitted.each do |quiz_question| %>
+        
+                    <%= form_with(model: [:site, @quiz], remote: true, 
+                     html: { id: "form-aprender-"+order.to_s, class: "animated hide" } ) do |form| %>
+                        
+                        <h5 class="question-title"><%= quiz_question.question.title %></h5>
+                        
+                        <div class="question-description">
+                            <%= raw quiz_question.question.description %>
+                        </div>
+
+                        <%= form.hidden_field :id, :value => quiz_question.quiz.id %>
+                        <%= form.hidden_field :question_id, :value => quiz_question.question.id %>
+                        <%= form.hidden_field :student_id, :value => current_student.id %>
+                        <%= form.hidden_field :path_id, :value => quiz_question.question.path.id %>
+                        <%= form.hidden_field :quiz_question_id, :value => quiz_question.id %>
+                        <%= form.hidden_field :order, :value => order %>
+
+                        <% tipo = "aprender" %>
+                        <%= form.hidden_field :type, :value => tipo %>
+
+                        <%= render 'tipo_questao', quiz_question: quiz_question, form: form%>
+                                        
+                        <div class="actions action-container d-flex flex-row-reverse justify-content-between ">
+                            <div id="proxima-aprender-questao-<%= order.to_s %>" class="botao-proxima d-none animated float-right"">
+                                <div onclick="myFunction(
+                                    <%= order %>, 
+                                    <%= order+1 %>, 
+                                    '<%= tipo %>', 
+                                    <%= quiz_question.quiz.id %>, 
+                                    <%= quiz_question.question.id %>, 
+                                    <%= quiz.questions_not_hitted.last.question_id %>
+                                    )" class="btn ">
+                                    Próximo
+                                </div>
+                            </div>
+                            <%= form.submit "Responder", 
+                                class: "btn",
+                                id: ("botao-aprender-"+quiz_question.question.id.to_s),
+                                data: { disable_with: false }
+                            %>
+                        
+                            <%= render 'certo-errado-resposta', order: order%>
+
+                        </div>
+                                            
+                        <% order += 1 %>     
+                    <% end %>
+
+ <%
+=begin%>
+ onclick: "signReported("+ ((quiz_question.question.id).to_s) +")", 
+<%
+=end%>
+
+                    <%= render 'report_error', order: order, quiz_question: quiz_question %>
+                
+                <% end %>
+                <div id=""  class="lesson d-none quiz-parcial-<%= quiz.id %>">
+                    <h4>Continue praticando</h4>
+                    <p>Continue praticando e ganhe as melhores medalhas!</p> 
+                </div>
+            </div>
+            <!-- Modal body Aprender-->
+        </div>
+        <!-- Modal content Aprender-->
+    </div>
+    <!-- Modal dialog Aprender-->
+    </div>
+    <!-- Modal Aprender-->
+
+
+
+
+    <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar -->
+    <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar -->
+    <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar -->
+    <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar --> <!-- Modal Praticar -->
+    <div class="modal fade" 
+        id="modal-pratice-quiz-<%=quiz.id%>" 
+        tabindex="-1" 
+        role="dialog" 
+        aria-labelledby="exampleModalLabel"
+        aria-hidden="true"
+    >
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+        <!-- Modal header Praticar-->
+        <div class="modal-header">
+            <!-- progress  Praticar -->
+            <div class="progress-bar"+quiz_question.question.id.to_s style="width: 100%; height: 8px;">
+                <div class="progress-bar-inner" style="width:<%= quiz.percentage %>%"></div>
+            </div>
+            <!-- progress Praticar  -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+        </div>
+        <!-- Modal header Praticar -->
+        
+        <!-- Modal body Praticar -->
+        <div class="modal-body">
+
+            <div id="quiz-praticar-finalizado-<%= quiz.id %>"  class="lesson-finished d-none">
+                <%= image_tag user_avatar(current_student, 160), id: "avatar" %>
+                <h4>Parabéns</h4>
+                <p>Você concluiu esta etapa.</p> 
+                <p>Continue praticando e seu inglês estará cada vez melhor!</p>
+            </div>
+
+            <% order = quiz.quiz_questions.first.order if quiz.quiz_questions.any?  %>
+
+        <% quiz.quiz_questions.each do |quiz_question| %>
+    
+            <%= form_with(model: [:site, @quiz], remote: true, html: { id: "form-praticar-"+order.to_s, class: "animated hide" } ) do |form| %>
+                <h5 class="question-title"><%= quiz_question.question.title %></h5>
+                <div class="question-description">
+                    <%= raw quiz_question.question.description %>
+                </div>
+                <%= form.hidden_field :id, :value => quiz_question.quiz.id %>
+                <%= form.hidden_field :question_id, :value => quiz_question.question.id %>
+                <%= form.hidden_field :student_id, :value => current_student.id %>
+                <%= form.hidden_field :path_id, :value => quiz_question.question.path.id %>
+                <%= form.hidden_field :quiz_question_id, :value => quiz_question.id %>
+                <%= form.hidden_field :order, :value => order %>
+
+                <% tipo = "praticar" %>
+                <%= form.hidden_field :type, :value => tipo %>               
+
+                <% if quiz_question.question.type_question == "Múltipla Escolha" %>
+                    <div class="field form-group">
+                        <%= collection_radio_buttons(:quiz, :question_option_id, 
+                            quiz_question.question.question_options.all, :id, :option_description,  
+                            {:class =>'form-check-input'}, html_options = {:required => 'required'}  ) do |b| %>
+                            <div class="form-check">
+                                <%= b.label(:class => 'form-check-label container')  do %>
+                                    <%= b.radio_button + b.text %>
+                                    <span class="checkmark"></span>
+                                <% end %>
+                            </div>
+                        <% end %>
+                    </div>
+                <% elsif quiz_question.question.type_question == "Questão Aberta" %>
+                    <div class="field form-group">
+                        <%= form.text_area(:question_text, cols: 40, rows: 3, class: 'form-control') %> 
+                    </div>
+                <% end %>
+                                
+                <div class="actions action-container d-flex flex-row-reverse justify-content-between">
+                
+                    <div id="proxima-praticar-questao-<%= order.to_s %>" class="botao-proxima d-none animated float-right"">
+                        <div onclick="nextPraticeQuestion(
+                            <%= order %>, 
+                            <%= order+1 %>,
+                            '<%= tipo %>', 
+                            <%= quiz_question.quiz.id %>, 
+                            <%= quiz_question.question.id %>,
+                            <%= quiz.quiz_questions.last.question_id %>                      
+                            )" 
+                        class="btn ">Próximo</div>
+                    </div>
+
+                    <%= form.submit "Responder", 
+                        class: "btn",
+                        id: ("botao-praticar-"+quiz_question.question.id.to_s),
+                        data: { disable_with: false }
+                        %>
+               
+                    <div id="certo-praticar-questao-<%= order.to_s %>" class="certo d-none animated">
+                        <div class="d-inline">
+                            <%= image_tag "certo.png", size: "35x35" %>
+                        </div>
+                        <h5 style="vertical-align: middle;"  class="d-inline">Perfeito!</h5>
+                    </div>
+                    <div id="resposta-praticar-questao-<%= order.to_s %>" class=" d-none animated">
+                        <h5 style="vertical-align: middle;"  class="d-inline">Resposta correta:</h5>
+                        <p id="texto-resposta-praticar-questao-<%= order.to_s %>" class="d-inline" style="vertical-align: middle;"></p>
+                    </div>
+                    <div id="errado-praticar-questao-<%= order.to_s %>" class="errado d-none animated">
+                        <div class="d-inline">
+                            <%= image_tag "errado.png", size: "35x35" %>
+                        </div>
+                        <h5 style="vertical-align: middle;" class="d-inline">Quase lá! :(</h5>
+                    </div>
+                </div>
+                 <% order += 1 %>     
+            <% end %>
+            
+        <% end %>
+        <div id=""  class="lesson d-none quiz-parcial-<%= quiz.id %>">
+            <h4>Continue praticando</h4>
+            <p>Continue praticando e ganhe as melhores medalhas!</p> 
+        </div>
+        </div>
+        <!-- Modal body Praticar-->
+        </div>
+        <!-- Modal content Praticar -->
+    </div>
+    <!-- Modal dialog-->
+    </div>
+    <!-- Modal Praticar -->
+
+</div>
+<!-- Lesson  -->
+
+<script>
+function myFunction(ordem, prox, tipo, quiz_id, question_id, last_question_id){
+    $("#form-"+tipo+"-"+ordem).addClass("bounceOutLeft");
+    $("#form-"+tipo+"-"+ordem).addClass("hide");
+    $("#form-"+tipo+"-erro-"+ordem).addClass("hide");
+    $("#form-"+tipo+"-"+prox).removeClass("hide");
+    $("#form-"+tipo+"-erro-"+prox).removeClass("hide");
+    $("#form-"+tipo+"-"+prox).addClass("bounceInRight");
+    val = $("#percentage-quiz-<%=quiz.id%>").text();
+    percentage = parseInt(val);
+
+    if(percentage >= 100){
+        console.log("Finalizando quiz "+quiz_id)
+        $("#modal-content-quiz-"+quiz_id).addClass("modal-finished");
+        $("#quiz-finalizado-"+quiz_id).removeClass("d-none");
+    }else if(question_id == last_question_id){
+        console.log("Finalizando parcial quiz "+quiz_id)
+        $(".quiz-parcial-"+quiz_id).removeClass("d-none");
+    }
+}
+
+function nextPraticeQuestion(ordem, prox, tipo, quiz_id, question_id, last_question_id){
+    $("#form-"+tipo+"-"+ordem).addClass("bounceOutLeft");
+    $("#form-"+tipo+"-"+ordem).addClass("hide");
+    $("#form-"+tipo+"-"+prox).removeClass("hide");
+    $("#form-"+tipo+"-"+prox).addClass("bounceInRight");
+    val = $("#percentage-quiz-<%=quiz.id%>").text();
+    percentage = parseInt(val);
+
+    if(percentage >= 100 && question_id == last_question_id){
+        console.log("Finalizando quiz "+quiz_id)
+        $("#modal-content-quiz-"+quiz_id).addClass("modal-finished");
+        $("#quiz-praticar-finalizado-"+quiz_id).removeClass("d-none");
+        
+    }else if(question_id == last_question_id){
+        console.log("Finalizando parcial quiz "+quiz_id)
+        $(".quiz-parcial-"+quiz_id).removeClass("d-none");
+    }
+ 
+}
+
+function signReported(id){
+    $("#form-aprender-erro-"+id).replaceWith("Questão reportada!");
+}
+</script>
+
+<script>
+//recarrega página ao fechar modal
+$("#modal-learn-quiz-<%=quiz.id%>").on("hidden.bs.modal", function () {
+    location.reload();
+});
+$("#modal-pratice-quiz-<%=quiz.id%>").on("hidden.bs.modal", function () {
+    location.reload();
+});
+</script>

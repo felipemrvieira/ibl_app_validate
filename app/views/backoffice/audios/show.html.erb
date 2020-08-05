@@ -1,0 +1,70 @@
+<h1 class="page-header">Áudio <%= @unit.title %></h1>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @unit.title %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Nome da Unidade:</strong>
+        <%= @unit.title %>
+      </p>
+  
+      <p>
+        <strong>Email:</strong>
+        <%= @unit.email %>
+      </p>
+      <p>
+        <strong>Localização:</strong>
+        <%= @unit.location %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_unit_path(@unit), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_unit_path(@unit),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+        
+  </div>
+</div>
+
+
+<div class="col-md-12">
+  <h3 class="page-header">Alunos da unidade</h3>
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Avatar</th>
+                        <th>Nome</th>
+                        <th>Email</th>
+                        <th>Telefone</th>
+                        <th>Unidade</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @unit.students.each do |student| %>
+                        <tr>
+                            <td><%= student.id %></td>
+                            <td>  
+                                <%= image_tag user_avatar(student, 30), id: "avatar", class: "img-circle" %>
+                            </td>
+                            <td><%= student.name %></td>
+                            <td><%= student.email %></td>
+                            <td><%= student.phone %></td>
+                            <td><%= student.unit.title %></td>
+                            <td>
+                                <%= link_to backoffice_student_path(student), class: "btn btn-default btn-circle" do %>
+                                    <i class="fa fa-search"></i>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+

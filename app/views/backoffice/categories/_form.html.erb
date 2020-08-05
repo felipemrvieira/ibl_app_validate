@@ -1,0 +1,23 @@
+<%= form_with(model: category, local: true, url: path) do |form| %>
+  
+  <% if category.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(category.errors.count, "error") %> prohibited this category from being saved:</h2>
+
+      <ul>
+      <% course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group col-md-12">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+<% end %>

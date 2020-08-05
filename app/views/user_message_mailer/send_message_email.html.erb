@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1><%= @message.assunto %></h1>
+    <p>
+      <strong>Nome:</strong>
+      <%= @message.nome %>
+    </p>
+    <p>
+      <strong>Email:</strong>
+      <%= @message.email %>
+    </p>
+    <p>
+      <strong>Telefone:</strong>
+      <%= @message.telefone %>
+    </p>
+
+    <% if @unidade %>
+      <p>
+        <strong>Unidade:</strong>
+        <%= @unidade %>
+      </p>
+    <% end %>
+    <p>
+      <strong>Assunto:</strong>
+      <%= @message.assunto %>
+    </p>
+
+    <% if @message.corpo %>
+      <p>
+        <strong>Corpo:</strong>
+        <%= @message.corpo %>
+      </p>
+    <% end %>
+
+     <% if @message.curso %>
+      <p>
+        <strong>Curso:</strong>
+        <%= @message.curso %>
+      </p>
+    <% end %>
+
+  </body>
+</html>

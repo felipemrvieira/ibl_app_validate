@@ -1,0 +1,18 @@
+<div class="nested-fields">
+
+  <div class="field form-group">
+    <%= f.label "Descrição da alternativa" %>
+    <%= f.text_field :option_description, class: "form-control" %>
+  </div>
+
+  <div class="field  ">
+    <%= f.label "Alternativa correta" %>
+    <%= f.check_box :correct, class: "" %>
+  </div>
+  
+  <div class="col-md-12  ">
+    <%= link_to_remove_association "Remover alternativa", f %>
+  </div>
+ 
+  <br> <br> <hr>
+</div>

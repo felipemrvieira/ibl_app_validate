@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IBL Sem Legenda</title>
+    <meta charset="utf-8">
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'site', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'site', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+  </head>
+
+  <body>
+    <%= render "partials/alert" %>
+
+  <div class="container-fluid">
+    <%= render "partials/nav" %>
+
+    <main class="">
+      <div class="row container-fluid">
+        <%= render "partials/aside" %>
+
+        <div id="atividades" class="col-9">
+          <div class="container-fluid">
+            <%
+=begin%>
+ <%= render "partials/weekly_challenge" %>
+<%
+=end%>
+            <%= yield %>
+          </div>
+        </div>
+
+      </div>
+    </main>
+  </div>
+
+</body>
+</html>

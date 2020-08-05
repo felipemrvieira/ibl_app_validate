@@ -1,0 +1,15 @@
+<h2>Livros</h2>
+<br>
+<div id="book">
+    <% @student_books.each do |book| %>
+        <%= link_to site_show_book_path(@course, book) do %>
+            <%= image_tag book.cover.url || "livro.png", class: "book-item" %>
+        <% end %>
+    <% end %>
+</div>  
+
+<br>
+<br>
+
+
+<%= render 'partials/modal_config' %>    

@@ -1,0 +1,7 @@
+{
+  "name": "ibl_sem_legenda_rails",
+  "private": true,
+  "dependencies": {
+    "jquery": "^3.3.1"
+  }
+}

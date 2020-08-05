@@ -1,0 +1,38 @@
+<%= form_with(model: audio, local: true, url: path) do |form| %>
+  <% if audio.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(audio.errors.count, "error") %> prohibited this audio from being saved:</h2>
+
+      <ul>
+      <% audio.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="field form-group col-md-12">
+      <%= form.label "Título do Áudio" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+      <%# form.label "Nível" %>
+      <%# collection_select(:audio, :level_id, Level.all, :id, :couse_level_title, {:prompt => true}, {:class=>'form-control'}) %>
+
+    <div class="field form-group col-md-6">
+      <%= form.label "Nível - Versão" %>
+      <%= collection_select(:audio, :audio_version_id, AudioVersion.all, :id, :couse_level_title_version, {:prompt => true}, {:class=>'form-control'}) %>
+    </div>
+
+    <div class="field form-group col-md-6">
+      <%= form.label "Áudio" %>
+      <%= form.file_field :attachment %>
+    </div>
+
+    <div class="actions  col-md-12">
+      <%= form.submit "Enviar", :class => "btn btn-default" %>
+    </div>
+  </div>
+
+<% end %>

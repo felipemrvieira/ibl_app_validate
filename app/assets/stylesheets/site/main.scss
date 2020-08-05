@@ -1,0 +1,35 @@
+// bower:scss
+// endbower
+@import 'variables';
+@import 'nav';
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+
+.container{
+  // margin: 0 128px;
+}
+
+body{
+  background-color: $soft-grey;
+  main{
+    max-width: 100%;
+    overflow: hidden;
+    div{
+      @import 'aside';
+      @import 'atividades';
+      .botao-azul{
+        border-radius: 25px;
+        background-color: #03b8cb;
+        color: white;
+        padding-left: 32px;
+        padding-right: 32px;
+      }
+      .btn-simulado-margin{
+        margin-bottom: 8px;
+      }
+    }
+  }
+}

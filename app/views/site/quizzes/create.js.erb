@@ -1,0 +1,139 @@
+console.log("Quiz:<%= @quiz.id %>"
+            + "\nAprender/Praticar: <%= @type %>"
+            + "\nTipo: <%= @question.type_question %>"
+            + "\nID da questão: <%= @quiz.question_id %>"
+            + "\nAlternativa: <%= @quiz.question_option_id %>"
+            + "\nAcertou? <%= @acerto %>"
+            + "\nResposta: <%= @resposta %>"
+            + "\nPercentual: <%= @quiz.percentage %>"
+            + "\nForca: <%= @forca %>"
+            + "\nAcerto na Forca: <%= @acerto_forca %>"
+            + "\nTentativas na Forca: <%= @forca_tentativas_letras %>"
+            );
+
+
+
+function acerto(ordem, id, quiz_id){
+  $("#botao-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).attr("disabled", "disabled");
+  $("#botao-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).addClass("d-none");
+  $("#proxima-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).removeClass("d-none");
+
+  $("#certo-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).removeClass("d-none");
+  $("#certo-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).addClass("bounceInLeft");
+  $(".progress-bar-inner-quiz-"+quiz_id).css("width", "<%=@quiz.percentage %>%");
+  $("#percentage-quiz-"+quiz_id).text(<%=@quiz.percentage %>);
+
+}
+
+function erro(ordem, id){
+  $("#botao-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).attr("disabled", "disabled");
+  $("#botao-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).addClass("d-none");
+  $("#proxima-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).removeClass("d-none");
+
+  $("#errado-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).removeClass("d-none");
+  $("#errado-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).addClass("bounceInLeft");
+
+  $("#texto-resposta-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).text("<%= raw @resposta %>");
+
+  $("#resposta-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).removeClass("d-none");
+  $("#resposta-quiz-<%= @quiz.id %>-<%= @type %>-questao-"+ordem).addClass("bounceInLeft");
+}
+
+function remove(ordem, prox){
+  $("#form-<%= @type %>-"+ordem).addClass("bounceOutLeft");
+  $("#form-<%= @type %>-"+ordem).addClass("hide");
+  $("#form-<%= @type %>-"+prox).removeClass("hide");
+  $("#form-<%= @type %>-"+prox).addClass("bounceInRight");
+
+  if("<%= @quiz.percentage %>" >= 100){
+    $("#modal-content-quiz-<%= @quiz.id %>").addClass("modal-finished");
+    $("#quiz-finalizado-<%= @quiz.id %>").removeClass("d-none");
+  }
+}
+
+var certo = new Audio('<%= asset_path('certa.mp3') %>');
+var errado = new Audio('<%= asset_path('errada.mp3') %>');
+
+var ordem = <%= @order %>
+var prox = <%= @order %> +1
+var id = <%= @quiz.question_id %>
+var quiz_id = <%= @quiz.id %>
+var tipo_questao = "<%= @question.type_question %>"
+var incrementa = <%= @incrementa %>
+
+var combinacao_aluno_col1 = "<%= @combinacao_aluno_col1 %>"
+var combinacao_aluno_col2 = "<%= @combinacao_aluno_col2 %>"
+
+if (tipo_questao === "Combinação"){
+  console.log(combinacao_aluno_col1);
+  for (var i = 0; i < combinacao_aluno_col1.length; i++) {
+    console.log(combinacao_aluno_col1.charAt(i) == combinacao_aluno_col2.charAt(i));
+
+    if (combinacao_aluno_col1.charAt(i) != combinacao_aluno_col2.charAt(i)){
+      $(".opcao-wrapper"+(i+1)).addClass("error");
+    }else{
+      $(".opcao-wrapper"+(i+1)).addClass("hit");
+    }
+  }
+}
+
+if (tipo_questao === "Forca"){
+  var forca_erros = <%= @forca_erros %>
+  var acerto_forca = <%= @acerto_forca %>
+  var forca_finalizada = <%= @forca_finalizada %>
+  var forca_tentativas_letras = "<%= @forca_tentativas_letras %>"
+
+  $("#resposta-parcial-quiz-"+quiz_id+"-ordem-"+ordem).text("<%= raw @forca %>");
+  $("#forca-quiz-"+quiz_id+"-ordem-"+ordem).val("<%= raw @forca %>");
+  $("#form-quiz-<%= @quiz.id %>-<%= @type %>-"+ordem+ " textarea").val('');
+  $("#form-quiz-<%= @quiz.id %>-<%= @type %>-"+ordem+ " textarea").focus();
+
+  if (acerto_forca){
+    certo.play();
+  }else{
+    errado.play();
+    if(incrementa){
+      forca_erros += 1
+    }
+
+    // Adiciona contagem de erros ao errar letra na forca
+   $("#quiz_forca_erros").val(forca_erros);
+   console.log("Erros na Forca: "+ forca_erros );
+
+    $("#forca-erros-quiz-"+quiz_id+"-ordem-"+ordem).val(forca_erros);
+
+    $("#forca_tentativas_letras-quiz-"+quiz_id+"-ordem-"+ordem).val(forca_tentativas_letras);
+    $("#mostra_forca_tentativas_letras-quiz-"+quiz_id+"-ordem-"+ordem).text(forca_tentativas_letras);
+
+    $("#forca-image-"+forca_erros+"-quiz-"+quiz_id+"-ordem-"+ordem).addClass("hide");
+    $("#forca-image-"+(forca_erros+1)+"-quiz-"+quiz_id+"-ordem-"+ordem).removeClass("hide");
+        console.log("#forca-image-"+(forca_erros+1)+"-quiz-"+quiz_id+"-ordem-"+ordem)
+
+
+
+    if(forca_erros == 6){
+      erro(ordem, id);
+    }
+  }
+
+
+  if(forca_finalizada){
+    acerto(ordem, id, quiz_id);
+  }
+
+}else{
+  if (<%= @acerto %>){
+    certo.play();
+    acerto(ordem, id, quiz_id);
+    setTimeout(function(){
+      remove(ordem, prox)
+    }, 900000);
+  }else{
+    errado.play();
+    erro(ordem, id);
+      setTimeout(function(){
+        remove(ordem, prox)
+    }, 900000);
+  }
+}
+

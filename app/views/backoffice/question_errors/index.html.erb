@@ -1,0 +1,59 @@
+
+<h1 class="page-header">Erros reportados</h1>
+
+
+    <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Questão</th>
+                        <th>Reportado por</th>
+                        <th>Descrição</th>
+                        <th>Data</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @question_errors.each do |question_error| %>
+                        <tr>
+
+                            <%
+=begin%>
+ <td><%= question_error.description %></td> 
+<%
+=end%>
+                            <td><%= question_error.id %></td>
+                            <td>
+                                <%= link_to question_error.question.id.to_s + " - " + question_error.question.title, backoffice_question_path(question_error.question.id) %>
+                            </td>
+                            <td><%= question_error.student.name %> - Unid.: <%= question_error.student.unit.title %></td>
+                            <td><%= question_error.description %></td>
+                            <td><%= question_error.created_at.strftime("%d/%m/%Y às %T") %></td>
+                            <td>
+                                <%= link_to 'Excluir', backoffice_question_error_path(question_error),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+                            </td>
+
+                            <%
+=begin%>
+ <td><%= link_to "baixar", audio.attachment_url, target: '_blank' %></td>
+                            <td>
+                                <%= link_to 'Editar', backoffice_audio_path(audio),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+                            </td>
+                            <td>
+                                <%= link_to 'Excluir', backoffice_audio_path(audio),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+                            </td> 
+<%
+=end%>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+                <div style="text-align: center;">      
+                <%= pagy_bootstrap_nav(@pagy).html_safe %>
+                </div>
+            </div>  
+        </div>
+    </div>

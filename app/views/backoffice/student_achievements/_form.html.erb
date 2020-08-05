@@ -1,0 +1,35 @@
+<%= form_with(model: student_achievement, local: true, url: path ) do |form| %>
+  <% if student_achievement.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student_achievement.errors.count, "error") %> prohibited this errolment from being saved:</h2>
+
+      <ul>
+      <% student_achievement.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Aluno" %>
+    <%= collection_select(:student_achievement, :student_id, Student.all, :id, :name, {:prompt => true}, {:class=>'js-example-basic-single form-control'}) %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Nível" %>
+    <%= collection_select(
+                          :student_achievement, 
+                          :achievement_id, 
+                          Achievement.all, 
+                          :id, 
+                          :description, 
+                          {:prompt => true}, 
+                          {:class=>'form-control'}) 
+                        %>
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+<% end %>

@@ -1,0 +1,27 @@
+<h1>Audio Versions</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Level</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @audio_versions.each do |audio_version| %>
+      <tr>
+        <td><%= audio_version.title %></td>
+        <td><%= audio_version.level.course.title %> - <%= audio_version.level.title %></td>
+        <td><%= link_to 'Show', backoffice_audio_version_path(audio_version) %></td>
+        <td><%= link_to 'Edit', edit_backoffice_audio_version_path(audio_version) %></td>
+        <td><%= link_to 'Destroy', backoffice_audio_version_path(audio_version), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Audio Version', new_backoffice_audio_version_path %>

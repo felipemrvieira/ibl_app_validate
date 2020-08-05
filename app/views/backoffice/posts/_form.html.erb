@@ -1,0 +1,61 @@
+<%= form_with(model: post, local: true, url: path) do |form| %>
+  <% if post.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(post.errors.count, "error") %> prohibited this post from being saved:</h2>
+
+      <ul>
+      <% post.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+  <div class="row">
+
+    <div class="field form-group col-md-12">
+      <%= form.label "Imagem" %>
+      <%= form.file_field :image %>
+    </div>
+
+    <div class="field form-group col-md-12">
+      <%= form.label "Título" %>
+      <%= form.text_field :title, class: "form-control" %>
+    </div>
+
+    <div class="field form-group col-md-12">
+      <%= form.label "Corpo" %>
+      <%= form.text_area :body, 'data-provider': :summernote %>
+    </div>
+
+
+    <div id="post_categories">
+
+      <div class="">
+        <%= form.fields_for :post_categories do |category| %>
+
+            <div class="panel panel-default col-md-12">
+              <div class="panel-body">
+                <%= render 'post_category_fields', f: category %>
+              </div>
+            </div>
+        <% end %>
+      </div>
+
+      <div class="links col-md-12">
+       <br><br>
+        <%= link_to_add_association 'Adicionar Categoria', form, :post_categories %>
+        <br><br>
+      </div>
+
+    </div>
+
+
+  </div>
+  <div class="row">
+    <div class="actions  col-md-12">
+      <%= form.submit "Enviar", :class => "btn btn-default" %>
+    </div>
+  </div>
+
+
+<% end %>

@@ -1,0 +1,14 @@
+<%= render 'not_enrolled' %>
+
+<p class="levels-label">Levels</p>
+
+<% @student_levels.each do |level| %>
+        <%= link_to site_level_path(level), class: "level-link-container" do %>
+            <p class="level-link">
+                <%= level.title %>
+            </p>
+        <% end %>
+
+<% end %>
+
+<%= render 'partials/modal_config' %>    

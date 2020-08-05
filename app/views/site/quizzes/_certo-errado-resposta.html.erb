@@ -1,0 +1,22 @@
+<div id="certo-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>" class="certo d-none animated ">
+
+    <div class="d-inline">
+        <%= image_tag "certo.png", size: "35x35" %>
+    </div>
+    <h5 style="vertical-align: middle;"  class="d-inline">Perfeito!</h5>
+</div>
+
+<% unless question.type_question == "Combinação" %>
+  <div id="resposta-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>" class=" d-none animated ">
+      <h5 style="vertical-align: middle;"  class="d-inline">Resposta correta:</h5>
+      <p id="texto-resposta-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>" class="d-inline" style="vertical-align: middle;"></p>
+  </div>
+<% end %>
+
+
+<div id="errado-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>"  class="errado d-none animated col-md-3">
+    <div class="d-inline">
+        <%= image_tag "errado.png", size: "35x35" %>
+    </div>
+    <h5 style="vertical-align: middle;" class="d-inline">Quase lá! :(</h5>
+</div>

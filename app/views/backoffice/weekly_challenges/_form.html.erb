@@ -1,0 +1,28 @@
+<%= form_with(model: weekly_challenge, local: true, url: path) do |form| %>
+
+  <% if weekly_challenge.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(weekly_challenge.errors.count, "error") %> prohibited this weekly_challenge from being saved:</h2>
+
+      <ul>
+      <% weekly_challenge.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field">
+    <%= form.label :question_id %>
+    <%= collection_select(:weekly_challenge, :question_id, @questions, :id, :question_title_by_course, {:prompt => true}, {:class=>'form-control'}) %>
+  </div>
+
+  <div class="field">
+    <%= form.label :exp %>
+    <%= form.date_select :exp %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

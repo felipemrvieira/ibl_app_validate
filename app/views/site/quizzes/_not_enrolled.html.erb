@@ -1,0 +1,7 @@
+<% unless current_student.levels.exists? %>
+    <div class="nao-matriculado">
+        <%= image_tag "sad-dog.png" %>
+        <p class="">Você ainda não está matriculado em nenhum curso. 
+        Procure a secretaria da sua unidade para realizar sua matrícula!</p>
+    </div>
+<% end %>

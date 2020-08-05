@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>IBL Sem Legenda</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'backoffice', media: 'all', 'data-turbolinks-track': 'reload' %>
+
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'backoffice', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+
+</head>
+
+<body>
+
+
+    <div id="wrapper">
+
+
+        <!-- Navigation -->
+        <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
+            <div class="navbar-header">
+                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                    <span class="sr-only">Toggle navigation</span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+                <a class="navbar-brand" href="#">
+                    <%= image_tag "logo_ibl.png", class: "", width: "100px" %>
+                </a>
+            </div>
+            <!-- /.navbar-header -->
+
+            <ul class="nav navbar-top-links navbar-right">
+                <li class="dropdown">
+                    <a class="dropdown-toggle" data-toggle="dropdown" href="#">
+                        <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    </a>
+                    <ul class="dropdown-menu dropdown-user">
+
+                        <li>
+                            <% if unit_signed_in?%>
+                                <%= link_to destroy_unit_session_path, :class => "nav-link dropdown-item",  method: :delete  do %>
+                                    <i class="fa fa-sign-out fa-fw"></i> Sair de <%= current_unit.title %>
+                                <% end %>
+                            <% end %>
+                        </li>
+                    </ul>
+                    <!-- /.dropdown-user -->
+                </li>
+                <!-- /.dropdown -->
+            </ul>
+            <!-- /.navbar-top-links -->
+
+            <div class="navbar-default sidebar" role="navigation">
+                <div class="sidebar-nav navbar-collapse">
+                    <ul class="nav" id="side-menu">
+
+                        <li>
+                             <%= link_to "Dashboard", backoffice_dashboard_path %>
+
+                        </li>
+                          <li>
+                            <a href="#"><i class="fa fa-user fa-fw"></i> Aluno<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <%= link_to "Cadastrar Aluno", new_backoffice_student_path %>
+                                </li>
+                                <li>
+                                    <%= link_to "Listar Alunos", backoffice_students_path %>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-address-card fa-fw"></i> Matrícula<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <%= link_to "Realizar Matrícula", new_backoffice_errolment_path %>
+                                </li>
+                                <li>
+                                    <%= link_to "Listar Matrículas", backoffice_errolments_path %>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+                        <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-institution fa-fw"></i> Unidade<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Cadastrar Unidade", new_backoffice_unit_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Listar Unidades", backoffice_units_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+
+                        <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-edit fa-fw"></i> Curso<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Novo Curso", new_backoffice_course_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Listar Cursos", backoffice_courses_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                        <%
+=begin%>
+ <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-edit fa-fw"></i> Cursos<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <% if Course.last  %>
+                                            <%= link_to Course.last.title, backoffice_course_path(Course.last) %>
+                                        <% end  %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+<%
+=end%>
+
+                        <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-list-ol fa-fw"></i> Questões<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar Questões", backoffice_questions_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova Questão", new_backoffice_question_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Tentativas de alunos", backoffice_questions_attempts_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                         <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-file-sound-o fa-fw"></i> Audios<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Novo Audio", new_backoffice_audio_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Listar Audios", backoffice_audios_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                        <% if current_unit.admin == true %>
+                            <li>
+                                <a href="/backoffice/books/new"><i class="fa fa-upload fa-fw"></i> Upload de livros digitais<span class="fa arrow"></span></a>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                         <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-file-o fa-fw "></i> Simulados<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Novo Simulado", new_backoffice_exam_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Listar Simulados", backoffice_exams_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                        <% if current_unit.admin == true %>
+                            <li>
+                                <a href="#"><i class="fa fa-warning fa-fw "></i> Erros reportados<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+
+                                    <li>
+                                        <%= link_to "Listar Erros", backoffice_question_errors_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                            </li>
+                        <% end %>
+                            <li>
+                              <a href="#"><i class="fa fa-trophy fa-fw "></i> Conquistas<span class="fa arrow"></span></a>
+                              <ul class="nav nav-second-level">
+                                <% if current_unit.admin == true %>
+                                  <li>
+                                      <%= link_to "Nova Conquista", new_backoffice_achievement_path %>
+                                  </li>
+                                  <li>
+                                      <%= link_to "Listar Conquistas", backoffice_achievements_path %>
+                                  </li>
+                                  <li>
+                                      <%= link_to "Atribuir Conquista", new_backoffice_student_achievement_path %>
+                                  </li>
+                                  <li>
+                                      <%= link_to "Listar Conquistas Atribuídas", backoffice_student_achievements_path %>
+                                  </li>
+                                <% end %>
+                                <li>
+                                    <%= link_to "Listar Conquistas Atribuídas da unidade", backoffice_student_achievements_unit_path %>
+                                </li>
+                              </ul>
+                              <!-- /.nav-second-level -->
+                            </li>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> Blog<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar Publicações", backoffice_posts_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova Publicação", new_backoffice_post_path %>
+                                    </li>
+                                     <li>
+                                        <%= link_to "Listar Categorias", backoffice_categories_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova Categoria", new_backoffice_category_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> Galerias<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar Galerias", backoffice_galleries_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova Galeria", new_backoffice_gallery_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> Páginas<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar Páginas", backoffice_pages_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova Páginas", new_backoffice_page_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> FAQ<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar FAQ", backoffice_question_answers_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Nova FAQ", new_backoffice_question_answer_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> Formulários<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Mensagens", backoffice_messages_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Formulário de Desconto", backoffice_discount_messages_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Inscrições Online", backoffice_sign_form_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
+
+
+                        <%
+=begin%>
+ <li>
+                            <a href="index.html"><i class="fa fa-dashboard fa-fw"></i> Dashboard</a>
+                        </li>
+<%
+=end%>
+                        <%
+=begin%>
+ <li>
+                            <a href="#"><i class="fa fa-bar-chart-o fa-fw"></i> Charts<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="flot.html">Flot Charts</a>
+                                </li>
+                                <li>
+                                    <a href="morris.html">Morris.js Charts</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+<%
+=end%>
+                        <%
+=begin%>
+ <li>
+                            <a href="tables.html"><i class="fa fa-table fa-fw"></i> Tables</a>
+                        </li>
+                        <li>
+                            <a href="forms.html"><i class="fa fa-edit fa-fw"></i> Forms</a>
+                        </li>
+                        <li>
+                            <a href="#"><i class="fa fa-wrench fa-fw"></i> UI Elements<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="panels-wells.html">Panels and Wells</a>
+                                </li>
+                                <li>
+                                    <a href="buttons.html">Buttons</a>
+                                </li>
+                                <li>
+                                    <a href="notifications.html">Notifications</a>
+                                </li>
+                                <li>
+                                    <a href="typography.html">Typography</a>
+                                </li>
+                                <li>
+                                    <a href="icons.html"> Icons</a>
+                                </li>
+                                <li>
+                                    <a href="grid.html">Grid</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+<%
+=end%>
+                        <%
+=begin%>
+ <li>
+                            <a href="#"><i class="fa fa-sitemap fa-fw"></i> Multi-Level Dropdown<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Second Level Item</a>
+                                </li>
+                                <li>
+                                    <a href="#">Third Level <span class="fa arrow"></span></a>
+                                    <ul class="nav nav-third-level">
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                        <li>
+                                            <a href="#">Third Level Item</a>
+                                        </li>
+                                    </ul>
+                                    <!-- /.nav-third-level -->
+                                </li>
+                            </ul>
+<%
+=end%>
+                            <!-- /.nav-second-level -->
+                        <%
+=begin%>
+ </li>
+                        <li class="">
+                            <a href="#"><i class="fa fa-files-o fa-fw"></i> Sample Pages<span class="fa arrow"></span></a>
+                            <ul class="nav nav-second-level">
+                                <li>
+                                    <a class="" href="blank.html">Blank Page</a>
+                                </li>
+                                <li>
+                                    <a href="login.html">Login Page</a>
+                                </li>
+                            </ul>
+                            <!-- /.nav-second-level -->
+                        </li>
+<%
+=end%>
+                    </ul>
+                </div>
+                <!-- /.sidebar-collapse -->
+            </div>
+            <!-- /.navbar-static-side -->
+        </nav>
+
+        <!-- Page Content -->
+        <div id="page-wrapper">
+            <div class="container-fluid">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <%= render "partials/alert-backoffice" %>
+                        <%= yield %>
+                    </div>
+                    <!-- /.col-lg-12 -->
+                </div>
+                <!-- /.row -->
+            </div>
+            <!-- /.container-fluid -->
+        </div>
+        <!-- /#page-wrapper -->
+
+    </div>
+    <!-- /#wrapper -->
+
+</body>
+
+</html>

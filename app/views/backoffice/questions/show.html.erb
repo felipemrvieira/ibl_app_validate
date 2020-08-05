@@ -1,0 +1,68 @@
+<h1 class="page-header">Questões</h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @question.path.level.course.title %> - <%= @question.path.level.title %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Curso:</strong>
+        <%=  @question.path.level.course.title %>
+      </p>
+      <p>
+        <strong>Nível:</strong>
+        <%=  @question.path.level.title %>
+      </p>
+      <p>
+        <strong>Lição:</strong>
+        <%=  @question.path.title %>
+      </p>
+      <p>
+        <strong>Tipo:</strong>
+        <%=  @question.type_question %>
+      </p>
+      <br>
+      <div class="panel panel-default ">
+        <div class="panel-body">
+      <p>
+        <strong>Título:</strong>
+        <%= @question.title %>
+      </p>
+      
+      <p>
+        <strong>Comando da Questão:</strong>
+        <div class="question-description">
+          <%=raw @question.description %>
+        <div>
+      </p>
+
+      <% if @question.attachment_url   %>
+        <p>
+          <audio src="<%= @question.attachment_url %>" controls preload="none" controlsList="nodownload">
+            Your browser does not support the audio element.
+          </audio>
+        </p>
+      <% end %>
+      </div>   
+    </div>
+
+    <% if @question.type_question == "Questão Aberta"%>
+      <p><strong>Respostas corretas:</strong></p>
+      <% @question.question_texts.each do |resp| %>
+        <p><%=resp.student_answer %></p>
+      <% end %>
+    <% end %>
+    
+    <% if @question.type_question == "Múltipla Escolha"%>
+      <p><strong>Alternativa correta:</strong></p>
+      <p><%= @question.question_options.where(correct: true).first.option_description if @question.question_options.where(correct: true).count > 0%></p>
+    <% end %>
+      
+      
+      
+      <%= link_to 'Editar', edit_backoffice_question_path(@question), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_question_path(@question),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>   
+  </div>
+</div>

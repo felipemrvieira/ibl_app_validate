@@ -1,0 +1,27 @@
+<%= form_with(model: errolment, local: true, url: path ) do |form| %>
+  <% if errolment.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(errolment.errors.count, "error") %> prohibited this errolment from being saved:</h2>
+
+      <ul>
+      <% errolment.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Aluno" %>
+    <%= collection_select(:errolment, :student_id, @students, :id, :name, {:prompt => true}, {:class=>'js-example-basic-single form-control'}) %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Nível" %>
+    <%= collection_select(:errolment, :level_id, @levels, :id, :couse_level_title, {:prompt => true}, {:class=>'form-control'}) %>
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+<% end %>

@@ -1,0 +1,2 @@
+module WeeklyChallengesHelper
+end

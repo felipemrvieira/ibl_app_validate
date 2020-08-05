@@ -1,0 +1,192 @@
+/*
+*= require font-awesome
+*= require bootstrap_sb_admin_base_v2
+*/
+
+@import "summernote-bs4";
+@import "summernote-custom-theme.min";
+@import "select2";
+@import "select2-bootstrap";
+
+@import 'backoffice/_modal';
+
+.show{
+    display: inline-block !important;
+}
+
+.navbar-brand{
+    padding: 5px 55px;
+}
+.question-description{
+    img{
+        max-width: 100%;
+        overflow: hidden;
+    }
+}
+
+.form-control-inline{
+    
+    height: 34px;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+}
+
+@media (min-width: 768px){
+
+    .sidebar {
+        margin-top: 82px;
+    }
+}
+
+.navbar-brand {
+    height: 78px;
+}
+
+.navbar-top-links li a {
+    padding: 30px;
+    min-height: 60px;
+}
+
+.table-question{
+    img{
+        width: 50px !important;
+        height: 50px !important;
+    }
+}
+
+.book-list {
+    display: flex;
+    flex-wrap: wrap;
+    width: 100%;
+
+    img {
+        width: 50px;
+        height: 50px;
+    }
+
+    .book-image {
+        width: 100%;
+        height: 100%;
+    }
+    
+    .card {
+        height: 180px;
+        width: 130px;
+        margin: 10px 0;
+        margin-right: 25px;
+        border: 4px solid #d2d2d2;
+        border-radius: 4px;
+        position: relative;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .overlay {
+        position: absolute;
+        top: 0;
+        bottom: 0;
+        left: 0;
+        right: 0;
+        height: 100%;
+        width: 100%;
+        opacity: 0;
+        transition: .5s ease;
+    }
+
+    .card:hover .overlay {
+        opacity: 1;
+    }
+    
+    .card:hover img {
+        filter: grayscale(1.0);
+    }
+
+    .delete-container {
+        color: black;
+        position: absolute;
+        top: 50%;
+        left: 50%;
+        -webkit-transform: translate(-50%, -50%);
+        -ms-transform: translate(-50%, -50%);
+        transform: translate(-50%, -50%);
+        text-align: center;
+        width: 70px;
+        height: 70px;
+        border: 3px solid white;
+        border-radius: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        i {
+            color: white;
+            font-size: 50px;
+        }
+    }
+
+    .open, .dropdown-menu {
+        box-shadow: 0px 0px 8px 3px #d2d2d2;
+    }
+
+    .open > .dropdown-menu {
+        display: flex;
+    }
+    
+    .dropdown-menu {
+        left: 140px;
+        top: -45px;
+        padding: 10px;
+        border-radius: 10px;
+        border: none;
+    }
+    
+    .dropdown-item {
+        border-radius: 5px;
+        color: black;
+        padding: 3px;
+        margin: 2.5px 5px;
+    }
+
+    a.dropdown-item:hover {
+        text-decoration: none;
+        background-color: #ebebeb;
+    }
+
+    .dropdown-menu::after {
+        content: "";
+        position: absolute;
+        top: 50%;
+        right: 100%;
+        margin-top: -5px;
+        border-width: 12px;
+        border-style: solid;
+        border-color: transparent white transparent transparent;
+    }
+
+    .dropdown-container {
+        width: 100%;
+        height: 250px;
+        display: flex;
+        flex-direction: column;
+        overflow: auto;
+    }
+
+    .dropdown-container::-webkit-scrollbar {
+        width: 4px;
+    }
+
+    .dropdown-container::-webkit-scrollbar-thumb {
+        background: #cccccc;
+        border-radius: 10px;
+    }
+
+}

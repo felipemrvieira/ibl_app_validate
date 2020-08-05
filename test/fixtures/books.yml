@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  title: one
+  cover: one
+  attachment: one
+  level: one
+  downloadable: one
+
+two:
+  title: two
+  cover: two
+  attachment: two 
+  level: two
+  downloadable: two

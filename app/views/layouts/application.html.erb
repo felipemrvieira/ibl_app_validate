@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>IBL Sem Legenda</title>
+    <%= csrf_meta_tags %>
+    <%= csp_meta_tag %>
+
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= favicon_link_tag asset_path('favicon.png') %>
+  </head>
+
+   <body class="d-flex align-items-start flex-column">
+    <%# render "partials/alert" %>
+    <%# render "partials/header" %>
+    <div class="container" id="main-container">
+      <%= yield %>
+    </div>
+  </body>
+</html>

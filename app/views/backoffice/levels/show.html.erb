@@ -1,0 +1,195 @@
+
+<h1 class="page-header">Nível <%= @level.title %></h1>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Nível
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Título:</strong>
+        <%= @level.title %>
+      </p>
+      <p>
+        <strong>Curso:</strong>
+        <%= @level.course.title %>
+      </p>
+      <p>
+        <strong>Lições:</strong>
+        <%= @level.paths.count %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_level_path(@level), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_level_path(@level),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Nova Lição
+    </div>
+    <div class="panel-body">
+      <%= form_with(model: @path, local: true, url: backoffice_paths_path) do |form| %>
+        <% if @path.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@path.errors.count, "error") %> prohibited this level from being saved:</h2>
+
+            <ul>
+            <% @path.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field form-group col-md-12">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
+
+        <%= form.hidden_field :level_id, :value => @level.id %>
+
+        <div class="actions  col-md-12">
+          <%= form.submit "Enviar", :class => "btn btn-default" %>
+        </div>
+      <% end %>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Lições
+    </div>
+    <div class="panel-body">
+     <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Título</th>
+                      <th>Questões</th>
+                      <th colspan=""></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @level.paths.order(:id).each do |path| %>
+                        <tr>
+                            <td><%= path.id %></td>
+                            <td><%= path.title %></td>
+                            <td><%= path.questions.count %></td>
+                            <td>
+                                <%= link_to backoffice_path_path(path), class: "btn btn-default btn-circle" do %>
+                                    <i class="fa fa-search"></i>
+                                <% end %>
+
+                                <%= link_to backoffice_path_path(path), class: "btn btn-danger btn-circle" , method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                    <i class="fa fa-close"></i>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+<h2 class="page-header">Versões de Áudios</h2>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Nova Versão
+    </div>
+    <div class="panel-body">
+     
+
+    <%= form_with(model: @audio_version, local: true, url: backoffice_audio_versions_path) do |form| %>
+      <% if @audio_version.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(@audio_version.errors.count, "error") %> prohibited this audio_version from being saved:</h2>
+    
+          <ul>
+          <% @audio_version.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+    
+      <div class="field form-group col-md-12">
+        <%= form.label :title %>
+        <%= form.text_field :title, class: "form-control" %>
+      </div>
+    
+      <%= form.hidden_field :level_id, :value => @level.id %>
+
+    
+
+      <div class="actions  col-md-12">
+      <%= form.submit "Enviar", :class => "btn btn-default" %>
+    </div>
+    <% end %>
+
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Versões
+    </div>
+    <div class="panel-body">
+     <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Título</th>
+                      <th>Áudios</th>
+                      <th colspan=""></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @level.audio_versions.each do |version| %>
+                        <tr>
+                            <td><%= version.id %></td>
+                            <td><%= version.level.title %> - <%= version.title %></td>
+                            <td><%= version.audios.count %></td>
+                            <td>
+                              <%= link_to backoffice_audio_version_path(version), class: "btn btn-default btn-circle" do %>
+                                <i class="fa fa-search"></i>
+                              <% end %>
+
+                              <%= link_to backoffice_audio_version_path(version), class: "btn btn-danger btn-circle" , method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                  <i class="fa fa-close"></i>
+                              <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>
+    </div>
+  </div>
+</div>
+
+
+

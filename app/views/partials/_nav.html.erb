@@ -1,0 +1,69 @@
+<nav class="navbar navbar-expand-lg">
+  <div class="container">
+    <div id="hamburger">
+        <a href="javascript:void(0);" class="icon" onclick="mostraMenu()">
+            <i class="fa fa-bars"></i>
+          </a>
+    </div>
+    <a class="navbar-brand" href="#">
+      <%= image_tag "logo-ibl.png", class: "d-inline-block align-top" %>
+    </a>
+    <div class="" id="idioma">
+
+      <div class="dropdown">
+        <a id="link-idioma" href="#" class="dropbtn">
+          <p id="idioma-label">
+            <%
+=begin%>
+ <% if current_student.levels.exists? %>
+                <%= image_tag current_student.levels.last.course.course_flag.icon.url || "flag-usa.png" %>
+                <%= current_student.levels.last.course.title %>
+            <% end %>
+<%
+=end%>
+             <%= image_tag @course.course_flag.icon.url || "flag-usa.png" %>
+             <%= @course.title %>
+          </p>
+        </a>
+
+        <div id="myDropdown" class="dropdown-content">
+          <h4>Cursos</h4>
+          <% @enrolled_courses.each do |course| %>
+
+              <% if current_student.admin %>
+
+                <%= link_to site_show_course_path(course), class: "course-list" do %>
+                  <%= image_tag course.course_flag.icon.url || "flag-usa.png", class: "align-top" %>
+                  <%= course.title %>
+                <% end %>
+
+              <% else %>
+
+                <% if course.title == "Inglês"%>
+                  <%= link_to site_show_course_path(course), class: "course-list" do %>
+                    <%= image_tag course.course_flag.icon.url || "flag-usa.png", class: "align-top" %>
+                    <%= course.title %>
+                  <% end %>
+                <% else %>
+
+                  <%= link_to site_course_audio_path(course), class: "course-list" do %>
+
+                    <%= image_tag course.course_flag.icon.url || "flag-usa.png", class: "align-top" %>
+                    <%= course.title %>
+                  <% end %>
+
+                <% end %>
+
+              <% end %>
+
+          <% end %>
+        </div>
+      </div>
+
+
+    </div>
+    <div id="slogan" class="pull-right">
+      <%= image_tag "viva.png", class: "d-inline-block align-top" %>
+    </div>
+  </div>
+</nav>

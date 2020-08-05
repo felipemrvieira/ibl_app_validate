@@ -1,0 +1,35 @@
+<h1 class="page-header">Conquistas por aluno da unidade</h1>
+
+<div class="row">
+<div class="col-md-12">
+  <div class="table-responsive">
+    <table class="table table-hover">
+      <thead>
+          <tr>
+            <th>Aluno</th>
+            <th>Conquista</th>
+            <th>Badge</th>
+            <th>Data da conquista</th>
+          </tr>
+      </thead>
+      <tbody>
+      <% @student_achievements.each do |student_achievement| %>
+        <tr>
+          <td><%= student_achievement.student.name%></td>
+          <td><%= student_achievement.achievement.description %></td>
+          <td><%= image_tag student_achievement.achievement.badge_path, width: "30px" %></td>
+          <td><%= student_achievement.created_at.strftime("%d/%m/%Y às %T") %></td>
+       
+          
+        </tr>
+      <% end %>
+          
+      </tbody>
+    </table>
+  </div>
+</div>
+<br>
+
+
+
+</div>  

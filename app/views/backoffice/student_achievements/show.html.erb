@@ -1,0 +1,31 @@
+<h1 class="page-header">Conquista</h1>
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @student_achievement.achievement.description %> - <%= @student_achievement.student.name %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <%= image_tag @student_achievement.achievement.badge_path, width: "100px" %>
+      </p>
+      <p>
+        <strong>Level:</strong>
+        <%= @student_achievement.achievement.description %>
+      </p>
+
+      <p>
+        <strong>Estudante:</strong>
+        <%= @student_achievement.student.name %>
+      </p>
+  
+      
+        <p>
+        <strong>Data da conquista:</strong>
+        <%= @student_achievement.created_at.strftime("%d/%m/%Y às %T") %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_student_achievement_path(@student_achievement), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_student_achievement_path(@student_achievement),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>   
+  </div>
+</div>
+

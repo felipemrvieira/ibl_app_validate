@@ -1,0 +1,42 @@
+<h1 class="page-header">Mensagem: <%= @message.id %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @message.id %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Nome:</strong>
+        <%= @message.nome %>
+      </p>
+      <p>
+        <strong>Email:</strong>
+        <%= @message.email %>
+      </p>
+      <p>
+        <strong>Telefone:</strong>
+        <%= @message.telefone %>
+      </p>
+      <p>
+        <strong>Unidade:</strong>
+        <%= @message.unidade %>
+      </p>
+      <p>
+        <strong>Assunto:</strong>
+        <%= @message.assunto %>
+      </p>
+      <p>
+        <strong>Corpo:</strong>
+        <%= @message.corpo %>
+      </p>
+      <%
+=begin%>
+ <%= link_to 'Editar', edit_backoffice_question_answer_path(@question_answer), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_question_answer_path(@question_answer),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+<%
+=end%>
+    </div>
+
+  </div>
+</div>

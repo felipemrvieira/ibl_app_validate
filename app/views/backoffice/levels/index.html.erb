@@ -1,0 +1,33 @@
+
+<h1 class="page-header">Níveis</h1>
+
+    <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Curso</th>
+                        <th></th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @levels.each do |level| %>
+                        <tr>
+                            <td><%= level.id %></td>
+                            <td><%= level.title %></td>
+                            <td><%= level.course.title %></td>
+                            <td>
+                                <%= link_to backoffice_level_path(level), class: "btn btn-default btn-circle" do %>
+                                    <i class="fa fa-search"></i>
+                                <% end %>
+                            </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+        </div>
+    </div>

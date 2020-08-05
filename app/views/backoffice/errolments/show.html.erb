@@ -1,0 +1,26 @@
+<h1 class="page-header">Matrículas</h1>
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @errolment.student.name %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Nome:</strong>
+        <%= @errolment.student.name %>
+      </p>
+  
+      <p>
+        <strong>Level:</strong>
+        <%= @errolment.level.title %>
+      </p>
+        <p>
+        <strong>Data:</strong>
+        <%= @errolment.created_at.strftime("%d/%m/%Y às %T") %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_errolment_path(@errolment), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_errolment_path(@errolment),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>   
+  </div>
+</div>
+

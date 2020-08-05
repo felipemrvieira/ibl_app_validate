@@ -1,0 +1,135 @@
+<!-- Level -->
+<div id="level">
+  <p class="level-label">Beginner 30%</p>
+
+  <div class="lesson">
+    
+    <!-- Icons -->
+    <div class="icons-wrapper">
+      <div class="icon">
+        <%= image_tag "dumbell.png", data:{ toggle:"modal", target:"#modalExercise", backdrop:"static", keyboard:"false" } %>
+      </div>
+      <div class="icon">
+        <%= image_tag "lamp.png", data:{ toggle:"modal", target:"#modalReforco", backdrop:"static", keyboard:"false" } %>
+      </div>
+    </div>
+    <!-- Icons -->
+
+    <!-- Progress -->
+    <div id="progress-bar-container">
+      <div class="progress-bar-child progress">
+        <div class="lesson-wrapper">
+          <p class="lesson-name">Lesson 1</p>
+          <p class="lesson-percentage">55/60</p>
+        </div>
+      </div>
+      <div class="progress-bar-child shrinker timelapse"></div>
+    </div>
+    <!-- Progress -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalExercise" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <!-- Modal header-->
+          <div class="modal-header">
+            <!-- progress   -->
+            <div class="progress-bar-modal">
+              <div class="progress-bar-child progress"></div>
+              <div class="progress-bar-child shrinker timelapse"></div>
+            </div>
+            <!-- progress   -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal header-->
+          <!-- Modal body-->
+          <div class="modal-body">
+            <h5 class="question-title">Title Question</h5>
+            <p class="question-description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Esse
+              architecto magnam consectetur
+              tenetur rem deserunt suscipit distinctio incidunt!</p>
+            <form action="">
+              <div class="form-group">
+                <!-- <label for="exampleFormControlTextarea1">Example textarea</label> -->
+                <textarea class="form-control" id="exampleFormControlTextarea1" rows="3"></textarea>
+              </div>
+              <div class="action-container d-flex justify-content-end">
+                <button type="submit" class="btn align-self-end">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- Modal body-->
+        </div>
+        <!-- Modal content-->
+      </div>
+      <!-- Modal dialog-->
+    </div>
+    <!-- Modal-->
+
+    <!-- Modal -->
+    <div class="modal fade" id="modalReforco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+      aria-hidden="true">
+      <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+          <!-- Modal header-->
+          <div class="modal-header">
+            <!-- progress   -->
+            <div class="progress-bar-modal">
+              <div class="progress-bar-child progress"></div>
+              <div class="progress-bar-child shrinker timelapse"></div>
+            </div>
+            <!-- progress   -->
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <!-- Modal header-->
+          <!-- Modal body-->
+          <div class="modal-body">
+            <h5 class="question-title">Title Question</h5>
+            <div class="img-container">
+              <%= image_tag  "octopus.jpg" %>
+            </div>
+            <p class="question-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+            <form action="">
+              <div class="form-group">
+              
+                <label class="container">One
+                    <input type="radio" checked="checked" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container">Two
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container">Three
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+                  <label class="container">Four
+                    <input type="radio" name="radio">
+                    <span class="checkmark"></span>
+                  </label>
+
+              </div>
+
+              <div class="action-container d-flex justify-content-end">
+                <button type="submit" class="btn align-self-end">Submit</button>
+              </div>
+            </form>
+          </div>
+          <!-- Modal body-->
+        </div>
+        <!-- Modal content-->
+      </div>
+      <!-- Modal dialog-->
+    </div>
+    <!-- Modal-->
+
+  </div>
+  <!-- Lesson-->
+</div>
+<!-- Level -->

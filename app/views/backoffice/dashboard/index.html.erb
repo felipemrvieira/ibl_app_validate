@@ -1,0 +1,211 @@
+
+<h1 class="page-header">Dashboard</h1>
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Alunos por unidade
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="alunos-por-unidade"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Alunos por unidade
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="alunos-por-unidade-donut"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+    <div class="col-lg-6">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Alunos por nível
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+                <div id="alunos-por-nivel"></div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Ranking nacional
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+               
+                <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Avatar</th>
+                                <th>Nome</th>
+                                <th>Unidade</th>
+                                <th>Pontos</th>
+                                <th>Pontos de prática</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @greatest_students_br.each do |studentbr|%>
+                                <tr>
+                                    <td><%= studentbr.id %></td>
+                                    <td>  
+                                        <%= image_tag studentbr.student_avatar.icon.url || "avatar.png", id: "avatar", class: "img-circle",  width: "30px", height: "30px" %>
+                                    </td>
+                                    <td><%= studentbr.name %></td>
+                                    <td><%= studentbr.unit.title %></td>
+                                    <td><%= studentbr.points %></td>
+                                    <td><%= studentbr.pratice_points %></td>
+                                
+                                </tr>
+                            <% end %>
+                            </tbody>
+                        </table>
+                        
+                </div>
+                
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+    <div class="col-lg-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                Ranking da unidade
+            </div>
+            <!-- /.panel-heading -->
+            <div class="panel-body">
+               <div class="table-responsive">
+                    <table class="table table-hover">
+                        <thead>
+                            <tr>
+                                <th>ID</th>
+                                <th>Avatar</th>
+                                <th>Nome</th>
+                                <th>Unidade</th>
+                                <th>Pontos</th>
+                                <th>Pontos de prática</th>
+
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <% @greatest_students_unit.each do |student_unit|%>
+                                <tr>
+                                    <td><%= student_unit.id %></td>
+                                    <td>  
+                                        <%= image_tag student_unit.student_avatar.icon.url || "avatar.png", id: "avatar", class: "img-circle",  width: "30px", height: "30px" %>
+                                    </td>
+                                    <td><%= student_unit.name %></td>
+                                    <td><%= student_unit.unit.title %></td>
+                                    <td><%= student_unit.points %></td>
+                                    <td><%= student_unit.pratice_points %></td>
+                                
+                                </tr>
+                            <% end %>
+                        </tbody>
+                    </table>
+                        
+                </div>
+            </div>
+            <!-- /.panel-body -->
+        </div>
+        <!-- /.panel -->
+    </div>
+
+     
+
+</div>
+
+<script>
+  $(document).ready(function(){
+
+    window.barChart = Morris.Bar({
+      element: 'alunos-por-unidade',
+      data: [
+
+        <% @units.each do |unit| %>
+            { y: ' <%= unit.title %>', a: <%= unit.students.count %> },
+        <% end %>
+      
+      ],
+      xkey: 'y',
+      ykeys: ['a'],
+      labels: ['Alunos'],
+      gridLineColor:['#f3f3f3'],
+      cornerRadius: 25, 
+      barSizeRatio: 0.25,
+      resize: true,
+      redraw: true,
+      hideHover: 'true',
+      xLabelAngle: 70
+    });
+
+  
+});
+
+</script>
+
+<script>
+  $(document).ready(function(){
+    window.barChart = Morris.Bar({
+      element: 'alunos-por-nivel',
+      data: [
+        <% @levels.each do |level| %>
+            <% if current_unit.admin == true %>
+                { y: ' <%= level.title %>', a: <%= level.students.count %> },
+            <% else %>
+                { y: ' <%= level.title %>', a: <%= level.students.where(unit_id: current_unit.id).count %> },
+            <% end %>
+        <% end %>
+      ],
+      xkey: 'y',
+      ykeys: ['a'],
+      labels: ['Alunos'],
+      gridLineColor:['#f3f3f3'],
+      cornerRadius: 25, 
+      barSizeRatio:0.35,
+      //barGap:5,
+      resize: true,
+      redraw: true,
+      hideHover: 'true',
+      xLabelAngle: 50
+    });
+});
+</script>
+
+<script>
+  $(document).ready(function(){
+      window.donutChart = Morris.Donut({
+      element: 'alunos-por-unidade-donut',
+      data: [
+        <% @units.each do |unit| %>
+            { label: ' <%= unit.title %>', value: <%= unit.students.count %> },
+        <% end %>
+      ],
+      
+      resize: true,
+      redraw: true,
+
+    });
+});
+</script>

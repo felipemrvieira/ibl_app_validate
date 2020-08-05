@@ -1,0 +1,117 @@
+<%= form_with(model: unit, local: true, url: path) do |form| %>
+  <% if unit.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(unit.errors.count, "error") %> prohibited this unit from being saved:</h2>
+
+      <ul>
+      <% unit.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+<div class="row">
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Imagem de capa da unidade no site" %>
+    <%= form.file_field :cover %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label 'Galeria de Imagens do site' %>
+    <%= form.file_field :images, multiple: true %>
+  </div>
+
+  <br><br><br><br>
+
+  <div class="field form-group col-md-12">
+    <%= form.label "Nome da Unidade" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "phone" %>
+    <%= form.text_field :phone, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "site" %>
+    <%= form.text_field :site, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "email de login" %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "email para mensagens" %>
+    <%= form.text_field :email_message, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Senha" %>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Confirmação de Senha" %>
+    <%= form.password_field :password_confirmation, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Publicado no site" %>
+    <%= form.check_box :published, class: "" %>
+  </div>
+
+  <% if current_unit.admin? %>
+    <div class="field form-group col-md-6">
+      <%= form.label "Admin" %>
+      <%= form.check_box :admin, class: "" %>
+    </div>
+  <% end %>
+
+  </div>
+  <hr>
+  <div class="row">
+    <%= form.fields_for :address do |ff| %>
+      <div class="field form-group col-md-12">
+        <%= ff.label "Rua" %>
+        <%= ff.text_field :street,  class: "form-control" %>
+      </div>
+
+      <div class="field form-group col-md-6">
+        <%= ff.label "Bairro" %>
+        <%= ff.text_field :neighborhood, class: "form-control" %>
+      </div>
+
+      <div class="field form-group col-md-6">
+        <%= ff.label "Número" %>
+        <%= ff.text_field :number, class: "form-control" %>
+      </div>
+
+      <div class="field form-group col-md-6">
+        <%= ff.label "Estado" %>
+        <%= ff.text_field :state, class: "form-control" %>
+      </div>
+
+      <div class="field form-group col-md-6">
+        <%= ff.label "Cidade" %>
+        <%= ff.text_field :city, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-6">
+        <%= ff.label "Latitude" %>
+        <%= ff.text_field :latitude, class: "form-control" %>
+      </div>
+      <div class="field form-group col-md-6">
+        <%= ff.label "Longitude" %>
+        <%= ff.text_field :longitude, class: "form-control" %>
+      </div>
+    <% end %>
+    <div class="actions  col-md-12">
+      <%= form.submit "Enviar", :class => "btn btn-default" %>
+    </div>
+  </div>
+
+
+<% end %>

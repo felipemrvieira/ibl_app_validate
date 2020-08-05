@@ -1,0 +1,21 @@
+<h1 class="page-header">Nível <%= @tag.title %></h1>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      Tag
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Título:</strong>
+        <%= @tag.title %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_tag_path(@tag), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_tag_path(@tag),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+</div>
+
+
+
+

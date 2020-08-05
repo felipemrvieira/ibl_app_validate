@@ -1,0 +1,219 @@
+
+
+@media (min-width: 991px) {
+    nav{
+        background-color: $nav-blue;
+        .container{
+            display: flex;
+            flex-direction: row;
+            #hamburger{
+                display: none;
+            }
+            .navbar-brand{
+                order: 1;
+                img{
+                    width: 100px;
+                }
+            }
+            #idioma{
+                order: 2;
+                #link-idioma{
+                    text-decoration: none;
+                    display: flex;
+                    flex-direction: row;
+                    align-items: center;
+                    text-transform: uppercase;
+                    color: white;
+                    &:link {
+                        color: white;
+                    }
+                    
+                    &:hover {
+                        color: $soft-grey;
+                    }
+                    img{
+                        border: 2px solid white;
+                        border-radius: 50%;
+                        height: 40px;
+                        width: 40px;
+                        margin-right: 12px;
+                    }
+                    #idioma-label{
+                        margin: 0;
+                        text-transform: uppercase;
+                        color: white;
+                        &:link {
+                            color: white;
+                        }
+                       
+                        &:hover {
+                            color: $soft-grey;
+                        }
+            
+                    }
+                }
+            }
+            #slogan{
+                order: 3;
+                img{
+                    width: 80px;       
+                }
+            }
+        }
+       
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 260px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 99;
+        h4{
+            font-size: 1.5em;
+            font-weight: 200;
+            color: #64686b;
+            padding: 20px 22px 10px 22px;
+        }
+        .course-list{
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+    
+            img{
+                display: inline;
+                border: 2px solid white;
+                border-radius: 50%;
+                height: 35px;
+                width: 35px;
+                margin-right: 12px;
+            }
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+    }
+    
+    .show-dropdown {display: block;}
+}
+
+
+@media (max-width: 990px) {
+    .fixed{
+        position: fixed;
+        width: 100%;
+        z-index: 999;
+    }
+    nav{
+        background-color: $nav-blue;
+    
+        #hamburger{
+            display: flex;
+            color: white;
+            font-size: 30px;
+            a{
+                color: white;
+                padding: 8px;
+                &:visited{
+                    color: white;
+                }
+            }
+        }
+
+        .navbar-brand{
+            order: 3;
+            margin: 0;
+            padding: 8px;
+
+            img{
+                width: 70px;
+            }
+        }
+        #idioma{
+            order: 2;
+            #link-idioma{
+                text-decoration: none;
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                text-transform: uppercase;
+                color: white;
+                &:link {
+                    color: white;
+                }
+                
+                &:hover {
+                    color: $soft-grey;
+                }
+                img{
+                    border: 2px solid white;
+                    border-radius: 50%;
+                    height: 40px;
+                    width: 40px;
+                    margin-right: 12px;
+                }
+                #idioma-label{
+                    margin: 0;
+                    text-transform: uppercase;
+                    color: white;
+                    &:link {
+                        color: white;
+                    }
+                   
+                    &:hover {
+                        color: $soft-grey;
+                    }
+        
+                }
+            }
+        }
+        #slogan{
+            display: none;
+            img{
+                width: 55px;       
+            }
+        }
+    }
+    
+    .dropdown-content {
+        display: none;
+        position: absolute;
+        background-color: #f1f1f1;
+        min-width: 260px;
+        overflow: auto;
+        box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+        z-index: 99;
+        h4{
+            font-size: 1.5em;
+            font-weight: 200;
+            color: #64686b;
+            padding: 20px 22px 10px 22px;
+        }
+        .course-list{
+            color: black;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+    
+            img{
+                display: inline;
+                border: 2px solid white;
+                border-radius: 50%;
+                height: 35px;
+                width: 35px;
+                margin-right: 12px;
+            }
+            &:hover {
+                background-color: #ddd;
+            }
+        }
+    }
+    
+    .show-dropdown {display: block;}
+}
+

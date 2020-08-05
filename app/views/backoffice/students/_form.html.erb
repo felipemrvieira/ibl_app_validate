@@ -1,0 +1,140 @@
+<%= form_with(model: student, local: true, url: path) do |form| %>
+  <% if student.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(student.errors.count, "error") %> prohibited this student from being saved:</h2>
+
+      <ul>
+      <% student.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group ">
+    <div class="row">
+      <div class="col-sm-4">
+        <%# image_tag user_avatar(student, 100), class: "img-circle" %>
+          <%= image_tag @student.student_avatar.thumb.url || "avatar.png", id: "avatar", class: "img-circle",  width: "100px", height: "100px" %>
+      </div>
+      <div class="col-sm-8">
+        <%# form.file_field :avatar %>
+        <%= form.file_field :student_avatar %>
+      </div>
+    </div>
+  </div>
+
+  <div class="row">
+  <div class="field form-group col-md-12">
+    <%= form.label :name %>
+    <%= form.text_field :name, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Nascimento" %><br>
+    <%= form.date_select :birthday,
+               {
+                :order => [:day, :month, :year],
+                :start_year => 1920,
+                :end_year => 2019
+               },
+               {:class => "form-control-inline"}  %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Email" %>
+    <%= form.text_field :email, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Telefone" %>
+    <%= form.text_field :phone, class: "form-control" %>
+  </div>
+
+  <% if current_unit.admin %>
+    <% units = Unit.all.order('title ASC') %>
+  <% else %>
+    <% units = Unit.where(:id => current_unit.id) %>
+  <% end %>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Unidade" %>
+    <%= collection_select(:student, :unit_id, units, :id, :title, {:prompt => true}, {:class=>'js-example-basic-single form-control'}) %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Senha" %>
+    <%= form.password_field :password, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Confirmação de Senha" %>
+    <%= form.password_field :password_confirmation, class: "form-control" %>
+  </div>
+
+  <% if current_unit.admin %>
+    <div class="field form-group col-md-6">
+      <%= form.label "Administrador" %>
+      <%= form.check_box :admin , class: "" %>
+    </div>
+  <% end %>
+
+  <div id="errolments">
+
+    <div class="">
+      <%= form.fields_for :errolments do |errolment| %>
+
+          <div class="panel panel-default col-md-12">
+            <div class="panel-body">
+              <%= render 'errolment_fields', f: errolment %>
+            </div>
+          </div>
+      <% end %>
+    </div>
+
+      <div class="links col-md-12">
+        <%= link_to_add_association 'Adicionar nível', form, :errolments %>
+        <br><br>
+      </div>
+  </div>
+
+<% if @student.id %>
+  <div class="field form-group col-md-6">
+    <h4>Vincular Livros Digitais<h4>
+  </div>
+
+  <div id="books" class="panel panel-default col-md-12">
+    <div class="book-list">
+      <div class="btn-group dropright card card-shadow">
+        <%= image_tag "livro.png" %>
+        <div class="btn btn-secondary dropdown-toggle overlay" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+        
+        <% if Book.all.length > 0 %>
+          <div class="dropdown-menu">
+            <div class="dropdown-container">
+              <% Book.all.each do |book| %>
+                <%= link_to backoffice_student_books_path({ student_id: @student.id, book_id: book.id }), class: 'dropdown-item', method: :create do %>
+                  <%= book.course_level_book %>
+                <% end %>
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    
+      <%= form.fields_for :student_books do |student_book| %>
+        <%= render 'book_fields', f: student_book %>
+      <% end %>
+    </div>
+  </div>
+<% end %>
+
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+
+  </div>
+  </div>
+<% end %>

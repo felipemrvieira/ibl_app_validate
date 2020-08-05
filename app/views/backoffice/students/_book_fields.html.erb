@@ -1,0 +1,14 @@
+<div class="nested-fields">
+
+  <%= link_to backoffice_student_book_path(f.object), method: :delete, data: { confirm: 'Você tem certeza que deseja deletar esse livro do estudante?' } do %>
+    <div class="card">
+      <%= image_tag f.object.book.cover.url || "livro.png", class: "book-image" %>
+      <div class="overlay">
+        <div class="delete-container">
+          <i class="fa fa-trash" aria-hidden="true"></i>
+        </div>
+      </div>
+    </div>
+  <% end %>
+
+</div>

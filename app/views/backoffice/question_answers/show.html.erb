@@ -1,0 +1,17 @@
+<h1 class="page-header">FAQ: <%= @question_answer.question %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @question_answer.question %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <%= raw @question_answer.answer %>
+      </p>
+      <%= link_to 'Editar', edit_backoffice_question_answer_path(@question_answer), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_question_answer_path(@question_answer),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+
+  </div>
+</div>

@@ -1,0 +1,2 @@
+class DiscountMessage < ApplicationRecord
+end

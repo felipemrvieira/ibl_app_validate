@@ -1,0 +1,48 @@
+<h1 class="page-header">Tentativas</h1>
+
+<div class="row">
+  <div id="attempts">
+  <div class="col-md-12">
+
+  <div class="table-responsive">
+      <table class="table table-hover table-attempt">
+        <thead>
+          <tr>
+            <th>id</th>
+            <th>Data</th>
+            <th>Acerto</th>
+            <th>Aluno</th>
+            <th>Questão</th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @attempts.each do |attempt| %>
+            <tr>
+              <td><%= attempt.id %></td>
+              <td><%= attempt.created_at %></td>
+              <td><%= attempt.hit %></td>
+              <td><%= attempt.student_id %> <%= attempt.student.name %></td>
+              <td><%= attempt.question_id %></td>
+              <td>
+                <%= link_to backoffice_delete_questions_attempts_path(attempt), class: "btn btn-danger btn-circle" do %>
+                    <i class="fa fa-trash"></i>
+                <% end %>
+              </td>
+              
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div style="text-align: center;">      
+          <%= pagy_bootstrap_nav(@pagy).html_safe %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  
+  </div>
+</div>
+<br>

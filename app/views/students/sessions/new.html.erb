@@ -1,0 +1,59 @@
+<%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+<div class="container-fluid">
+        <nav class="navbar navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="#">
+                    <%= image_tag "logo-ibl.png", class:"d-inline-block align-top" %>
+                </a>
+               
+                <div id="slogan" class="pull-right">
+                    <%= image_tag "viva.png", class:"d-inline-block align-top" %>
+                </div>
+            </div>
+        </nav>
+        <main>
+            <div id="card-login">
+
+                <div class="owl">
+                    <div class="hand"></div>
+                    <div class="hand hand-r"></div>
+                    <div class="arms">
+                        <div class="arm"></div>
+                        <div class="arm arm-r"></div>
+                    </div>
+                </div>
+
+                <div class="form">
+                    <div id="form-label">
+                        <p>Sign In</p>
+
+                    </div>
+                    <div class="control">
+                        <label class="fa fa-user"></label><br />
+                        <%= f.email_field :email, autofocus: true, autocomplete: "email", placeholder: "Username" %>
+                    </div>
+                    <div class="control">
+                      <label class="fa fa-lock"></label><br />
+                      <%= f.password_field :password, autocomplete: "current-password", id:"password", placeholder: "Password" %>
+                    </div>
+                      <% if devise_mapping.rememberable? -%>
+                        <div class="field">
+                          <%= f.check_box :remember_me %>
+                          <%= f.label :remember_me %>
+                        </div>
+                      <% end %>
+                    <div class="control">
+                      <%= f.submit "Log in", class: "btn btn-1" %>   
+                    </div>
+                    <%= render "students/shared/links" %>
+                    <br>
+                    <div class="control">
+                      <%= link_to  "Administrator", new_unit_session_path %>
+                    </div>
+                </div>
+
+            </div>
+
+        </main>
+    </div>
+  <% end %>

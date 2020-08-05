@@ -1,0 +1,253 @@
+.modal-finished{
+    /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff987d+0,fdd96b+100 */
+    background: #ff987d; /* Old browsers */
+    background: -moz-linear-gradient(45deg, #ff987d 0%, #fdd96b 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(45deg, #ff987d 0%,#fdd96b 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(45deg, #ff987d 0%,#fdd96b 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#ff987d', endColorstr='#fdd96b',GradientType=1 ); /* IE6-9 fallback on horizontal gradient */
+}
+
+.reportar-erro{
+    
+    font-size: 11px;
+    .reportar-erro-label{
+        font-size: 11px;
+        text-align: center;
+        color: #969696;
+        letter-spacing: 1px;
+        background-color: transparent;
+        border: none;
+        text-align: left;
+        &:hover{
+            color: #505050;
+            cursor: pointer;
+        }
+    }
+    .reportar-erro-botao{
+        margin-top: 5px;
+        font-size: 11px;
+        color: #969696;
+    }
+    .reportar-erro-field{
+        font-size: 11px;
+        color: #969696;
+    }
+}
+
+.modal{
+    .modal-dialog{
+        .modal-content{
+            border: 0;
+            border-radius: 15px;
+            background-color: $soft-grey;
+
+            .modal-header{
+                border: none;
+                padding: 1rem;
+                align-items: center;
+
+                .progress-bar-modal {
+                    position: relative;
+                    margin-top: 10px;
+                    margin-left: 30px;
+                    height: 6px;
+                    width: 100%;
+                    border-radius: 50px;
+                    overflow: hidden;
+            
+                    .progress-bar-child {
+                        width: 100%;
+                        height: 100%;
+                    }
+    
+                    .progress {
+                        align-self: center;
+                        padding: 0 36px;
+                        color: white;
+                        font-size: 1.4em;
+                        font-weight: 300;
+                        letter-spacing: 1px;
+                        animation-direction: reverse;
+                        background: $blue-gradiente;
+                        /* Old browsers */
+                        background: -moz-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                        /* FF3.6-15 */
+                        background: -webkit-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                        /* Chrome10-25,Safari5.1-6 */
+                        background: linear-gradient(to right, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                        .lesson-wrapper{
+                            display: flex;
+                            align-items: center;
+    
+                            .lesson-name{ 
+                                display: inline-block;
+                                margin: 0;
+                            }
+                            .lesson-percentage{
+                                display: inline-block;
+                                margin: 0 24px;
+                            }
+    
+                            
+                        }
+                    }
+                    
+                    .shrinker {
+                        background-color: $dark-grey;
+                        position: absolute;
+                        top: 0;
+                        right: 0;
+                        width: 100%;
+                    }
+    
+                    .timelapse {
+                        animation-name: timelapse;
+                        animation-fill-mode: forwards;
+                        animation-duration: 2s;
+                        animation-timing-function: cubic-bezier(.86, .05, .4, .96);
+                    }
+                    
+                    @keyframes timelapse {
+                        0% {
+                            width: 100%;
+                        }
+                        100% {
+                            width: 10%;
+                        }
+                    }
+                    
+                    
+                }
+
+                .close{
+                    font-size: 4rem;
+                    font-weight: 100;
+                    line-height: 1;
+                    text-shadow: 0;
+                    line-height: 0.5;
+                }
+                
+            }
+            .modal-body{
+                padding: 0.5rem 3rem 2rem;
+                .lesson-finished{
+                    display: flex;
+                    flex-direction: column;
+                    text-align: center;
+                    color: white;
+
+                    img{
+                        border-radius: 50%;
+                        align-self: center;
+                        margin-bottom: 17px;
+                        width: 160px;
+                    }
+                }
+                .img-container{
+                    margin-bottom: 12px;
+                    display: flex;
+                    flex-direction: row;
+                    justify-content: center;
+                    img{
+                        width: 15rem;
+                        height: 15rem;
+                        border: 8px solid white;
+                    
+                    }
+                }
+                .question-title{
+                    margin-bottom: 18px;
+                    font-size: 1.3rem;
+                }
+                .question-description{
+                    font-weight: 100;
+                    font-size: 1.1rem;
+                    h1, h2, h3, h4, h5, h6, p, div{
+                        font-weight: 100;
+                        font-size: 1.1rem;
+                    }
+                }
+                form{
+                    .form-group{
+                        textarea{
+                            border: 0;
+                            border-radius: 15px;
+                        }
+                        .container {
+                            display: block;
+                            position: relative;
+                            padding-left: 25px;
+                            margin-bottom: 6px;
+                            cursor: pointer;
+                            font-size: 18px;
+                            font-weight: 100;
+                            -webkit-user-select: none;
+                            -moz-user-select: none;
+                            -ms-user-select: none;
+                            user-select: none;
+                        }
+                        
+                        /* Hide the browser's default radio button */
+                        .container input {
+                            position: absolute;
+                            opacity: 0;
+                            cursor: pointer;
+                        }
+                        
+                        /* Create a custom radio button */
+                        .checkmark {
+                            position: absolute;
+                            top: 3px;
+                            left: 0;
+                            height: 18px;
+                            width: 18px;
+                            background-color: white;
+                            border-radius: 50%;
+                        }
+                        
+                        /* On mouse-over, add a grey background color */
+                        .container:hover input ~ .checkmark {
+                            background-color: #ccc;
+                        }
+                        
+                        /* When the radio button is checked, add a blue background */
+                        .container input:checked ~ .checkmark {
+                            background-color: white;
+                        }
+                        
+                        /* Create the indicator (the dot/circle - hidden when not checked) */
+                        .checkmark:after {
+                            content: "";
+                            position: absolute;
+                            display: none;
+                        }
+                        
+                        /* Show the indicator (dot/circle) when checked */
+                        .container input:checked ~ .checkmark:after {
+                            display: block;
+                        }
+                        
+                        /* Style the indicator (dot/circle) */
+                        .container .checkmark:after {
+                            top: 5px;
+                            left: 5px;
+                            width: 8px;
+                            height: 8px;
+                            border-radius: 50%;
+                            background: #2196F3;
+                        }
+                    }
+                    .action-container{
+                        .btn{
+                            border-radius: 25px;
+                            background-color: $blue-gradiente;
+                            color: white;
+                            padding-left: 32px;
+                            padding-right: 32px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

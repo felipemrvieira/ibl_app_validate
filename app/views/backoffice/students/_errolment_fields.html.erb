@@ -1,0 +1,24 @@
+<div class="nested-fields">
+
+  <div class="field form-group col-md-12">
+    <%= f.label "Nível" %>
+    <% if @levels %>
+      <% safe_levels = @levels %>
+    <% else %>
+      <% safe_levels = [] %>
+    <% end %>
+      <%= f.collection_select(:level_id, safe_levels, :id, :couse_level_title, { :prompt => 'Selecione o nível' }, {:class=>'form-control'} ) %>
+  </div>
+  
+  <% if f.object.active == nil %>
+   <%= f.hidden_field :active, :value => true %>
+   <%= f.hidden_field :expiration, :value => Time.now + 1.year %> 
+  <% end%>
+
+  
+  <div class=" col-md-12">
+    <%= link_to_remove_association "Remover nível", f %>
+  </div>
+
+
+</div>

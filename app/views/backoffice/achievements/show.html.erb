@@ -1,0 +1,25 @@
+<h1 class="page-header">Conquista</h1>
+
+<div class="col-md-6">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @achievement.description %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Nome da Unidade:</strong>
+        <%= @achievement.description %>
+      </p>
+  
+      <p>
+        <strong>Badge:</strong>
+        <%= image_tag @achievement.badge_path, width: "100px" %>
+      </p>
+ 
+      <%= link_to 'Editar', edit_backoffice_achievement_path(@achievement), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_achievement_path(@achievement),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+        
+  </div>
+</div>
+

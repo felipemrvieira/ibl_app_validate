@@ -1,0 +1,23 @@
+<h1 class="page-header"><%= @page.title %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @page.title %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Título:</strong>
+        <%= @page.title %>
+      </p>
+      <p>
+        <strong>Corpo:</strong>
+        <%= @page.body %>
+      </p>
+
+      <%= link_to 'Editar', edit_backoffice_page_path(@page), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_page_path(@page), class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+
+    </div>
+  </div>
+</div>

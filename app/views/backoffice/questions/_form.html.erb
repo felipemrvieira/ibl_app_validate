@@ -1,0 +1,164 @@
+<%= form_with(model: question, local: true,  url: path) do |form| %>
+  <% if question.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(question.errors.count, "error") %> prohibited this question from being saved:</h2>
+
+      <ul>
+      <% question.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">Questão</div>
+      <div class="panel-body">
+
+      <% if @path_id %>
+        <div class="field form-group col-md-6">
+        <% caminho = "#{Path.find(@path_id).level.course.title} >> #{Path.find(@path_id).level.title} >> #{Path.find(@path_id).title}" %>
+          <%= form.label caminho %>
+          <%= form.hidden_field :path_id, :value => @path_id, :class=>'form-control' %>
+        </div>
+      <% else %>
+
+        <div class="field form-group col-md-6">
+          <%= form.label "Curso" %>
+          <%= collection_select(
+            :course, :course_id, Course.all, :id, :title,
+            {:prompt => true},
+            {:class=>'form-control'}
+            )
+          %>
+        </div>
+        <div class="field form-group col-md-6">
+          <%= form.label "Nível" %>
+          <%= collection_select(:level, :level_id, [], :id, :title, {:prompt => true}, {:class=>'form-control'}) %>
+        </div>
+        <div class="field form-group col-md-6">
+          <%= form.label "Lição" %>
+          <%= collection_select(:question, :path_id, question.path ? [question.path ] : [ ], :id, :title, {:prompt => true}, {:class=>'form-control'}) %>
+        </div>
+
+      <% end %>
+
+        <div class="field form-group col-md-6">
+          <%= form.label "Tipo de Questão" %>
+          <%= form.select :type_question, ['Múltipla Escolha', 'Questão Aberta', 'Forca', 'Combinação'], {:prompt => true},{:class=>'form-control'} %>
+        </div>
+
+        <div class="field  form-group col-md-12">
+          <%= form.label "Título" %>
+          <%= form.text_field :title, :class=>'form-control' %>
+        </div>
+
+        <div class="field  form-group col-md-12">
+          <%= form.label "Comando" %>
+          <%= form.text_area :description, 'data-provider': :summernote %>
+        </div>
+
+        <div id="audio-field" class="field form-group col-md-12">
+          <%= form.label "Áudio" %>
+          <%= form.file_field :attachment %>
+        </div>
+
+        <% if @question.attachment_url   %>
+          <p>
+            <audio src="<%= @question.attachment_url %>" controls preload="none" controlsList="nodownload">
+              Your browser does not support the audio element.
+            </audio>
+          </p>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+<div class="row">
+
+  <div class="col-md-12 hide" id="question_options" >
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Múltipla escolha
+      </div>
+      <div class="panel-body">
+        <%= form.fields_for :question_options do |option| %>
+          <%= render 'question_option_fields', f: option %>
+        <% end %>
+        <div class="links col-md-12">
+          <%= link_to_add_association 'Adicionar alternativa', form, :question_options %>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 hide" id="question_texts">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Questão aberta
+      </div>
+      <div class="panel-body">
+        <%= form.fields_for :question_texts do |text| %>
+          <%= render 'question_text_fields', f: text %>
+        <% end %>
+        <div class="links col-md-12">
+          <%= link_to_add_association 'Adicionar resposta', form, :question_texts %>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12 hide" id="question_texts_forca">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Forca
+      </div>
+      <div class="panel-body">
+        <%= form.fields_for :question_texts do |text| %>
+          <%= render 'question_text_fields', f: text %>
+        <% end %>
+        <div class="links col-md-12">
+          <%= link_to_add_association 'Adicionar resposta', form, :question_texts %>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+  <div class="col-md-12 hide" id="question_combinations">
+    <div class="panel panel-default">
+      <div class="panel-heading">
+        Combinação
+      </div>
+      <div class="panel-body">
+        <%= form.fields_for :question_combinations do |text| %>
+          <%= render 'question_combination_fields', f: text %>
+        <% end %>
+        <div class="links col-md-12">
+          <%= link_to_add_association 'Adicionar resposta de combinação', form, :question_combinations %>
+          <br><br>
+        </div>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+</div>
+
+
+<div class="row" >
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+  <br> <br> <br>
+</div>
+
+
+
+<% end %>

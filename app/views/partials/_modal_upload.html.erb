@@ -1,0 +1,115 @@
+<!-- Modal do carregamento de um arquivo -->
+<div class="modal fade" id="modalUpload" tabindex="-1" role="dialog" aria-labelledby="modalUpload" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Modal header-->
+      <div class="modal-header">
+        <span id="modal-title">Realizando upload do livro</span>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header-->
+
+      <!-- Modal body-->
+      <div class="modal-body">
+
+        <div class="centered-container">
+          <%= image_tag "upload.png", class: 'modal-icon' %>
+
+          <div class="spinner-border" role="status"></div>
+        </div>
+
+        <p id="modal-subtitle">Mantenha esta janela aberta até a conclusão.</p>
+      </div>
+      <!-- Modal body-->
+    </div>
+    <!-- Modal content-->
+  </div>
+  <!-- Modal dialog-->
+</div>
+<!-- Modal-->
+
+<!-- Modal de sucesso de carregamento -->
+<div class="modal fade" id="modalUploadSuccess" tabindex="-1" role="dialog" aria-labelledby="modalUploadSuccess" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Modal header-->
+      <div class="modal-header">
+        <span id="modal-title">Upload concluído!</span>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header-->
+
+      <!-- Modal body-->
+      <div class="modal-body">
+
+        <div class="centered-container">
+
+          <div id="inner-cicle-success">
+
+            <svg width="110px" height="110px" viewBox="0 0 16 16" class="bi bi-check2" fill="#1ad176" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+            </svg>
+          
+          </div>
+
+        </div>
+
+        <p id="modal-subtitle">Esta janela será fechada em <span id="counter-success">7</span> ...</p>
+      </div>
+      <!-- Modal body-->
+    </div>
+    <!-- Modal content-->
+  </div>
+  <!-- Modal dialog-->
+</div>
+<!-- Modal-->
+
+<!-- Modal de erro de carregamento -->
+<div class="modal fade" id="modalUploadError" tabindex="-1" role="dialog" aria-labelledby="modalUploadError" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+    <div class="modal-content">
+      <!-- Modal header-->
+      <div class="modal-header">
+        <span id="modal-title">Falha no upload</span>
+
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Modal header-->
+
+      <!-- Modal body-->
+      <div class="modal-body">
+
+        <div class="centered-container">
+
+          <div id="inner-cicle-error">
+            <svg width="110px" height="110px" viewBox="0 0 16 16" class="bi bi-x" fill="#ed162b" xmlns="http://www.w3.org/2000/svg">
+                <path fill-rule="evenodd" d="M11.854 4.146a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708-.708l7-7a.5.5 0 0 1 .708 0z"/>
+                <path fill-rule="evenodd" d="M4.146 4.146a.5.5 0 0 0 0 .708l7 7a.5.5 0 0 0 .708-.708l-7-7a.5.5 0 0 0-.708 0z"/>
+            </svg>
+          </div>
+        </div>
+
+        <% if alert %>
+            <p><%= alert %> - Tente novamente mais tarde.</p>
+        <% end %>
+
+        <p id="modal-subtitle">Esta janela será fechada em <span id="counter-error">7</span> ...</p>
+      </div>
+      <!-- Modal body-->
+    </div>
+    <!-- Modal content-->
+  </div>
+  <!-- Modal dialog-->
+</div>
+<!-- Modal-->
+
+<!-- Botão de ativação de modais-->
+<a id="modalButton" class="d-none" data-toggle="modal"></a>

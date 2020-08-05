@@ -1,0 +1,20 @@
+
+<h1 class="page-header">Livros Digitais - Online</h1>
+
+    <div class="col-md-12">
+
+        <div class="book-list">
+            <% books.each do |book| %>
+                <%= link_to backoffice_book_path(book), method: :delete, data: { confirm: 'Você tem certeza que deseja deletar esse livro?' } do %>
+                    <div class="card">
+                        <%= image_tag book.cover.url || "livro.png", class: "book-image" %>
+                        <div class="overlay">
+                            <div class="delete-container">
+                                <i class="fa fa-trash" aria-hidden="true"></i>
+                            </div>
+                        </div>
+                    </div>
+                <% end %>
+            <% end %>
+        </div>
+    </div>

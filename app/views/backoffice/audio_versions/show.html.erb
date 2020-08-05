@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Title:</strong>
+  <%= @audio_version.title %>
+</p>
+
+<p>
+  <strong>Level:</strong>
+  <%= @audio_version.level.title %>
+</p>
+
+<%= link_to 'Edit', edit_backoffice_audio_version_path(@audio_version) %> |
+<%= link_to 'Back', backoffice_audio_versions_path %>

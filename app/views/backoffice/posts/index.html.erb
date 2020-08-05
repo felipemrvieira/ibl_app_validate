@@ -1,0 +1,55 @@
+
+<h1 class="page-header">Posts</h1>
+
+<div class="row">
+    <div class="col-md-12">
+        <div class="well">
+            <%= form_tag backoffice_posts_path, method: 'get', id: "questions_search", class: "form-inline" do %>
+                <h4>Filtro</h4>
+                <div class="form-group" style="margin-right: 20px;">
+                    <label for="title">Nome da unidade</label>
+                    <%= text_field_tag :keyword, "", class: 'form-control', id: "title" %>
+                </div>
+
+                <%= submit_tag "Filtrar", :name => nil, class: "btn btn-default" %>
+            <% end %>
+            <%= link_to "Limpar Filtro", backoffice_posts_path %>
+        </div>
+        <br>
+    </div>
+</div>
+
+    <div class="col-md-12">
+
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead>
+                    <tr>
+                      <th>id</th>
+                      <th>Título</th>
+                      <th>Slug</th>
+                      <th><%= @posts.length %> resultados</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <% @posts.each do |post| %>
+                        <tr>
+                          <td><%= post.id %></td>
+                          <td><%= post.title %></td>
+                          <td><%= post.slug %></td>
+                          <td>
+                              <%= link_to backoffice_post_path(post), class: "btn btn-default btn-circle" do %>
+                                  <i class="fa fa-search"></i>
+                              <% end %>
+                          </td>
+                        </tr>
+                    <% end %>
+                </tbody>
+            </table>
+            <div class="col-md-12">
+              <div style="text-align: center;">
+                <%= pagy_bootstrap_nav(@pagy).html_safe %>
+              </div>
+            </div>
+        </div>
+    </div>

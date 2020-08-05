@@ -1,0 +1,98 @@
+<%= form_with(model: course, local: true, url: path) do |form| %>
+
+  <% if course.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(course.errors.count, "error") %> prohibited this movie from being saved:</h2>
+
+      <ul>
+      <% course.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group ">
+    <div class="row">
+      <div class="col-sm-4">
+          <%= image_tag @course.course_flag.thumb.url || "avatar.png", id: "flag", class: "img-circle",  width: "100px", height: "100px" %>
+      </div>
+      <div class="col-sm-4">
+        <%# form.file_field :avatar %>
+        <%= form.file_field :course_flag %>
+      </div>
+    </div>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Título" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Idioma" %>
+    <%= form.text_field :language , class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-12">
+    <%= form.label "Descrição" %>
+    <%
+=begin%>
+ <%= form.text_area :description , class: "form-control" %>
+<%
+=end%>
+    <%= form.text_area :description, 'data-provider': :summernote %>
+
+  </div>
+
+  <div class="field form-group col-md-4">
+    <%= form.label "Publicado no site" %>
+    <%= form.check_box :published, class: "" %>
+  </div>
+
+  <div class="field form-group col-md-4">
+    <%= form.label "Curso Relacionado" %>
+    <%= collection_select(:course, :course_id, Course.all, :id, :title, {:prompt => true}, {:class=>'form-control'}) %>
+  </div>
+
+  <div class="field form-group col-md-4">
+    <%= form.label "Ordem de exibição no site" %>
+    <%= form.number_field :order, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-4">
+    <%= form.label "Imagem de capa no site" %>
+    <%= form.file_field :cover %>
+  </div>
+
+  <div class="field form-group col-md-4">
+    <%= form.label "Imagem interna no site" %>
+    <%= form.file_field :inner %>
+  </div>
+
+   <div class="field form-group col-md-4">
+    <%= form.label "Flag do site" %>
+    <%= form.file_field :site_flag %>
+  </div>
+
+  <h3 class="col-md-12 ">Levels</h3>
+  <div id="levels" class="col-md-12">
+
+    <div >
+      <%= form.fields_for :levels do |level| %>
+        <%= render 'level_fields', f: level %>
+      <% end %>
+    </div>
+
+
+    <div class="links col-md-12">
+      <%= link_to_add_association "Adicionar nível", form, :levels, :class => "btn btn-outline btn-primary"%>
+    <br>
+    <br>
+    </div>
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+<% end %>

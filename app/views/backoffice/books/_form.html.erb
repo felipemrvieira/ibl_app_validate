@@ -1,0 +1,80 @@
+<%= form_with(model: book, local: true, url: path) do |form| %>
+<% if book.errors.any? %>
+<div id="error_explanation">
+  <h2><%= pluralize(book.errors.count, "erro") %> impediu esse livro de ser salvo:</h2>
+
+  <ul>
+    <% book.errors.full_messages.each do |message| %>
+    <li><%= message %></li>
+    <% end %>
+  </ul>
+</div>
+<% end %>
+
+<div class="row">
+  <div class="field form-group col-md-12">
+    <%= form.label "Título" %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-12">
+    <%= form.label "Nível" %>
+    <%= collection_select(:book, :level_id, Level.all, :id, :couse_level_title, {:prompt => true}, {:class=>'form-control'}) %>
+  </div>
+
+  <div class="field form-group col-md-12">
+    <%= form.label "Baixável" %>
+    <%= form.check_box :downloadable %>
+  </div>
+
+  <div class="field form-group col-md-12">
+    <%= form.label(:aapl, "Livro - PDF") %>
+    <%= form.file_field :attachment %>
+  </div>
+
+  <div class="field form-group col-md-12">
+    <%= form.label(:aapl, "Capa do Livro") %>
+    <%= form.file_field :cover %>
+  </div>
+
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default", data: { toggle: "modal", target: "#modalUpload" } %>
+  </div>
+</div>
+
+<% end %>
+
+
+<script>
+  var counterError, counterSuccess;
+  $(document).ready(function() {
+    var isUploadSuccess = '<%= notice %>'.indexOf('adicionado') !== -1;
+    var isUploadError = '<%= alert %>';
+    var modalButton = document.getElementById('modalButton');
+    counterError = document.getElementById('counter-error');
+    counterSuccess = document.getElementById('counter-success');
+    var counter = isUploadSuccess === true ? counterSuccess : counterError;
+    var i = 7;
+
+    function setCounter() {
+      if (i > 0)
+        setTimeout(function() {
+          i--;
+          counter.innerText = i;
+          setCounter();
+        }, 1000);
+      else if (document.body.classList.contains('modal-open'))
+        modalButton.click();   
+    }
+
+    if (isUploadSuccess === true) {
+      modalButton.setAttribute('data-target', '#modalUploadSuccess');
+      modalButton.click();
+      setCounter();
+    } else if (isUploadError === 'true') {
+      modalButton.setAttribute('data-target', '#modalUploadError');
+      modalButton.click();
+      setCounter();
+    }
+  });
+</script>

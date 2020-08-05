@@ -1,0 +1,178 @@
+<% unless current_student.levels.exists?(@current_student.id) %>
+    <div class="nao-matriculado">
+        <%= image_tag "sad-dog.png" %>
+        <p class="">Você ainda não está matriculado em nenhum curso. 
+        Procure a secretaria da sua unidade para realizar sua matrícula!</p>
+    </div>
+<% end %>
+
+<% @levels.each do |level| %>
+    <div id="level">
+        <p class="level-label"><%= level.title %></p>
+
+        <% unless level.paths.exists? %>
+            <div class="no-path">
+                <p class="">Ainda não existem lições cadastradas. Aguarde um pouco e em breve você poderá praticar!</p>
+            </div>
+        <% end %>
+
+        <% level.paths.each do |path| %>
+            
+            <div class="lesson">
+                <!-- Icons -->
+                <div class="icons-wrapper">
+                <div class="icon pratice-icon" 
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Pratice"
+                data-delay='{"show":"150", "hide":"200"}'
+                >
+                    <%= image_tag "dumbell.png", data:{ toggle:"modal", target:"#modalExercise", backdrop:"static", keyboard:"false" } %>
+                </div>
+                <div class="icon learn-icon"
+                data-toggle="tooltip" 
+                data-placement="top" 
+                title="Learn" 
+                data-delay='{"show":"150", "hide":"200"}'
+                >
+                    <%= image_tag "lamp.png", data:{ toggle:"modal", target:"#modalReforco", backdrop:"static", keyboard:"false" } %>
+                </div>
+                </div>
+                <!-- Icons -->
+
+                <!-- Progress -->
+                <div id="progress-bar-container">
+                <div class="progress-bar-child progress">
+                    <div class="lesson-wrapper">
+                    <p class="lesson-name"><%= path.title %></p>
+                    <p class="lesson-percentage">55/60</p>
+                    </div>
+                </div>
+                <div class="progress-bar-child shrinker timelapse"></div>
+                </div>
+                <!-- Progress -->
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalExercise" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <!-- Modal header-->
+                    <div class="modal-header">
+                        <!-- progress   -->
+                        <div class="progress-bar-modal">
+                        <div class="progress-bar-child progress"></div>
+                        <div class="progress-bar-child shrinker timelapse"></div>
+                        </div>
+                        <!-- progress   -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Modal header-->
+                    
+                    <!-- Modal body-->
+                    <div class="modal-body">
+                    <% path.questions.each do |question| %>
+                
+                        <%= form_with(model: @quiz, remote: true) do |form| %>
+                            <h5 class="question-title">Questão <%= question.order %></h5>
+                            <p class="question-description">
+                                <%= raw question.description %>
+                            </p>
+                            <%= form.hidden_field :question_id, :value => question.id %>
+                            <%= form.hidden_field :student_id, :value => current_student.id %>
+                            <div class="field form-group">
+                                <%= collection_radio_buttons(:quiz, :question_option_id, question.question_options.all, :id, :option_description,  {:class =>'form-check-input'}, html_options = {:required => 'required'}  ) do |b| %>
+                                    <div class="form-check">
+                                        <%= b.label(:class => 'form-check-label container')  do %>
+                                            <%= b.radio_button + b.text %>
+                                            <span class="checkmark"></span>
+                                        <% end %>
+                                    </div>
+                                <% end %>
+                               
+                            </div>
+                            <%= form.hidden_field :question_id, :value => question.id %>
+                            <%= form.hidden_field :student_id, :value => current_student.id %>
+                            
+                            <div class="actions action-container d-flex justify-content-end">
+                                <%= form.submit "Responder", class: "btn align-self-end" %>
+                            </div>
+                        <% end %>
+                        
+                    <% end %>
+                    </div>
+                    <!-- Modal body-->
+                    </div>
+                    <!-- Modal content-->
+                </div>
+                <!-- Modal dialog-->
+                </div>
+                <!-- Modal-->
+
+                <!-- Modal -->
+                <div class="modal fade" id="modalReforco" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+                aria-hidden="true">
+                <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+                    <div class="modal-content">
+                    <!-- Modal header-->
+                    <div class="modal-header">
+                        <!-- progress   -->
+                        <div class="progress-bar-modal">
+                        <div class="progress-bar-child progress"></div>
+                        <div class="progress-bar-child shrinker timelapse"></div>
+                        </div>
+                        <!-- progress   -->
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <!-- Modal header-->
+                    <!-- Modal body-->
+                    <div class="modal-body">
+                        <h5 class="question-title">Title Question</h5>
+                        <div class="img-container">
+                        <%= image_tag  "octopus.jpg" %>
+                        </div>
+                        <p class="question-description">Lorem ipsum dolor sit amet consectetur adipisicing elit.</p>
+                        <form action="">
+                        <div class="form-group">
+                        
+                            <label class="container">One
+                                <input type="radio" checked="checked" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Two
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Three
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+                            <label class="container">Four
+                                <input type="radio" name="radio">
+                                <span class="checkmark"></span>
+                            </label>
+
+                        </div>
+
+                        <div class="action-container d-flex justify-content-end">
+                            <button type="submit" class="btn align-self-end">Submit</button>
+                        </div>
+                        </form>
+                    </div>
+                    <!-- Modal body-->
+                    </div>
+                    <!-- Modal content-->
+                </div>
+                <!-- Modal dialog-->
+                </div>
+                <!-- Modal-->
+
+            </div>
+            <!-- Lesson-->
+        <% end %>
+    </div>
+<% end %>

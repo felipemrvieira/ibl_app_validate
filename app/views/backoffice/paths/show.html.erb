@@ -1,0 +1,84 @@
+
+<h1 class="page-header"><%= @path.level.course.title %> <%= @path.level.title %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @path.title %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <strong>Título:</strong>
+        <%= @path.title %>
+      </p>
+      <%
+=begin%>
+ <p>
+        <strong>Curso:</strong>
+        <%= @path.course.title %>
+      </p> 
+<%
+=end%>
+      
+      <%= link_to 'Editar', edit_backoffice_path_path(@path), class: "btn btn-outline btn-primary" %>
+      <%
+=begin%>
+ <%= link_to 'Excluir', backoffice_level_path(@level),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>  
+<%
+=end%>
+
+    </div>
+  </div>
+</div>
+
+<div class="col-md-12">
+
+
+<h3 class="page-header">Questões da lição <%= @path.title %> </h3>
+
+  <div class="table-responsive">
+      <table class="table table-hover table-question">
+        <thead>
+          <tr>
+            <th>Título</th>
+            <th>Comando da Questão</th>
+            <th>Curso</th>
+            <th>Nível</th>
+            <th>Lição</th>
+            <th></th>
+          </tr>
+        </thead>
+
+        <tbody>
+          <% @questions.each do |question| %>
+            <tr>
+              <td><%= question.title %></td>
+              <td><%= raw question.description %></td>
+              <td><%= question.path.level.course.title %></td>
+              <td><%= question.path.level.title %></td>
+              <td><%= question.path.title %></td>
+              <td>
+                <%= link_to backoffice_question_path(question), class: "btn btn-default btn-circle" do %>
+                    <i class="fa fa-search"></i>
+                <% end %>
+              </td>
+            </tr>
+          <% end %>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div style="text-align: center;">      
+          <%= pagy_bootstrap_nav(@pagy).html_safe %>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div class="col-md-12">
+    <div style="">
+      <%= link_to 'Nova Questão', new_backoffice_question_path(:path => @path), class: "btn btn-default" %>
+      <br><br>
+    </div>
+  </div>
+
+

@@ -1,0 +1,103 @@
+
+<h1 class="page-header">Curso <%= @course.title %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @course.title %>
+    </div>
+    <div class="panel-body">
+      <p>
+        <%# image_tag user_avatar(@student, 100), id: "avatar", class: "img-circle" %>
+        <%= image_tag @course.course_flag.thumb.url || "avatar.png", id: "avatar", class: "img-circle",  width: "100px", height: "100px" %>
+      </p>
+      <p>
+        <strong>Título:</strong>
+        <%= @course.title %>
+      </p>
+      <p>
+        <strong>Idioma:</strong>
+        <%= @course.language %>
+      </p>
+      <p>
+        <strong>Descrição:</strong>
+        <%= @course.description %>
+      </p>
+
+      <p>
+        <strong>Níveis:</strong>
+        <% @course.levels.each do |level|%>
+          <%= link_to backoffice_level_path(level) do %>
+            <span class="badge badge-pill badge-primary"><%=level.title %></span>
+          <% end %>
+        <% end %>
+      </p>
+
+      <% if @course.father_course %>
+        <p>
+          <strong>Curso Relacionado:</strong>
+          <%= @course.father_course.title %>
+        </p>
+      <% end %>
+
+      <p>
+        <strong>Imagem de capa para o site:</strong>
+        <%= image_tag @course.cover.url,  width: "300px" if @course.cover.url%>
+      </p>
+
+      <p>
+        <strong>Imagem interna para o site:</strong>
+        <%= image_tag @course.inner.url,  width: "300px" if @course.inner.url%>
+      </p>
+
+      <p>
+        <strong>Bandeira do curso para o site:</strong>
+        <%= image_tag @course.site_flag.url || "avatar.png" %>
+      </p>
+
+      <%= link_to 'Editar', edit_backoffice_course_path(@course), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_course_path(@course),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+  </div>
+</div>
+
+
+<div class="col-md-12">
+<h3 class="">Níveis</h3>
+
+    <div class="table-responsive">
+        <table class="table table-hover">
+          <thead>
+            <tr>
+              <th>Nível</th>
+              <th>Lições</th>
+              <th>Questões</th>
+              <th>Estudantes</th>
+              <th></th>
+            </tr>
+          </thead>
+        <tbody>
+            <% @course.levels.each do |level| %>
+              <tr>
+                <td><%=level.title %></td>
+                <td><%=level.paths.count %></td>
+                <td>
+                  <% num = 0  %>
+                  <% level.paths.each do |path| %>
+                    <% num = num + path.questions.count %>
+                  <% end %>
+                  <%= num  %>
+                </td>
+                <td><%=level.errolments.count %></td>
+                <td>
+                  <%= link_to backoffice_level_path(level), class: "btn btn-default btn-circle" do %>
+                    <i class="fa fa-search"></i>
+                  <% end %>
+                </td>
+              </tr>
+            <% end %>
+        </tbody>
+        </table>
+    </div>
+</div>
+

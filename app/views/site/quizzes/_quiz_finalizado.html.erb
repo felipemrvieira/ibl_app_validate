@@ -1,0 +1,7 @@
+<div id="quiz-finalizado-<%= quiz.id %>"  class="lesson-finished <%= quiz.displayed? %>">
+    <%= image_tag current_student.student_avatar.thumb.url || "avatar.png", 
+        id: "avatar",  width: "160px", height: "160px" %>
+    <h4>Parabéns</h4>
+    <p>Você concluiu esta etapa.</p> 
+    <p>Continue praticando e seu inglês estará cada vez melhor!</p>
+</div>

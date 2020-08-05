@@ -1,0 +1,11 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  current_page: 
+  book: one
+  student: one
+
+two:
+  current_page: 
+  book: two
+  student: two

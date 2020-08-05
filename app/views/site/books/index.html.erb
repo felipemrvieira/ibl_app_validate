@@ -1,0 +1,92 @@
+<div id="book-title">
+    <%= link_to site_course_book_path(@course) do %>
+        <%= image_tag "arrow-back.png", class: "back-button" %>
+    <% end %>
+
+    <h2>Livro - <%= @book.course_level_book %></h2>
+</div>
+
+<br>
+
+<div id="book-pdf">
+    <span id="book-message">Carregando Livro...</span>
+</div>
+
+<br>
+<br>
+
+<%= render 'partials/modal_config' %>
+
+<script>
+    var pdfParent = document.getElementById('book-pdf');
+    var bookMessage = document.getElementById('book-message');
+    var pdfEl = document.createElement('iframe');
+    var currentPageValue = '<%= @student_book.current_page or 1 %>';
+    var firstScroll = true
+
+    pdfEl.setAttribute('id', 'pdf-viewer');
+
+    pdfEl.onload = function() {
+        if (pdfEl.contentDocument) {
+            var pdfScroller = pdfEl.contentDocument.getElementById('viewerContainer');
+
+            pdfScroller.addEventListener('scroll', function() {
+                clearTimeout(pageNumberDebouncer);
+                pageNumberDebouncer = setTimeout(function() {
+                    var pageValue = pdfEl.contentWindow.PDFViewerApplication.pdfViewer.currentPageNumber
+                    if (!firstScroll && !isNaN(pageValue) && pageValue != currentPageValue) {
+                        $.ajax({
+                            type: "POST",
+                            url: '/site/book_save_page',
+                            dataType: "json",
+                            data: {
+                                page_number: pageValue,
+                                book_id: '<%= @book.id %>'
+                            },
+                            success: function() {
+                                currentPageValue = pageValue;
+                            }
+                        });
+                    }
+
+                    firstScroll = false; 
+                }, 1000);
+            });
+        }
+    }
+
+    var pdfUrl = '<%= @book.attachment.url %>';
+    var isDownloadable = '<%= @book.downloadable %>';
+    var savePageEl = document.getElementById('page-saver');
+    var pageNumberDebouncer = 0;
+
+    function reqListener () {
+        if (this.status == 200) {
+            var blob = new Blob([this.response], { type: 'application/pdf' });
+            var url = URL.createObjectURL(blob);
+
+            pdfEl.setAttribute('src', '/assets/web/viewer.html?file=' + url + '#page=' + currentPageValue);
+            pdfParent.replaceChild(pdfEl, bookMessage);
+
+            if (isDownloadable === 'true') {
+                var downloadButton = document.createElement('a');
+                downloadButton.setAttribute('href', url);
+                downloadButton.setAttribute('download', '<%= @book.course_level_book %>.pdf');
+                downloadButton.classList.add('download-button');
+                var iconHTML = '<%= image_tag "arrow-down.png" %> <span>Baixar Livro</span>';
+                downloadButton.innerHTML = iconHTML;
+                pdfParent.appendChild(downloadButton);
+            }
+        } else {
+            var errorMessage = document.createElement('span');
+            errorMessage.innerText = "Livro não encontrado, tente novamente em alguns minutos.";
+            pdfParent.replaceChild(errorMessage, bookMessage);
+        }
+    };
+
+    var oReq = new XMLHttpRequest();
+    oReq.onload = reqListener;
+    oReq.responseType = 'blob';
+    oReq.open("get", pdfUrl, true);
+    oReq.send();
+</script>

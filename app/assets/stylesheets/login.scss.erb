@@ -1,0 +1,209 @@
+// bower:scss
+// endbower
+@import "bootstrap";
+@import 'site/variables';
+@import "font-awesome";
+
+.container-fluid{
+  margin: 0;
+  padding: 0;
+}
+
+@media (min-width: 991px) {
+
+    body{ 
+        .container-fluid{
+        
+            nav{
+                position: absolute;
+                z-index: 998;
+                width: 100%;
+                a{
+                    img{
+                        width: 170px;
+                    }
+                }
+                
+                #slogan{
+                    img{
+                        width: 140px;       
+                    }
+                }
+            }
+
+            main{
+                height: 100vh;
+                max-width: 100%;
+                overflow: hidden;
+                
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                
+                background-image: url(<%= asset_path 'students.jpg' %>);
+                background-color: #cccccc; /* Used if the image is unavailable */
+                background-position: center; /* Center the image */
+                background-repeat: no-repeat; /* Do not repeat the image */
+                background-size: cover; /* Resize the background image to cover the entire container */
+               
+                &:before{
+                    background: $blue-gradiente;
+                    /* Old browsers */
+                    background: -moz-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    opacity: .85; 
+
+                }
+            #card-login{
+                z-index: 999;
+                width: 30%;
+                margin-bottom: 2em;
+                @import 'site/card-login';
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 990px) {
+
+    body{
+        .container-fluid{
+        
+            nav{
+                z-index: 998;
+                position: absolute;
+                width: 100%;
+                a{
+                    img{
+                        width: 130px;
+                    }
+                }
+                
+                #slogan{
+                    img{
+                        width: 100px;       
+                    }
+                }
+            }
+
+            main{
+            height: 100vh;
+            max-width: 100%;
+            overflow: hidden;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            
+            background-image: url(students.jpg); /* The image used */
+            background-color: #cccccc; /* Used if the image is unavailable */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+               
+                &:before{
+                    background: $blue-gradiente;
+                    /* Old browsers */
+                    background: -moz-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    opacity: .85; 
+
+                }            
+                
+                #card-login{
+                    z-index: 999;
+                    width: 50%;
+                    margin-bottom: 2em;
+                    @import 'site/card-login';
+                }
+            }
+        }
+    }
+}
+
+
+@media (max-width: 550px) {
+
+    body{
+        .container-fluid{
+        
+            nav{
+                z-index: 998;
+                position: absolute;
+                width: 100%;
+                a{
+                    img{
+                        width: 100px;
+                    }
+                }
+                
+                #slogan{
+                    img{
+                        width: 70px;       
+                    }
+                }
+            }
+
+            main{
+            height: 100vh;
+            max-width: 100%;
+            overflow: hidden;
+            
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-image: url(students.jpg); /* The image used */
+            background-color: #cccccc; /* Used if the image is unavailable */
+            background-position: center; /* Center the image */
+            background-repeat: no-repeat; /* Do not repeat the image */
+            background-size: cover; /* Resize the background image to cover the entire container */
+               
+                &:before{
+                    background: $blue-gradiente;
+                    /* Old browsers */
+                    background: -moz-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* FF3.6-15 */
+                    background: -webkit-linear-gradient(left, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    /* Chrome10-25,Safari5.1-6 */
+                    background: linear-gradient(to right, $blue-gradiente 0%, $green-gradiente 50%, $yellow-gradiente 100%);
+                    content: '';
+                    position: absolute;
+                    top: 0;
+                    right: 0;
+                    bottom: 0;
+                    left: 0;
+                    opacity: .85; 
+
+                }  
+            #card-login{
+                z-index: 999;
+                width: 75%;
+                margin-bottom: 2em;
+                @import 'site/card-login';
+                }
+            }
+        }
+    }
+}

@@ -1,0 +1,7 @@
+<h1 class="page-header">Upload de Livros Digitais</h1>
+
+<%= render 'form', book: @book, path: backoffice_books_path %>
+
+<%= render 'show', books: Book.all, path: backoffice_books_path %>
+
+<%= render 'partials/modal_upload' %>

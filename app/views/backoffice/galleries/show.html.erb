@@ -1,0 +1,26 @@
+<h1 class="page-header">Galeria <%= @gallery.id %></h1>
+
+<div class="col-md-12">
+  <div class="panel panel-default ">
+    <div class="panel-heading">
+      <%= @gallery.id %>
+    </div>
+    <div class="panel-body">
+
+      <h4>Imagens da Galeria</h4>
+      <% @gallery.images.each_with_index do |document, index| %>
+        <%= link_to(document.url, target: '_blank') do %>
+          <%= image_tag(document.url, style: 'width:200px;') %>
+        <% end %>
+      <% end %>
+      <br /> <br />
+   
+      <%= link_to 'Editar', edit_backoffice_gallery_path(@gallery), class: "btn btn-outline btn-primary" %>
+      <%= link_to 'Excluir', backoffice_gallery_path(@gallery),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+    </div>
+
+  </div>
+</div>
+
+
+
