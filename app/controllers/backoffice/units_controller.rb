@@ -92,6 +92,8 @@ class Backoffice::UnitsController < BackofficeController
       :published,
       :admin,
       :cover,
+      :has_online_classes,
+      :has_presential_classes,
       {images: []},
       address_attributes: [
         :id,

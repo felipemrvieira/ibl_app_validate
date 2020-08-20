@@ -71,6 +71,16 @@
     </div>
   <% end %>
 
+  <div class="field form-group col-md-6">
+    <%= form.label(:aapl, "Curso Presencial") %>
+    <%= form.check_box :has_presential_classes , class: "" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Curso Online" %>
+    <%= form.check_box :has_online_classes , class: "" %>
+  </div>
+
   </div>
   <hr>
   <div class="row">

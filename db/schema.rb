@@ -402,6 +402,8 @@ ActiveRecord::Schema.define(version: 2020_07_19_154052) do
     t.string "cover"
     t.string "email_message"
     t.boolean "manager"
+    t.boolean "has_online_classes"
+    t.boolean "has_presential_classes"
     t.index ["email"], name: "index_units_on_email", unique: true
     t.index ["reset_password_token"], name: "index_units_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_units_on_slug", unique: true
