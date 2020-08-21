@@ -8,7 +8,7 @@ class Student < ApplicationRecord
   has_many :errolments, dependent: :destroy
   has_many :levels, through: :errolments, dependent: :destroy
   accepts_nested_attributes_for :errolments, allow_destroy: true
-  belongs_to :unit
+  belongs_to :unit, counter_cache: true
   has_many :quizzes, dependent: :destroy
   has_many :attempts, dependent: :destroy
   has_many :question_errors, dependent: :destroy
