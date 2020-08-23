@@ -8,6 +8,8 @@ Rails.application.routes.draw do
     # post 'messages', to: 'messages#create'
     get 'states', to: 'messages#states'
     # get 'posts', to: 'messages#posts'
+    post 'books', to: 'books#create'
+    patch 'books', to: 'books#update'
   end
 
   namespace :site do

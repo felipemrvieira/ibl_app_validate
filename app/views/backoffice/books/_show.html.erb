@@ -5,16 +5,72 @@
 
         <div class="book-list">
             <% books.each do |book| %>
-                <%= link_to backoffice_book_path(book), method: :delete, data: { confirm: 'Você tem certeza que deseja deletar esse livro?' } do %>
-                    <div class="card">
-                        <%= image_tag book.cover.url || "livro.png", class: "book-image" %>
-                        <div class="overlay">
-                            <div class="delete-container">
-                                <i class="fa fa-trash" aria-hidden="true"></i>
-                            </div>
+                <div class="btn-group dropright card card-shadow">
+                    <%= image_tag book.cover.url || "livro.png", class: "book-image" %>
+                    
+                    <div class="overlay">
+                        <div class="delete-container">
+                            <%= image_tag "icon-config-white.png" %>
                         </div>
                     </div>
-                <% end %>
+
+                    <div class="btn btn-secondary dropdown-toggle overlay" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"></div>
+
+                    <div class="dropdown-menu drop-centered">
+                        <div class="dropdown-container small-drop">
+                          <%= link_to edit_backoffice_book_path(book) + "?modalBook=true", class: "dropdown-item" do %> Editar <% end %>
+
+                          <%= link_to backoffice_book_path(book), method: :delete, data: { confirm: 'Você tem certeza que deseja deletar esse livro?' }, class: "dropdown-item" do %> Deletar <% end %>
+                        </div>
+                    </div>
+                </div>
             <% end %>
         </div>
     </div>
+
+<!-- Modal de criação / edição de livros -->
+<%= render 'partials/modal_upload' %>
+
+<!-- Botão de ativação de modais -->
+<a id="modalButton" class="d-none" data-toggle="modal"></a>
+
+<script>
+  var counterError, counterSuccess;
+  $(document).ready(function() {
+    var isUploadSuccess = '<%= notice %>'.indexOf('adicionado') !== -1;
+    var isUploadError = '<%= alert %>';
+    var urlParams = new URLSearchParams(window.location.search);
+    var shouldBookModalOpen = urlParams.has('modalBook');
+    var modalButton = document.getElementById('modalButton');
+    counterError = document.getElementById('counter-error');
+    counterSuccess = document.getElementById('counter-success');
+    var counter = isUploadSuccess === true ? counterSuccess : counterError;
+    var i = 7;
+
+    function setCounter(modalTarget) {
+      if (i > 0)
+        setTimeout(function() {
+          i--;
+          counter.innerText = i;
+          setCounter(modalTarget);
+        }, 1000);
+      else if (document.body.classList.contains('modal-open')) {
+        modalButton.setAttribute('data-target', modalTarget);
+        modalButton.click();   
+      }
+    }
+
+    if (isUploadSuccess === true) {
+      modalButton.setAttribute('data-target', '#modalUploadSuccess');
+      modalButton.click();
+      setCounter('#modalUploadSuccess');
+    } else if (isUploadError === 'true') {
+      modalButton.setAttribute('data-target', '#modalUploadError');
+      modalButton.click();
+      setCounter('#modalUploadError');
+    } else if (shouldBookModalOpen) {
+      $('#modalButton').attr('data-target', '#modalBook');
+      $('#modalButton').click();
+    }
+  });
+</script>

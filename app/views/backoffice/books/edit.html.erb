@@ -1,0 +1,8 @@
+
+<%= render 'show', books: Book.all, path: backoffice_books_path %>
+
+<h1 class="page-header">Upload de Livros Digitais</h1>
+
+<%= render 'send_button' %>
+
+<%= render 'partials/modal_book', current_book: @book %>

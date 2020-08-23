@@ -184,6 +184,11 @@ $yellow-gradiente: #bcff3f;
                 font-weight: bold;
               }
 
+              .class-title {
+                font-size: 30px;
+                font-weight: bold;
+              }
+
               .progress-bar-modal {
                   position: relative;
                   margin-top: 10px;
@@ -273,9 +278,10 @@ $yellow-gradiente: #bcff3f;
 
             }
 
-            @media screen and (max-width: 600px) {
+            @media screen and (max-width: 768px) {
                 .modal-body {
                     width: 100%;
+                    overflow: auto;
                 }
             }
 

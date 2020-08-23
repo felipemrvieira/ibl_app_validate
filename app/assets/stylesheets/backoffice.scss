@@ -39,13 +39,6 @@
     transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
-@media (min-width: 768px){
-
-    .sidebar {
-        margin-top: 82px;
-    }
-}
-
 .navbar-brand {
     height: 78px;
 }
@@ -147,6 +140,11 @@
         padding: 10px;
         border-radius: 10px;
         border: none;
+
+    }
+    
+    .drop-centered {
+        margin-top: 80px;
     }
     
     .dropdown-item {
@@ -178,6 +176,11 @@
         display: flex;
         flex-direction: column;
         overflow: auto;
+
+    }
+
+    .small-drop {
+        height: 70px;
     }
 
     .dropdown-container::-webkit-scrollbar {
@@ -187,6 +190,71 @@
     .dropdown-container::-webkit-scrollbar-thumb {
         background: #cccccc;
         border-radius: 10px;
+    }
+
+}
+
+.mb-2 {
+    margin-bottom: 20px;
+}
+
+.mt-2 {
+    margin-top: 20px;
+}
+
+.form-checkbox-alignment {
+    height: 47px;
+    display: flex;
+    align-items: center;
+
+    label {
+        margin: 0;
+        margin-right: 5px;
+    }
+
+    input {
+        margin-top: 0;
+    }
+}
+
+.send-button {
+    border-radius: 7px;
+    border: 2px solid #5a91d7;
+    padding: 7px 20px 7px 10px;
+
+    label {
+        color: #5a91d7;
+        font-size: 17px;
+        font-weight: 500;
+    }
+
+    i {
+        color: #5a91d7;
+        margin-right: 10px;
+        font-size: 17px;
+    }
+
+    &:hover {
+        color: #5a91d7;
+        text-decoration: none;
+    }
+}
+
+@media (min-width: 768px){
+
+    .sidebar {
+        margin-top: 82px;
+    }
+
+}
+
+@media (max-width: 768px) {
+    .book-list .dropdown-menu {
+        left: 120px;
+    }
+
+    .book-list .drop-centered {
+        left: 100px;
     }
 
 }

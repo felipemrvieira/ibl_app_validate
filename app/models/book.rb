@@ -2,6 +2,7 @@ class Book < ApplicationRecord
   validates_presence_of :title
   validates_presence_of :attachment
   validates_presence_of :cover
+  validates :level_id, inclusion: { in: ->(i) { [i.level_id_was] } }, on: :update
   
   mount_uploader :attachment, BookUploader
   mount_uploader :cover, CoverUploader

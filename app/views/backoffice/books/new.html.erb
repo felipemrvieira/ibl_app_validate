@@ -1,7 +1,18 @@
-<h1 class="page-header">Upload de Livros Digitais</h1>
-
-<%= render 'form', book: @book, path: backoffice_books_path %>
 
 <%= render 'show', books: Book.all, path: backoffice_books_path %>
 
-<%= render 'partials/modal_upload' %>
+<h1 class="page-header">Upload de Livros Digitais</h1>
+
+<%= render 'send_button' %>
+
+<%= render 'partials/modal_book', current_book: @book %>
+
+<script>
+  $(document).ready(function() {
+    var shouldOpenModal = '<%= @book.errors.any? %>'
+    $('#modalButton').attr('data-target', '#modalBook');
+    
+    if (shouldOpenModal === 'true')
+      $('#modalButton').click();
+  });
+</script>

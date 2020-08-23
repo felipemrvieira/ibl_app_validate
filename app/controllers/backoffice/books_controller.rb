@@ -34,10 +34,10 @@ class Backoffice::BooksController < BackofficeController
     authorize @book
     respond_to do |format|
       if @book.update(book_params)
-        format.html { redirect_to @book, notice: 'O livro foi atualizado com sucesso.' }
-        format.json { render :show, status: :ok, location: @book }
+        format.html { redirect_to new_backoffice_book_path, notice: "O livro #{@book.course_level_book} foi atualizado." }
+        format.json { render :show, status: :ok, location: new_backoffice_book_path }
       else
-        format.html { render :edit }
+        format.html { render :new }
         format.json { render json: @book.errors, status: :unprocessable_entity }
       end
     end
@@ -52,6 +52,8 @@ class Backoffice::BooksController < BackofficeController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_book
+      puts 'here', params
+      params[:id] = params[:id] ? params[:id] : params[:book][:id]
       @book = Book.find(params[:id])
     end
 

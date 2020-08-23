@@ -1,0 +1,91 @@
+<!-- Modal de edição / criação de livros -->
+<div class="modal fade" 
+    id="modalBook" 
+    tabindex="-1" 
+    role="dialog" 
+    aria-labelledby="modalBook"
+    aria-hidden="true"
+>
+    <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+        <div class="modal-content">
+            <% book = current_book %>
+    
+            <!-- Modal header-->
+            <div class="modal-header mb-2">
+                <span id="modal-title"><%= book.id ? 'Edição livro digital' : 'Upload de Livros Digitais' %> </span>
+                <button type="button" id="modalBookCloseButton" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <!-- Modal header-->
+            
+            <!-- Modal body-->
+            <div class="modal-body">
+
+            <%= form_with(model: book, local: true, url: backoffice_books_path, autocomplete: "off", id: "modalBookForm") do |form| %>
+                <% if book.errors.any? %>
+                    <div id="error_explanation">
+                    <h2><%= pluralize(book.errors.count, "error") %> prohibited this book from being saved:</h2>
+
+                    <ul>
+                    <% book.errors.full_messages.each do |message| %>
+                        <li><%= message %></li>
+                    <% end %>
+                    </ul>
+                    </div>
+                <% end %>
+
+                <div class="row">
+                    <%= form.hidden_field :id, :value => book.id %>
+
+                    <div class="field form-group col-md-6">
+                        <%= form.label :title %>
+                        <%= form.text_field :title, class: "form-control" %>
+                    </div>
+
+                    <div class="field form-group col-md-6">
+                        <%= form.label "Nível" %>
+                        <%= collection_select(:book, :level_id, Level.all, :id, :couse_level_title, {:prompt => true}, {:class=>'form-control', :disabled => book.id}) %>
+                    </div>
+
+                    <div class="field form-group col-md-6">
+                        <%= form.label(:aapl, "Livro - PDF") %>
+                        <%= form.file_field :attachment %>
+                    </div>
+
+                    <div class="field form-group col-md-6 form-checkbox-alignment">
+                        <%= form.label "Baixável" %>
+                        <%= form.check_box :downloadable %>
+                    </div>
+
+                    <div class="field form-group col-md-6">
+                        <%= form.label(:aapl, "Capa do Livro") %>
+                        <%= form.file_field :cover %>
+                    </div>
+
+                    <div class="actions  col-md-12 mt-2 mb-2">
+                        <%= form.submit "Enviar", :class => "btn btn-light" %>
+                    </div>
+
+                </div>
+                </div>
+            <% end %>
+
+            </div>
+            <!-- Modal body-->
+        </div>
+        <!-- Modal content-->
+    </div>
+    <!-- Modal dialog-->
+</div>
+<!-- Modal-->
+
+<script>
+    $(document).ready(function() {
+        $('#modalBookForm').submit(function() {
+            $('#modalBookCloseButton').click();
+            $('#modalButton').attr('data-target', '#modalUpload');
+            $('#modalButton').click();
+        });
+    });
+</script>
