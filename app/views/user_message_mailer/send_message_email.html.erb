@@ -24,10 +24,13 @@
         <%= @unidade %>
       </p>
     <% end %>
-    <p>
-      <strong>Assunto:</strong>
-      <%= @message.assunto %>
-    </p>
+
+    <% if @message.assunto %>
+      <p>
+        <strong>Assunto:</strong>
+        <%= @message.assunto %>
+      </p>
+    <% end %>
 
     <% if @message.corpo %>
       <p>
