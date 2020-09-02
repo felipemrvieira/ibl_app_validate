@@ -2,7 +2,10 @@
 lock "~> 3.11.0"
 
 set :application, "ibl_sem_legenda"
-set :repo_url, "https://github.com/felipemrvieira/ibl_app"
+
+set :git_password, ask('git password', nil)
+
+set :repo_url, "https://chillrx:#{fetch(:git_password)}@gitlab.com/kunlatek-projects/ibl/ibl_app.git"
 
 set :deploy_to, "/var/www/ibl_sem_legenda"
 
