@@ -21,5 +21,10 @@ test:
   database: db/test.sqlite3
 
 production:
-  <<: *default
-  database: db/production.sqlite3
+  adapter: postgresql
+  encoding: unicode
+  database: ibl_sem_legenda_production
+  pool: 5
+  username: deploy
+  password: 2Sm1l3@1bl!_db5s
+  
