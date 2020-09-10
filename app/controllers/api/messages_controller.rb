@@ -5,8 +5,8 @@ class Api::MessagesController < BackofficeController
     new_message_params = message_params.except(:hasOnlineClasses)
 
     if (message_params[:hasOnlineClasses])
-      selected_unit = Unit.left_joins(:students).where(has_online_classes: true).group(:id).select('COUNT(students.id) as students_count, units.id, units.email').order('students_count ASC').first
-      new_message_params[:unidade] = selected_unit[:email]
+      selected_unit = Unit.left_joins(:students).where(has_online_classes: true).group(:id).select('COUNT(students.id) as students_count, units.id, units.email, units.email_message').order('students_count ASC').first
+      new_message_params[:unidade] = selected_unit[:email_message] || selected_unit[:email]
     end
     
     @message = Message.new(new_message_params)

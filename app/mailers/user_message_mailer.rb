@@ -4,7 +4,7 @@ class UserMessageMailer < ApplicationMailer
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_message_email(message)
     @message = message
-    @email_gerencia = Unit.where(manager: :true).first.email_message
+    @email_gerencia = Unit.where(manager: true).first.email_message
 
     if message.unidade != ""
       @unidade = Unit.where(email_message: message.unidade).last.title
