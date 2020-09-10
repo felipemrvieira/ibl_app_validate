@@ -20,18 +20,14 @@ class StudentPolicy < ApplicationPolicy
   end
 
   def show?
-    if user.admin
-        true
-    else
-        record.unit_id == user.id
-    end
+    true
   end
 
   def edit?
     if user.admin
-        true
+      true
     else
-        record.unit_id == user.id
+      false
     end
   end
 
@@ -39,7 +35,7 @@ class StudentPolicy < ApplicationPolicy
     if user.admin
         true
     else
-        record.unit_id == user.id
+        false
     end
   end
 
@@ -47,7 +43,7 @@ class StudentPolicy < ApplicationPolicy
     if user.admin
         true
     else
-        record.unit_id == user.id
+        false
     end
   end
 end

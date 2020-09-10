@@ -54,8 +54,11 @@
      
       <br>
 
-      <%= link_to 'Editar', edit_backoffice_student_path(@student), class: "btn btn-outline btn-primary" %>
-      <%= link_to 'Excluir', backoffice_student_path(@student),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% if current_unit.admin? %>
+        <%= link_to 'Editar', edit_backoffice_student_path(@student), class: "btn btn-outline btn-primary" %>
+        <%= link_to 'Excluir', backoffice_student_path(@student),  class: "btn btn-outline btn-danger", method: :delete, data: { confirm: 'Are you sure?' } %>
+      <% end %>
+
     </div>   
   </div>
 </div>
