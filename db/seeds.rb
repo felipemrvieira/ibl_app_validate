@@ -1,29 +1,29 @@
-Unit.create!(
-    title: "Sede",
-    location: FFaker::AddressBR.full_address ,
-    email: "pontaverde@ibl.com.br",
-    password: "123123",
-    password_confirmation: "123123",
-    admin: true
+# Unit.create!(
+#     title: "Sede",
+#     location: FFaker::AddressBR.full_address ,
+#     email: "pontaverde@ibl.com.br",
+#     password: "123123",
+#     password_confirmation: "123123",
+#     admin: true
 
-)
+# )
 
-30.times do
-    Unit.create!(
-        title:  FFaker::AddressBR.city ,
-        location:  FFaker::AddressBR.full_address ,
-        email:  FFaker::Internet.email ,
-        password: "123123",
-        password_confirmation: "123123",
-        admin: false
-    )
-end
+# 30.times do
+#     Unit.create!(
+#         title:  FFaker::AddressBR.city ,
+#         location:  FFaker::AddressBR.full_address ,
+#         email:  FFaker::Internet.email ,
+#         password: "123123",
+#         password_confirmation: "123123",
+#         admin: false
+#     )
+# end
 
 # id_unidades = Unit.ids
 
 # Student.create!(
-#     name: "Felipe Maciel Ramos",
-#     email: "felipemrvieira@gmail.com",
+#     name: "Kunlatek",
+#     email: "contato@kunlatek.com",
 #     birthday:  FFaker::Time.date ,
 #     phone:   FFaker::PhoneNumberBR.mobile_phone_number,
 #     points: 0,
