@@ -332,6 +332,7 @@ h2{
       display: flex;
       justify-content: center;
       align-items: center;
+      flex-direction: column;
     }
 
       .spinner-border {
@@ -344,6 +345,7 @@ h2{
         border-radius: 50%;
         -webkit-animation: spinner-border .75s linear infinite;
         animation: spinner-border .75s linear infinite;
+        margin-bottom: 20px;
       }
 
       #inner-cicle-success {
@@ -354,6 +356,7 @@ h2{
         display: flex;
         justify-content: center;
         align-items: center;
+        margin-bottom: 20px;
       }
   
   }
