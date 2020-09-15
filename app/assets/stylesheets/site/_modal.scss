@@ -1,3 +1,10 @@
+@keyframes spinner-border {
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+
 .modal-finished{
     /* Permalink - use to edit and share this gradient: http://colorzilla.com/gradient-editor/#ff987d+0,fdd96b+100 */
     background: #ff987d; /* Old browsers */
@@ -35,6 +42,29 @@
 }
 
 .modal{
+
+    .modal-dialog-centered {
+        display: -ms-flexbox;
+        display: flex;
+        -ms-flex-align: center;
+        align-items: center;
+        min-height: calc(100% - 1rem);
+        justify-content: center;
+    }
+
+    .spinner-border {
+        display: inline-block;
+        width: 140px;
+        height: 140px;
+        vertical-align: text-bottom;
+        border: 6px solid #1ad176;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+    }
+
+
     .modal-dialog{
         .modal-content{
             border: 0;

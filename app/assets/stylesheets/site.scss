@@ -318,6 +318,44 @@ h2{
       width: 100%;
       height: 75vh;
     }
+    
+    @keyframes spinner-border {
+      100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+      }
+    }
+
+    .centered-container {
+      height: 250px;
+      width: 100%;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+      .spinner-border {
+        display: inline-block;
+        width: 140px;
+        height: 140px;
+        vertical-align: text-bottom;
+        border: 6px solid #1ad176;
+        border-right-color: transparent;
+        border-radius: 50%;
+        -webkit-animation: spinner-border .75s linear infinite;
+        animation: spinner-border .75s linear infinite;
+      }
+
+      #inner-cicle-success {
+        border: 6px solid #1ad176;
+        border-radius: 70px;
+        width: 140px;
+        height: 140px;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+      }
+  
   }
 
   #book-title {

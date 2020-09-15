@@ -9,7 +9,11 @@
 <br>
 
 <div id="book-pdf">
-    <span id="book-message">Carregando Livro...</span>
+    <span id="book-message">
+        <div class="centered-container">
+            <div class="spinner-border" role="status"></div>
+        </div>
+    </span>
 </div>
 
 <br>
@@ -22,7 +26,21 @@
     var bookMessage = document.getElementById('book-message');
     var pdfEl = document.createElement('iframe');
     var currentPageValue = '<%= @student_book.current_page or 1 %>';
-    var firstScroll = true
+    var firstScroll = true;
+    var loadingComplete = document.createElement('div');
+    loadingComplete.innerHTML = `
+        <div class="centered-container">
+
+            <div id="inner-cicle-success">
+
+                <svg width="110px" height="110px" viewBox="0 0 16 16" class="bi bi-check2" fill="#1ad176" xmlns="http://www.w3.org/2000/svg">
+                    <path fill-rule="evenodd" d="M13.854 3.646a.5.5 0 0 1 0 .708l-7 7a.5.5 0 0 1-.708 0l-3.5-3.5a.5.5 0 1 1 .708-.708L6.5 10.293l6.646-6.647a.5.5 0 0 1 .708 0z"/>
+                </svg>
+            
+            </div>
+
+        </div>
+  `;
 
     pdfEl.setAttribute('id', 'pdf-viewer');
 
@@ -62,21 +80,25 @@
 
     function reqListener () {
         if (this.status == 200) {
-            var blob = new Blob([this.response], { type: 'application/pdf' });
-            var url = URL.createObjectURL(blob);
+            pdfParent.replaceChild(loadingComplete, bookMessage);
 
-            pdfEl.setAttribute('src', '/assets/web/viewer.html?file=' + url + '#page=' + currentPageValue);
-            pdfParent.replaceChild(pdfEl, bookMessage);
-
-            if (isDownloadable === 'true') {
-                var downloadButton = document.createElement('a');
-                downloadButton.setAttribute('href', url);
-                downloadButton.setAttribute('download', '<%= @book.course_level_book %>.pdf');
-                downloadButton.classList.add('download-button');
-                var iconHTML = '<%= image_tag "arrow-down.png" %> <span>Baixar Livro</span>';
-                downloadButton.innerHTML = iconHTML;
-                pdfParent.appendChild(downloadButton);
-            }
+            setTimeout(() => {
+                var blob = new Blob([this.response], { type: 'application/pdf' });
+                var url = URL.createObjectURL(blob);
+    
+                pdfEl.setAttribute('src', '/assets/web/viewer.html?file=' + url + '#page=' + currentPageValue);
+                pdfParent.replaceChild(pdfEl, loadingComplete);
+    
+                if (isDownloadable === 'true') {
+                    var downloadButton = document.createElement('a');
+                    downloadButton.setAttribute('href', url);
+                    downloadButton.setAttribute('download', '<%= @book.course_level_book %>.pdf');
+                    downloadButton.classList.add('download-button');
+                    var iconHTML = '<%= image_tag "arrow-down.png" %> <span>Baixar Livro</span>';
+                    downloadButton.innerHTML = iconHTML;
+                    pdfParent.appendChild(downloadButton);
+                }
+            }, 1000);
         } else {
             var errorMessage = document.createElement('span');
             errorMessage.innerText = "Livro não encontrado, tente novamente em alguns minutos.";

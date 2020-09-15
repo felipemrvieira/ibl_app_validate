@@ -9,39 +9,13 @@ $blue-gradiente: #03b8cb;
 $green-gradiente: #5fdb85;
 $yellow-gradiente: #bcff3f;
 
-@keyframes spinner-border {
-    100% {
-        -webkit-transform: rotate(360deg);
-        transform: rotate(360deg);
-    }
-}
 
 .d-none {
     display: none;
 }
 
 .modal{
-    .modal-dialog-centered {
-        display: -ms-flexbox;
-        display: flex;
-        -ms-flex-align: center;
-        align-items: center;
-        min-height: calc(100% - 1rem);
-        justify-content: center;
-    }
-
-    .spinner-border {
-        display: inline-block;
-        width: 140px;
-        height: 140px;
-        vertical-align: text-bottom;
-        border: 6px solid #1ad176;
-        border-right-color: transparent;
-        border-radius: 50%;
-        -webkit-animation: spinner-border .75s linear infinite;
-        animation: spinner-border .75s linear infinite;
-    }
-
+  
     .sr-only {
         position: absolute;
         width: 1px;
