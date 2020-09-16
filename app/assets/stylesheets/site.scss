@@ -310,7 +310,7 @@ h2{
 
   #book-pdf {
     position: relative;
-    width: 50%;
+    width: 100%;
     display: flex;
     flex-direction: column;
 
@@ -327,7 +327,7 @@ h2{
     }
 
     .centered-container {
-      height: 250px;
+      height: 60vh;
       width: 100%;
       display: flex;
       justify-content: center;
@@ -357,6 +357,15 @@ h2{
         justify-content: center;
         align-items: center;
         margin-bottom: 20px;
+      }
+
+      #percentage-placeholder {
+        position: absolute;
+        width: 140px;
+        height: 140px;
+        justify-content: center;
+        display: flex;
+        align-items: center;
       }
   
   }
@@ -399,6 +408,25 @@ h2{
     }
   }
 
+  #fullscreen-icon-button {
+    background-color: #4a4a4a;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    position: absolute;
+    bottom: 120px;
+    right: 10%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 0;
+
+    svg {
+      font-size: 24px;
+      color: white;
+    }
+  }
+
   @media (max-width: 768px){
 
     #book {
@@ -407,6 +435,10 @@ h2{
 
     #book-pdf {
       width: 100%;
+    }
+
+    .fullscreen-icon-button {
+      display: none;
     }
 
   }
