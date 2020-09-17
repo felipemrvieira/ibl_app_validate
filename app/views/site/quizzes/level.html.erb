@@ -16,12 +16,12 @@
 
         <%= render 'no_paths', level: level %>
         
-        <% @paths.each do |path| %>
+        <% @paths.each_with_index do |path, i| %>
             <%= render 'button_create_quiz', path: path %>
             <% quizzes = current_student.quizzes.all.where(:path_id => path.id)  %>
                 <% quizzes.each do |lesson| %>
                     <%# cache lesson do %>
-                        <%= render 'lesson', quiz: lesson %>            
+                        <%= render 'lesson', quiz: lesson, path_index: i %>            
                     <%# end %>
                 <% end %>
         <% end %>

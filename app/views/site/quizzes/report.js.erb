@@ -1,4 +1,4 @@
-$("#form-<%= @tipo %>-erro-<%= @order %>").replaceWith("<p id='form-<%= @tipo %>-erro-<%= @order %>'>Questão reportada!</p>");
+$("#form-<%= @tipo %>-erro-<%= @order %>-<%= @path_index %>").replaceWith("<p id='form-<%= @tipo %>-erro-<%= @order %>-<%= @path_index %>'>Questão reportada!</p>");
 
 console.log("Question reported: <%= @question_error.question_id %>" )
 console.log("Order: <%= @order %>" )

@@ -54,6 +54,7 @@ class Site::QuizzesController < ApplicationController
 
         @order = params[:quiz][:order]
         @tipo = params[:quiz][:tipo]
+        @path_index = params[:quiz][:path_index]
 
         respond_to do |format|
             if @question_error.save
