@@ -160,16 +160,16 @@
           <tbody>
               <% @student.levels.each do |level| %>
                   <tr>
-                      
+                      <% current_enrolment = level.errolments.where(level_id: level.id, student_id: @student.id).first %>
                       <td><%= level.title %></td>
-                      <td><%= level.errolments.last.created_at.strftime("%d/%m/%Y às %T") %></td>
-                      <td><%= level.errolments.last.status %></td>
-                      <td><%= level.errolments.last.expiration ? level.errolments.last.expiration.strftime("%d/%m/%Y às %T"):"" %></td>
+                      <td><%= current_enrolment.created_at.strftime("%d/%m/%Y às %T") %></td>
+                      <td><%= current_enrolment.status %></td>
+                      <td><%= current_enrolment.expiration ? current_enrolment.expiration.strftime("%d/%m/%Y às %T"):"" %></td>
                       <td>
-                        <% unless level.errolments.last.active %>
-                          <%= link_to 'Ativar', backoffice_student_change_status_path(level.errolments.last),  class: "btn btn-outline btn-success", data: { confirm: 'Are you sure?' }, method: :put %>                  
+                        <% unless current_enrolment.active %>
+                          <%= link_to 'Ativar', backoffice_student_change_status_path(current_enrolment),  class: "btn btn-outline btn-success", data: { confirm: 'Are you sure?' }, method: :put %>                  
                         <% else %>
-                          <%= link_to 'Inativar', backoffice_student_change_status_path(level.errolments.last),  class: "btn btn-outline btn-danger", data: { confirm: 'Are you sure?' }, method: :put %>
+                          <%= link_to 'Inativar', backoffice_student_change_status_path(current_enrolment),  class: "btn btn-outline btn-danger", data: { confirm: 'Are you sure?' }, method: :put %>
                         <% end %>
                       </td>
                       
