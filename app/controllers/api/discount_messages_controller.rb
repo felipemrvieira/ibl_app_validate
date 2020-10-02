@@ -9,15 +9,14 @@ class Api::DiscountMessagesController < BackofficeController
       new_message_params[:unidade] = selected_unit[:email_message] || selected_unit[:email]
     end
     
-    render json: new_message_params
-    # @message = Message.new(new_message_params)
+    @message = Message.new(new_message_params)
 
-    # if @message.save
-    #   UserMessageMailer.send_message_email(@message).deliver
-    #   render json: @message, status: :created
-    # else
-    #   render json: @message.errors, status: :unprocessable_entity
-    # end
+    if @message.save
+      # UserMessageMailer.send_message_email(@message).deliver
+      render json: @message, status: :created
+    else
+      render json: @message.errors, status: :unprocessable_entity
+    end
   end
 
   private
