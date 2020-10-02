@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
+    post 'messages', to: 'messages#create'
+    post 'discount_messages', to: 'discount_messages#create'
     get 'units/index', to: 'units#index'
     get 'units/states', to: 'units#states'
     get 'units/cities', to: 'units#cities'
@@ -30,10 +32,6 @@ Rails.application.routes.draw do
     get 'galleries/last', to: 'galleries#last'
     get 'pages/:id', to: 'pages#show'
     get 'question_answers', to: 'question_answers#index'
-    post 'messages', to: 'messages#create'
-    post 'discount_messages', to: 'discount_messages#create'
-
-
   end
 
   authenticate :unit do
