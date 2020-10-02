@@ -12,7 +12,7 @@ class Api::DiscountMessagesController < BackofficeController
     @message = Message.new(new_message_params)
 
     if @message.save
-      # UserMessageMailer.send_message_email(@message).deliver
+      UserMessageMailer.send_message_email(@message).deliver
       render json: @message, status: :created
     else
       render json: @message.errors, status: :unprocessable_entity
