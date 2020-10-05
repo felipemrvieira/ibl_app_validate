@@ -6,13 +6,13 @@ class Api::MessagesController < BackofficeController
 
     if (message_params[:hasOnlineClasses])
       selected_unit = Unit.left_joins(:students).where(has_online_classes: true).group(:id).select('COUNT(students.id) as students_count, units.id, units.email, units.email_message').order('students_count ASC').first
-      new_message_params[:unidade] = selected_unit[:email_message] || selected_unit[:email]
+      new_message_params[:unidade] = selected_unit[:email_message] ? selected_unit[:email_message] : selected_unit[:email]
     end
     
     @message = Message.new(new_message_params)
 
     if @message.save
-      # UserMessageMailer.send_message_email(@message).deliver
+      UserMessageMailer.send_message_email(@message).deliver
       render json: @message, status: :created
     else
       render json: @message.errors, status: :unprocessable_entity
