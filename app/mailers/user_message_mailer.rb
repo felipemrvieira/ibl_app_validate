@@ -1,5 +1,5 @@
 class UserMessageMailer < ApplicationMailer
-  default :from => 'website@iblsemlegendas.com.br'
+  default :from => 'website@ibl-idiomas.com'
 
   # send a signup email to the user, pass in the user object that   contains the user's email address
   def send_message_email(message)
@@ -8,15 +8,12 @@ class UserMessageMailer < ApplicationMailer
       @email_gerencia = Unit.where(manager: true).first.email_message
 
       if message.unidade != ""
-        puts 'unidade -> ', Unit.where(email_message: message.unidade)
         @unidade = Unit.where(email_message: message.unidade).last.title
       end
 
       if message.curso != ""
         @curso = message.curso
       end
-
-      puts 'message -> ',  message.to_json
 
       if message.assunto
         assunto = message.assunto
@@ -29,13 +26,12 @@ class UserMessageMailer < ApplicationMailer
       end
 
       mail(
-        # :to => "redirecionador@ibl-idiomas.com",
         :to => @email_gerencia,
         :cc => @message.unidade,
         :subject => assunto
       )
     rescue StandardError => error
-      puts 'send_message_email ERROR', error
+      puts 'send_message_email error -> ', error
     end
   end
 end
