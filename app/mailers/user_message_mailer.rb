@@ -6,20 +6,17 @@ class UserMessageMailer < ApplicationMailer
     begin
       @message = message
       @email_gerencia = Unit.where(manager: true).first.email_message
-      puts message
-      puts @email_gerencia
 
       if message.unidade != ""
+        puts 'unidade -> ', Unit.where(email_message: message.unidade)
         @unidade = Unit.where(email_message: message.unidade).last.title
       end
-
-      puts @unidade
 
       if message.curso != ""
         @curso = message.curso
       end
 
-      puts message.curso
+      puts 'message -> ',  message.to_json
 
       if message.assunto
         assunto = message.assunto
@@ -37,8 +34,8 @@ class UserMessageMailer < ApplicationMailer
         :cc => @message.unidade,
         :subject => assunto
       )
-    rescue
-      puts 'send_message_email ERROR'
+    rescue StandardError => error
+      puts 'send_message_email ERROR', error
     end
   end
 end
