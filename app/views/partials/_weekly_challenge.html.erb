@@ -1,6 +1,14 @@
 <div id="desafio">
 
-  <p type="button" class="" data-toggle="modal" data-target=".bd-example-modal-lg">Desafio semanal</p>
+  <div type="button" class="desafio-button" data-toggle="modal" data-target=".bd-example-modal-lg">
+    <div>
+      <p>Desafio semanal</p>
+      <p>Teste seus conhecimentos antes que seja tarde!</p>
+    </div>
+    <div class="img-container">
+      <%= image_tag "#{@weekly_challenge_exp}.png" %>
+    </div>
+  </div>
 
   <!-- Modal Aprender -->
     <div class="modal fade bd-example-modal-lg"
@@ -28,10 +36,231 @@
 
             <!-- Modal body Aprender-->
             <div class="modal-body">
+              <% question = @weekly_challenge_question %>
+
+              <%= form_with url: "/site/weekly_challenge_quizzes" do |form| %>
+
+                <h5 class="question-title"><%= question.title%></h5>
+
+                <div class="question-description">
+                    <%= raw question.description %>
+                </div>
+
+                <%= form.hidden_field :weekly_challenge_id , :value => @weekly_challenge_id  %>
+                <%= form.hidden_field :student_id, :value => current_student.id %>
+                <%= form.hidden_field :question_id, :value => question.id %>
+
+                <% if question.attachment_url   %>
+                  <p>
+                    <audio src="<%= question.attachment_url %>" controls preload="none" controlsList="nodownload">
+                        Your browser does not support the audio element.
+                    </audio>
+                  </p>
+                <% end %>
+
+                <% if question.type_question == "Múltipla Escolha" %>
+
+                  <div class="field form-group">
+                    <%= collection_radio_buttons(:quiz, :question_option_id,
+                      question.question_options.all, :id, :option_description,
+                      {:class =>'form-check-input'}, html_options = {:required => 'required'}  ) do |b| %>
+                      <div class="form-check">
+                        <%= b.label(:class => 'form-check-label container')  do %>
+                          <%= b.radio_button + b.text %>
+                          <span class="checkmark"></span>
+                        <% end %>
+                      </div>
+                    <% end %>
+                  </div>
+
+                <% elsif question.type_question == "Questão Aberta" %>
+
+                  <div class="field form-group">
+                    <%= form.text_area(
+                      :question_text,
+                      ols: 40,
+                      rows: 3,
+                      class: 'form-control',
+                      required: true
+                    ) %>
+                  </div>
+
+                <% elsif question.type_question == "Combinação" %>
+
+                  <div id="container-combinacao" class="container">
+                    <div id="combinacao" class="row combinacao">
+
+                    <% first_options = question.question_combinations.map.uniq(&:order)%>
+                    <% second_options = question.question_combinations - first_options %>
+
+                      <div id="combinacao-desafio-<%= @weekly_challenge_id.to_s %>-container1" class="container1 container-opcoes col-md-6 col-sm-6 col-6 ">
+                        <% first_options.shuffle.each do |c| %>
+
+                          <div value=<%= c.order %> class="opcao-wrapper <%= "opcao-wrapper"+c.order %>">
+                            <div parent="combinacao-desafio-<%= @weekly_challenge_id.to_s %>-container" class="opcao <%= "opcao"+c.order %>">
+                              <%= c.label %>
+                            </div>
+                          </div>
+
+                        <% end %>
+                      </div>
+                      <div id="combinacao-desafio-<%= @weekly_challenge_id.to_s %>-container2" class="container2 container-opcoes col-md-6 col-sm-6 col-6">
+                        <% second_options.shuffle.each do |c| %>
+
+                          <div value=<%= c.order %> class="opcao-wrapper <%= "opcao-wrapper"+c.order %>">
+                            <div parent="combinacao-desafio-<%= @weekly_challenge_id.to_s %>-container" class="opcao <%= "opcao"+c.order %>">
+                              <%= c.label %>
+                            </div>
+                          </div>
+
+                        <% end %>
+                      </div>
+
+                      <%= form.hidden_field :question_text,
+                        required: true,
+                        id: ("combinacao-desafio-"+@weekly_challenge_id.to_s+"-container-input")
+                      %>
+                    </div>
+                  </div>
+
+                <% elsif question.type_question == "Forca" %>
+
+                  <%# Realiza a primeira carga no array da forca parcial %>
+                  <% if @resposta_parcial == nil %>
+                    <% resposta = question.question_texts.last.student_answer %>
+                    <% resposta_parcial = [] %>
+
+                    <% resposta.size.times do %>
+                        <% resposta_parcial << "_" %>
+                    <% end %>
+
+                    <%# substitui caracteres _ por - e espaço  %>
+                    <% array_vazios = resposta.enum_for(:scan, /(?= )/).map { Regexp.last_match.offset(0).first } %>
+                    <% array_vazios.each do |n| %>
+                      <% resposta_parcial[n] = ' ' %>
+                    <% end %>
+
+                    <% array_tracos = resposta.enum_for(:scan, /(?=-)/).map { Regexp.last_match.offset(0).first } %>
+                    <% array_tracos.each do |n| %>
+                      <% resposta_parcial[n] = '-' %>
+                    <% end %>
+
+                    <%= image_tag "forca1.png", id: "forca-image-1-quiz-", class: "forca-image-1", width: "150px" %>
+                    <%= image_tag "forca2.png", id: "forca-image-2-quiz-", class: "forca-image-2 hide", width: "150px" %>
+                    <%= image_tag "forca3.png", id: "forca-image-3-quiz-", class: "forca-image-3 hide", width: "150px" %>
+                    <%= image_tag "forca4.png", id: "forca-image-4-quiz-", class: "forca-image-4 hide", width: "150px" %>
+                    <%= image_tag "forca5.png", id: "forca-image-5-quiz-", class: "forca-image-5 hide", width: "150px" %>
+                    <%= image_tag "forca6.png", id: "forca-image-6-quiz-", class: "forca-image-6 hide", width: "150px" %>
+                    <%= image_tag "forca7.png", id: "forca-image-7-quiz-", class: "forca-image-7 hide", width: "150px" %>
+
+                    <br><br>
+
+                    <p id="resposta-parcial-quiz-<%= @weekly_challenge_id.to_s %>"
+                        style="letter-spacing: 10px;font-size: 22px;"><%= resposta_parcial.join %></p>
+
+                    <p id="mostra_forca_tentativas_letras-quiz-<%= @weekly_challenge_id.to_s %>"
+                        style="letter-spacing: 10px;font-size: 22px;"></p>
+
+                    <%= form.hidden_field :forca,
+                        :value => resposta_parcial.join,
+                        id: ("forca-quiz-"+@weekly_challenge_id.to_s)
+                        %>
+                    <%= form.hidden_field :forca_erros,
+                        :value => 0,
+                        id: ("forca-erros-quiz-"+@weekly_challenge_id.to_s)
+                    %>
+                    <%= form.hidden_field :forca_tentativas_letras,
+                        :value => [],
+                        id: ("forca_tentativas_letras-quiz-"+@weekly_challenge_id.to_s)
+                    %>
+                  <% else %>
+                    <%# Valor substituido via JS em create.js %>
+                    <p id="resposta-parcial"><%= @resposta_parcial.join %></p>
+                    <%= form.hidden_field :forca,
+                        :value => @resposta_parcial.join,
+                        id: ("forca-quiz-")
+                    %>
+
+                    <%= form.text_field :forca_erros,
+                        :value => 0,
+                        id: ("forca-erros-quiz-"+@weekly_challenge_id.to_s)
+                    %>
+                    <%= form.text_field :forca_tentativas_letras,
+                        :value => [],
+                        id: ("forca_tentativas_letras-quiz-"+@weekly_challenge_id.to_s)
+
+                    %>
+                  <% end %>
+
+                  <div class="field form-group">
+                      <%= form.text_area(
+                          :question_text,
+                          ols: 40,
+                          rows: 1,
+                          maxlength: 1,
+                          class: 'form-control',
+                          required: true
+                      ) %>
+                  </div>
+
+              <% end %>
+
+              <div class="actions action-container d-flex flex-row-reverse justify-content-between ">
+
+                <%= form.submit "Responder",
+                  class: "btn",
+                  id: ("botao-desafio-"+@weekly_challenge_id.to_s),
+                  data: { disable_with: false },
+                  parent_combination: ("combinacao-desafio-"+@weekly_challenge_id.to_s+"-container")
+                %>
+
+                <div id="certo-desafio-<%= @weekly_challenge_id.to_s %>" class="certo d-none animated ">
+
+                    <div class="d-inline">
+                        <%= image_tag "certo.png", size: "35x35" %>
+                    </div>
+                    <h5 style="vertical-align: middle;"  class="d-inline">Perfeito!</h5>
+                </div>
+
+                <%
+=begin%>
+ <% unless question.type_question == "Combinação" %>
+                  <div id="resposta-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>" class=" d-none animated ">
+                      <h5 style="vertical-align: middle;"  class="d-inline">Resposta correta:</h5>
+                      <p id="texto-resposta-quiz-<%= quiz.id.to_s %>-aprender-questao-<%= order.to_s %>" class="d-inline" style="vertical-align: middle;"></p>
+                  </div>
+                <% end %>
+<%
+=end%>
 
 
+                <div id="errado-desafio-<%= @weekly_challenge_id.to_s %>"  class="errado d-none animated col-md-3">
+                    <div class="d-inline">
+                        <%= image_tag "errado.png", size: "35x35" %>
+                    </div>
+                    <h5 style="vertical-align: middle;" class="d-inline">Quase lá! :(</h5>
+                </div>
+
+
+
+              </div>
+            <% end %>
+
+                    <%
+=begin%>
+ <%= render 'report_error', question: question, order: order, tipo: "aprender" %>
+<%
+=end%>
             </div>
             <!-- Modal body Aprender-->
+
+
+
+
+
+
+
+
 
           </div>
       </div>

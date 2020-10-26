@@ -149,8 +149,7 @@
                                     <%= quiz.id %>,
                                     <%= question.id %>,
 
-                                    <%= questoes_leatorias.last.id %>,
-                                    <%= path_index %>
+                                    <%= questoes_leatorias.last.id %>
 
                                     )" class="btn ">
                                     Próximo
@@ -172,7 +171,7 @@
 
                     <% end %>
 
-                    <%= render 'report_error', question: question, order: order, tipo: "aprender", path_index: path_index, order: order %>
+                    <%= render 'report_error', question: question, order: order, tipo: "aprender" %>
                     <% order += 1 %>
                 <% end %>
 
@@ -296,8 +295,7 @@
                             '<%= tipo %>',
                             <%= quiz.id %>,
                             <%= question.id %>,
-                            <%= questoes_leatorias.last.id %>,
-                            <%= path_index %>
+                            <%= questoes_leatorias.last.id %>
                             )"
                         class="btn ">Próximo</div>
                     </div>
@@ -332,7 +330,7 @@
                     </div>
                 </div>
             <% end %>
-            <%= render 'report_error', question: question, order: order, tipo: "praticar", path_index: path_index, order: order  %>
+            <%= render 'report_error', question: question, order: order, tipo: "praticar" %>
             <% order += 1 %>
         <% end %>
         <div id=""  class="lesson d-none quiz-parcial-<%= quiz.id %>">
@@ -352,7 +350,7 @@
 <!-- Lesson  -->
 
 <script>
-function proximaQuestaoAprender(ordem, prox, tipo, quiz_id, question_id, last_question_id, path_index){
+function proximaQuestaoAprender(ordem, prox, tipo, quiz_id, question_id, last_question_id){
     $(".opcao-wrapper").removeClass("error");
     $(".opcao-wrapper").removeClass("hit");
 
@@ -362,9 +360,9 @@ function proximaQuestaoAprender(ordem, prox, tipo, quiz_id, question_id, last_qu
     $("#form-quiz-"+quiz_id+"-"+tipo+"-"+prox).removeClass("hide");
     $("#form-quiz-"+quiz_id+"-"+tipo+"-"+prox).addClass("bounceInRight");
 
-    $("#form-"+tipo+"-erro-"+prox+"-"+path_index).removeClass("hide");
-    $("#form-"+tipo+"-"+prox+"-"+path_index).addClass("bounceInRight");
-    $("#form-aprender-erro-"+ordem+"-"+path_index).addClass("hide");
+    $("#form-"+tipo+"-erro-"+prox).removeClass("hide");
+    $("#form-"+tipo+"-"+prox).addClass("bounceInRight");
+    $("#form-aprender-erro-"+ordem).addClass("hide");
 
     val = $("#percentage-quiz-<%=quiz.id%>").text();
     percentage = parseInt(val);
@@ -379,7 +377,7 @@ function proximaQuestaoAprender(ordem, prox, tipo, quiz_id, question_id, last_qu
     }
 }
 
-function proximaQuestaoPraticar(ordem, prox, tipo, quiz_id, question_id, last_question_id, path_index){
+function proximaQuestaoPraticar(ordem, prox, tipo, quiz_id, question_id, last_question_id){
 
     $(".opcao-wrapper").removeClass("error");
     $(".opcao-wrapper").removeClass("hit");
@@ -390,13 +388,13 @@ function proximaQuestaoPraticar(ordem, prox, tipo, quiz_id, question_id, last_qu
     $("#form-quiz-"+quiz_id+"-"+tipo+"-"+prox).removeClass("hide");
     $("#form-quiz-"+quiz_id+"-"+tipo+"-"+prox).addClass("bounceInRight");
 
-    $("#form-"+tipo+"-erro-"+prox+"-"+path_index).removeClass("hide");
+    $("#form-"+tipo+"-erro-"+prox).removeClass("hide");
     console.log("remocao de classe ------- " + "#form-"+tipo+"-erro-"+prox)
     console.log("order " + ordem)
     console.log("proxima " + prox)
 
-    $("#form-"+tipo+"-"+prox+"-"+path_index).addClass("bounceInRight");
-    $("#form-"+tipo+"-erro-"+ordem+"-"+path_index).addClass("hide");
+    $("#form-"+tipo+"-"+prox).addClass("bounceInRight");
+    $("#form-"+tipo+"-erro-"+ordem).addClass("hide");
 
     $("#reported").addClass("hide");
 

@@ -30,4 +30,16 @@ class Question < ApplicationRecord
     end
     # self.title
   end
+
+  def self.power_link_sample_question
+    power_link = Course.where(title: "Power Link").last
+    power_link_questions = []
+    power_link.levels.each do |level|
+      level.paths.each do |path|
+        power_link_questions << path.questions
+      end
+    end
+    power_link_questions.first.sample(1).first.id
+
+  end
 end

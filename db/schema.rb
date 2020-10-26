@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_07_19_154052) do
+ActiveRecord::Schema.define(version: 2020_10_25_215414) do
 
   create_table "achievements", force: :cascade do |t|
     t.string "description"
@@ -165,6 +165,12 @@ ActiveRecord::Schema.define(version: 2020_07_19_154052) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.json "images"
+  end
+
+  create_table "instructions", force: :cascade do |t|
+    t.string "description"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "levels", force: :cascade do |t|
@@ -351,6 +357,16 @@ ActiveRecord::Schema.define(version: 2020_07_19_154052) do
     t.index ["student_id"], name: "index_student_books_on_student_id"
   end
 
+  create_table "student_instructions", force: :cascade do |t|
+    t.boolean "read"
+    t.integer "instruction_id"
+    t.integer "student_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["instruction_id"], name: "index_student_instructions_on_instruction_id"
+    t.index ["student_id"], name: "index_student_instructions_on_student_id"
+  end
+
   create_table "students", force: :cascade do |t|
     t.string "name", default: "", null: false
     t.string "email", default: "", null: false
@@ -402,11 +418,19 @@ ActiveRecord::Schema.define(version: 2020_07_19_154052) do
     t.string "cover"
     t.string "email_message"
     t.boolean "manager"
-    t.boolean "has_online_classes"
-    t.boolean "has_presential_classes"
     t.index ["email"], name: "index_units_on_email", unique: true
     t.index ["reset_password_token"], name: "index_units_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_units_on_slug", unique: true
+  end
+
+  create_table "weekly_challenge_quizzes", force: :cascade do |t|
+    t.integer "student_id"
+    t.integer "weekly_challenge_id"
+    t.boolean "hit"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["student_id"], name: "index_weekly_challenge_quizzes_on_student_id"
+    t.index ["weekly_challenge_id"], name: "index_weekly_challenge_quizzes_on_weekly_challenge_id"
   end
 
   create_table "weekly_challenges", force: :cascade do |t|

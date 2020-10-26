@@ -1,12 +1,12 @@
-# Unit.create!(
-#     title: "Sede",
-#     location: FFaker::AddressBR.full_address ,
-#     email: "pontaverde@ibl.com.br",
-#     password: "123123",
-#     password_confirmation: "123123",
-#     admin: true
+Unit.create!(
+    title: "Ponta verde",
+    location: FFaker::AddressBR.full_address ,
+    email: "pontaverde@ibl.com.br",
+    password: "123123",
+    password_confirmation: "123123",
+    admin: true
 
-# )
+)
 
 # 30.times do
 #     Unit.create!(
@@ -21,16 +21,16 @@
 
 # id_unidades = Unit.ids
 
-# Student.create!(
-#     name: "Kunlatek",
-#     email: "contato@kunlatek.com",
-#     birthday:  FFaker::Time.date ,
-#     phone:   FFaker::PhoneNumberBR.mobile_phone_number,
-#     points: 0,
-#     password: "123123",
-#     password_confirmation: "123123",
-#     unit_id: id_unidades.sample
-# )
+Student.create!(
+    name: "aluno",
+    email: "aluno@gmail.com",
+    birthday:  FFaker::Time.date ,
+    phone:   FFaker::PhoneNumberBR.mobile_phone_number,
+    points: 0,
+    password: "123123",
+    password_confirmation: "123123",
+    unit_id: 1
+)
 
 # Student.create!(
 #     name: "Thiago Maciel Ramos",
@@ -56,15 +56,15 @@
 #     )
 # end
 
-# Course.create!(
-#     title: "Inglês",
-#     unit_id: Unit.last.id
-# )
+Course.create!(
+    title: "Power Link",
+    unit_id: 1
+)
 
-# Level.create!(
-#     title: "Beginner",
-#     course_id: Course.last.id
-# )
+Level.create!(
+    title: "Beginner",
+    course_id: 1
+)
 # Level.create!(
 #     title: "Intermediate",
 #     course_id: Course.last.id
@@ -78,10 +78,10 @@
 #     course_id: Course.last.id
 # )
 
-# Path.create!(
-#     title: "Exercício 1",
-#     level_id: Level.first.id
-# )
+Path.create!(
+    title: "Exercício 1",
+    level_id: 1
+)
 
 # Path.create!(
 #     title: "Exercício 2",

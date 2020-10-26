@@ -1,11 +1,11 @@
 <% level = @level %>
 <div id="level">
 
-    <a 
-    data-toggle="collapse" 
-    href="#<%= level.title.split.first %>" 
-    role="button" 
-    aria-expanded="false" 
+    <a
+    data-toggle="collapse"
+    href="#<%= level.title.split.first %>"
+    role="button"
+    aria-expanded="false"
     aria-controls="<%= level.title %>">
         <p class="level-label arrow"><%= level.title %>
         <i class="fa" aria-hidden="true"></i>
@@ -15,21 +15,38 @@
     <div class="collapse show" id="<%= level.title.split.first %>">
 
         <%= render 'no_paths', level: level %>
-        
-        <% @paths.each_with_index do |path, i| %>
+
+        <%
+=begin%>
+ Renderiza desafio semanal
+<%
+=end%>
+
+        <% if @course.title == "Power Link" %>
+
+           <% if @show_instruction_modal %>
+            <%= render "partials/weekly_challenge_instruction" %>
+          <% else %>
+            <% if @show_challenge_button %>
+              <%= render "partials/weekly_challenge" %>
+            <% end %>
+          <% end %>
+        <% end %>
+
+        <% @paths.each do |path| %>
             <%= render 'button_create_quiz', path: path %>
-            <% quizzes = current_student.quizzes.all.where(:path_id => path.id)  %>
-                <% quizzes.each do |lesson| %>
-                    <%# cache lesson do %>
-                        <%= render 'lesson', quiz: lesson, path_index: i %>            
-                    <%# end %>
-                <% end %>
+              <% quizzes = current_student.quizzes.all.where(:path_id => path.id)  %>
+
+
+              <% quizzes.each do |lesson| %>
+                <%= render 'lesson', quiz: lesson %>
+              <% end %>
         <% end %>
     </div>
 </div>
 
 <div id="lessons-nav" class="col-md-12">
-    <div style="text-align: center;">      
+    <div style="text-align: center;">
         <%= pagy_bootstrap_nav(@pagy).html_safe %>
     </div>
 </div>
@@ -37,4 +54,4 @@
 <%= link_to "Voltar", root_path, class: "btn btn-light " %>
 
 
-<%= render 'partials/modal_config' %>    
+<%= render 'partials/modal_config' %>

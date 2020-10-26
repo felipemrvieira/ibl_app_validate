@@ -1,25 +1,24 @@
-<%= form_with(model: [:site, @quiz], 
-    remote: true, 
-    url: site_report_question_path, 
-    html: { id: "form-"+tipo+"-erro-"+(order).to_s+"-"+path_index.to_s, class: (!(order == 0) ? "hide" : "" )+" form-"+tipo+"-erro" } ) do |f| %>
-                                                
+<%= form_with(model: [:site, @quiz],
+    remote: true,
+    url: site_report_question_path,
+    html: { id: "form-"+tipo+"-erro-"+(order).to_s, class: "hide form-"+tipo+"-erro" } ) do |f| %>
+
     <%= f.hidden_field :question_id, :value => question.id %>
     <%= f.hidden_field :order, :value => order %>
-    <%= f.hidden_field :path_index, :value => path_index %>
     <%= f.hidden_field :student_id, :value => current_student.id %>
-   
+
     <%# praticar ou aprender%>
     <%= f.hidden_field :tipo, :value => tipo %>
 
     <div class="reportar-erro ">
 
-        <div class="" 
-            data-toggle="collapse" 
-            href="#collapseReport<%= question.id %>" 
-            role="button" 
-            aria-expanded="false" 
+        <div class=""
+            data-toggle="collapse"
+            href="#collapseReport<%= question.id %>"
+            role="button"
+            aria-expanded="false"
             aria-controls="collapseReport">
-            
+
             <div class="reportar-erro-label">Reportar erro</div>
 
 
@@ -27,10 +26,10 @@
 
         <div class="collapse" id="collapseReport<%= question.id %>">
             <div class="reportar-erro-field-container">
-                <%= f.text_field(:description, 
+                <%= f.text_field(:description,
                                     class: 'form-control reportar-erro-field',
                                     id: 'quiz_description'+question.id.to_s,
-                                    placeholder: "Informe erro técnico no sistema ou na questão") %> 
+                                    placeholder: "Informe erro técnico no sistema ou na questão") %>
             </div>
 
             <%= f.submit "Enviar",
@@ -38,7 +37,7 @@
                 id: ("botao-aprender-erro-"+question.id.to_s)
             %>
         </div>
-        
+
     </div>
-    
+
 <% end %>

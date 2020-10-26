@@ -1,9 +1,9 @@
 class Student < ApplicationRecord
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable,  and :omniauthable , :registerable, :recoverable, 
+  # :confirmable, :lockable,  and :omniauthable , :registerable, :recoverable,
   devise :trackable,  :database_authenticatable,
           :validatable, :timeoutable, :rememberable
-         
+
   has_one_attached :avatar, dependent: :destroy
   has_many :errolments, dependent: :destroy
   has_many :levels, through: :errolments, dependent: :destroy
@@ -12,9 +12,15 @@ class Student < ApplicationRecord
   has_many :quizzes, dependent: :destroy
   has_many :attempts, dependent: :destroy
   has_many :question_errors, dependent: :destroy
-  
+
   has_many :student_achievements, dependent: :destroy
   has_many :achievements, through: :student_achievements
+
+  has_many :weekly_challenge_quizzes, dependent: :destroy
+  has_many :weekly_challenges, through: :weekly_challenge_quizzes
+
+  has_many :student_instructions, dependent: :destroy
+  has_many :instructions, through: :student_instructions
 
   has_many :student_books, dependent: :destroy
   has_many :books, through: :student_books
@@ -25,7 +31,7 @@ class Student < ApplicationRecord
 
   scope :by_units, -> unit { where(:unit => unit) }
   scope :keyword, lambda {|keyword| where(["lower(name) LIKE :term", {:term => "%#{keyword.downcase}%"}]) }
-  
+
   mount_uploader :student_avatar, StudentUploader
 
   def current_level
@@ -44,7 +50,7 @@ class Student < ApplicationRecord
   def quizzes_finished
     quizzes_finalizados = 0
     quizzes_do_aluno = self.quizzes
-    
+
     quizzes_do_aluno.each do |quiz|
       if quiz.percentage >= 99
         quizzes_finalizados = quizzes_finalizados + 1
@@ -53,5 +59,5 @@ class Student < ApplicationRecord
 
     quizzes_finalizados
   end
- 
+
 end

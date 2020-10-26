@@ -1,0 +1,91 @@
+var certo = new Audio('<%= asset_path('certa.mp3') %>');
+var errado = new Audio('<%= asset_path('errada.mp3') %>');
+var tipo_questao = "<%= @question.type_question %>"
+
+
+function acerto(ordem, id, quiz_id){
+  $("#certo-desafio-<%= @weekly_challenge_id %>").removeClass("d-none");
+  $("#certo-desafio-<%= @weekly_challenge_id %>").addClass("bounceInLeft");
+  $("#botao-desafio-<%= @weekly_challenge_id %>").attr("disabled", "disabled");
+
+}
+
+function erro(ordem, id){
+  $("#errado-desafio-<%= @weekly_challenge_id %>").removeClass("d-none");
+  $("#errado-desafio-<%= @weekly_challenge_id %>").addClass("bounceInLeft");
+  $("#botao-desafio-<%= @weekly_challenge_id %>").attr("disabled", "disabled");
+}
+
+console.log("TIPO DA QUESTÃO "+ tipo_questao);
+
+if (tipo_questao === "Forca"){
+
+  var resposta = "<%= @resposta %>"
+  var forca_erros = "<%= @forca_erros %>"
+  var incrementa = "<%= @incrementa %>"
+  var forca_finalizada = "<%= @forca_finalizada %>"
+  var acerto_forca = "<%= @acerto_forca %>"
+
+  console.log(forca_finalizada)
+
+  if (acerto_forca){
+    certo.play();
+  }else{
+    errado.play();
+    if(incrementa){
+      forca_erros += 1
+    }
+  }
+
+
+  var forca_tentativas_letras = "<%= @forca_tentativas_letras %>"
+  $("#forca_tentativas_letras-quiz-<%= @weekly_challenge_id %>").val(forca_tentativas_letras);
+  $("#mostra_forca_tentativas_letras-quiz-<%= @weekly_challenge_id %>").text(forca_tentativas_letras);
+
+  $("#forca-erros-quiz-<%= @weekly_challenge_id %>").val(forca_erros);
+
+  //
+  $("#resposta-parcial-quiz-<%= @weekly_challenge_id %>").text("<%= raw @forca %>");
+  $("#forca-quiz-<%= @weekly_challenge_id %>").val("<%= raw @forca %>");
+
+  //Troca imagens
+  $("#forca-image-"+forca_erros+"-quiz-").addClass("hide");
+  $("#forca-image-"+(forca_erros+1)+"-quiz-").removeClass("hide");
+
+  console.log("#forca-image-"+(forca_erros+1)+"-quiz-")
+
+  if(forca_erros == 6){
+    erro();
+    $("#botao-desafio-<%= @weekly_challenge_id %>").attr("disabled", "disabled");
+
+  }
+
+
+  console.log(resposta)
+  console.log(forca_tentativas_letras)
+
+   if(forca_finalizada == "true" ){
+   console.log("forca finalizada")
+    acerto();
+    $("#botao-desafio-<%= @weekly_challenge_id %>").attr("disabled", "disabled");
+  }
+
+
+
+
+
+}else{
+  if (<%= @acerto %>){
+    certo.play();
+    acerto();
+    setTimeout(function(){
+      remove()
+    }, 900000);
+  }else{
+    errado.play();
+    erro();
+      setTimeout(function(){
+        remove()
+    }, 900000);
+  }
+}

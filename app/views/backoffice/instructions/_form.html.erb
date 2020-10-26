@@ -1,0 +1,47 @@
+<%= form_with(model: instruction, local: true,  url: path) do |form| %>
+  <% if instruction.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(instruction.errors.count, "error") %> prohibited this instruction from being saved:</h2>
+
+      <ul>
+      <% instruction.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="row">
+    <div class="panel panel-default">
+      <div class="panel-heading">Instrução</div>
+      <div class="panel-body">
+
+        <div class="field  form-group col-md-12">
+          <%= form.label "Texto da instrução" %>
+          <%= form.text_area :description, 'data-provider': :summernote %>
+        </div>
+
+
+
+      </div>
+    </div>
+  </div>
+
+
+
+
+</div>
+
+</div>
+
+
+<div class="row" >
+  <div class="actions  col-md-12">
+    <%= form.submit "Enviar", :class => "btn btn-default" %>
+  </div>
+  <br> <br> <br>
+</div>
+
+
+
+<% end %>

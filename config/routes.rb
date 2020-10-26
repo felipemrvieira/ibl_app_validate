@@ -8,8 +8,6 @@ Rails.application.routes.draw do
     # post 'messages', to: 'messages#create'
     get 'states', to: 'messages#states'
     # get 'posts', to: 'messages#posts'
-    post 'books', to: 'books#create'
-    patch 'books', to: 'books#update'
   end
 
   namespace :site do
@@ -17,8 +15,6 @@ Rails.application.routes.draw do
   end
 
   namespace :api do
-    post 'messages', to: 'messages#create'
-    post 'discount_messages', to: 'discount_messages#create'
     get 'units/index', to: 'units#index'
     get 'units/states', to: 'units#states'
     get 'units/cities', to: 'units#cities'
@@ -32,6 +28,10 @@ Rails.application.routes.draw do
     get 'galleries/last', to: 'galleries#last'
     get 'pages/:id', to: 'pages#show'
     get 'question_answers', to: 'question_answers#index'
+    post 'messages', to: 'messages#create'
+    post 'discount_messages', to: 'discount_messages#create'
+
+
   end
 
   authenticate :unit do
@@ -71,6 +71,7 @@ Rails.application.routes.draw do
       resources :exams
       resources :books
       resources :student_books
+      resources :instructions
 
     end
   end
@@ -86,6 +87,9 @@ Rails.application.routes.draw do
       post '/quizzes/start_lesson', to: 'quizzes#start_lesson', as: :start_lesson
       # map to custom action
       post '/quizzes/report', to: 'quizzes#report', as: :report_question
+      resources :weekly_challenge_quizzes
+      resources :student_instructions
+
 
       patch 'students', to: 'students#update'
       get 'simulados', to: 'simulados#index'
