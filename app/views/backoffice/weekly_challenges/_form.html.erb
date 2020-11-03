@@ -13,16 +13,17 @@
   <% end %>
 
   <div class="field">
-    <%= form.label :question_id %>
-    <%= collection_select(:weekly_challenge, :question_id, @questions, :id, :question_title_by_course, {:prompt => true}, {:class=>'form-control'}) %>
+    <%= form.label "Questão" %>
+    <%= collection_select(:weekly_challenge, :question_id, @questions, :id,
+      :question_title_by_course, {:prompt => "Selecione ou deixe vazio para sortear questão"}, {:class=>'form-control'}) %>
   </div>
-
+  <br>
   <div class="field">
-    <%= form.label :exp %>
+    <%= form.label "Expira" %>
     <%= form.date_select :exp %>
   </div>
-
+  <br>
   <div class="actions">
-    <%= form.submit %>
+    <%= form.submit "Criar desafio" %>
   </div>
 <% end %>

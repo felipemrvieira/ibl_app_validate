@@ -8,7 +8,7 @@
         <%= link_to site_course_path(course), class: "course-list" do %>
             <div class="card">
                 <h2><%= course.title %></h2>
-                <i class="fa fa-arrow-right"></i> 
+                <i class="fa fa-arrow-right"></i>
                 <p>Estude agora!</p>
                 <div class="pic">
                     <%= image_tag course.course_flag.thumb.url || "flag-usa.png", class: "align-top" %>
@@ -17,14 +17,14 @@
                 </button>
             </div>
         <% end %>
-        
+
     <% else %>
 
         <% if course.title == "Inglês"%>
             <%= link_to site_course_path(course), class: "course-list" do %>
                 <div class="card">
                     <h2><%= course.title %></h2>
-                    <i class="fa fa-arrow-right"></i> 
+                    <i class="fa fa-arrow-right"></i>
                     <p>Estude agora!</p>
                     <div class="pic">
                         <%= image_tag course.course_flag.thumb.url || "flag-usa.png", class: "align-top" %>
@@ -34,11 +34,11 @@
                 </div>
             <% end %>
         <% else %>
-   
+
             <%= link_to site_audios_path, class: "course-list" do %>
                 <div class="card">
                     <h2><%= course.title %></h2>
-                    <i class="fa fa-arrow-right"></i> 
+                    <i class="fa fa-arrow-right"></i>
                     <p>Estude agora!</p>
                     <div class="pic">
                         <%= image_tag course.course_flag.thumb.url || "flag-usa.png", class: "align-top" %>
@@ -53,9 +53,9 @@
     <% end %>
 
 
-    
+
 
 <% end %>
 
 
-<%= render 'partials/modal_config' %>    
+<%= render 'partials/modal_config' %>

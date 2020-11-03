@@ -20,7 +20,7 @@
 
     <% else %>
 
-        <% if course.title == "Inglês"%>
+        <% if course.title == "Inglês" || course.title == "Power Link" %>
             <%= link_to site_course_path(course), class: "course-list" do %>
                 <div class="card">
                     <h2><%= course.title %></h2>

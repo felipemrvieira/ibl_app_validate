@@ -308,6 +308,20 @@
                                 <!-- /.nav-second-level -->
                               </li>
                             <% end %>
+                            <% if current_unit.admin == true %>
+                              <li>
+                                <a href="#"><i class="fa fa-comment fa-fw "></i> Desafio semanal<span class="fa arrow"></span></a>
+                                <ul class="nav nav-second-level">
+                                    <li>
+                                        <%= link_to "Listar Desafios ", backoffice_weekly_challenges_path %>
+                                    </li>
+                                    <li>
+                                        <%= link_to "Novo Desafio", new_backoffice_weekly_challenge_path %>
+                                    </li>
+                                </ul>
+                                <!-- /.nav-second-level -->
+                              </li>
+                            <% end %>
 
 
                         <%

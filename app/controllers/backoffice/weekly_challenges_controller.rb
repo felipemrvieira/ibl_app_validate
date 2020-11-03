@@ -29,6 +29,10 @@ class Backoffice::WeeklyChallengesController < BackofficeController
   def create
     @weekly_challenge = WeeklyChallenge.new(weekly_challenge_params)
 
+    if params[:weekly_challenge][:question_id] == ""
+      @weekly_challenge.question_id = Question.power_link_sample_question
+    end
+
     respond_to do |format|
       if @weekly_challenge.save
         format.html { redirect_to backoffice_weekly_challenge_path(@weekly_challenge), notice: 'Weekly challenge was successfully created.' }
