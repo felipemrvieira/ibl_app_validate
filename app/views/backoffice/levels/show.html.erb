@@ -114,13 +114,13 @@
       Nova Versão
     </div>
     <div class="panel-body">
-     
+
 
     <%= form_with(model: @audio_version, local: true, url: backoffice_audio_versions_path) do |form| %>
       <% if @audio_version.errors.any? %>
         <div id="error_explanation">
           <h2><%= pluralize(@audio_version.errors.count, "error") %> prohibited this audio_version from being saved:</h2>
-    
+
           <ul>
           <% @audio_version.errors.full_messages.each do |message| %>
             <li><%= message %></li>
@@ -128,15 +128,15 @@
           </ul>
         </div>
       <% end %>
-    
+
       <div class="field form-group col-md-12">
         <%= form.label :title %>
         <%= form.text_field :title, class: "form-control" %>
       </div>
-    
+
       <%= form.hidden_field :level_id, :value => @level.id %>
 
-    
+
 
       <div class="actions  col-md-12">
       <%= form.submit "Enviar", :class => "btn btn-default" %>
@@ -190,6 +190,94 @@
     </div>
   </div>
 </div>
+</div>
 
+<% if @level.course.title == "Power Link" %>
+
+  <h2 class="page-header">Banco de questões para desafio semanal</h2>
+
+  <div class="col-md-6">
+    <div class="panel panel-default ">
+      <div class="panel-heading">
+        Novo banco de questões
+      </div>
+      <div class="panel-body">
+
+
+      <%= form_with(model: @weekly_challenge_bank_question, local: true, url: backoffice_weekly_challenge_bank_questions_path) do |form| %>
+        <% if @weekly_challenge_bank_question.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@weekly_challenge_bank_question.errors.count, "error") %> prohibited this weekly_challenge_bank_question from being saved:</h2>
+
+            <ul>
+            <% @weekly_challenge_bank_question.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field form-group col-md-12">
+          <%= form.label :title %>
+          <%= form.text_field :title, class: "form-control" %>
+        </div>
+
+        <%= form.hidden_field :level_id, :value => @level.id %>
+
+
+
+        <div class="actions  col-md-12">
+        <%= form.submit "Enviar", :class => "btn btn-default" %>
+      </div>
+      <% end %>
+
+
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-6">
+    <div class="panel panel-default ">
+      <div class="panel-heading">
+        Bancos
+      </div>
+      <div class="panel-body">
+      <div class="col-md-12">
+
+          <div class="table-responsive">
+              <table class="table table-hover">
+                  <thead>
+                      <tr>
+                        <th>id</th>
+                        <th>Título</th>
+                        <th>Questões</th>
+                        <th colspan=""></th>
+                      </tr>
+                  </thead>
+                  <tbody>
+                      <% @level.weekly_challenge_bank_questions.each do |bank| %>
+                          <tr>
+                              <td><%= bank.id %></td>
+                              <td><%= bank.level.title %> - <%= bank.title %></td>
+                              <td><%= bank.questions.count %></td>
+                              <td>
+                                <%= link_to backoffice_weekly_challenge_bank_question_path(bank), class: "btn btn-default btn-circle" do %>
+                                  <i class="fa fa-search"></i>
+                                <% end %>
+
+                                <%= link_to backoffice_weekly_challenge_bank_question_path(bank), class: "btn btn-danger btn-circle" , method: :delete, data: { confirm: 'Are you sure?' } do %>
+                                    <i class="fa fa-close"></i>
+                                <% end %>
+                              </td>
+                          </tr>
+                      <% end %>
+                  </tbody>
+              </table>
+          </div>
+      </div>
+      </div>
+    </div>
+  </div>
+<% end %>
 
 

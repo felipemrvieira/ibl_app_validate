@@ -5,6 +5,7 @@ class Question < ApplicationRecord
   mount_uploader :attachment, AttachmentUploader
 
   belongs_to :path
+  belongs_to :weekly_challenge_bank_question
   has_many :quiz_questions, dependent: :destroy
   has_many :question_errors, dependent: :destroy
   has_many :quizzes, through: :quiz_questions

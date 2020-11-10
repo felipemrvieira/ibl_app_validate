@@ -40,6 +40,7 @@ Rails.application.routes.draw do
       get 'dashboard', to: 'dashboard#index'
       resources :weekly_challenges
       resources :audio_versions
+      resources :weekly_challenge_bank_questions
       resources :galleries
       resources :units
       resources :students

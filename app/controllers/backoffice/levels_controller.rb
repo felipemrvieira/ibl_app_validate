@@ -10,14 +10,15 @@ class Backoffice::LevelsController < BackofficeController
     def show
         @path = Path.new
         @audio_version = AudioVersion.new
+        @weekly_challenge_bank_question = WeeklyChallengeBankQuestion.new
     end
-  
+
     def new
         @level = Level.new
         @course_options = Course.all
         authorize @level
     end
-  
+
     def edit
         @course_options = Course.all
         authorize @level

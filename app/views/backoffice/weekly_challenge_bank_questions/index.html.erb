@@ -1,0 +1,27 @@
+<h1>Banco de Questões para o desafio</h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>Title</th>
+      <th>Level</th>
+      <th colspan="3"></th>
+    </tr>
+  </thead>
+
+  <tbody>
+    <% @weekly_challenge_bank_question.each do |weekly_challenge_bank_question| %>
+      <tr>
+        <td><%= weekly_challenge_bank_question.title %></td>
+        <td><%= weekly_challenge_bank_question.level.course.title %> - <%= weekly_challenge_bank_question.level.title %></td>
+        <td><%= link_to 'Show', backoffice_weekly_challenge_bank_question_path(weekly_challenge_bank_question) %></td>
+        <td><%= link_to 'Edit', edit_backoffice_weekly_challenge_bank_question_path(weekly_challenge_bank_question) %></td>
+        <td><%= link_to 'Destroy', backoffice_weekly_challenge_bank_question_path(weekly_challenge_bank_question), method: :delete, data: { confirm: 'Are you sure?' } %></td>
+      </tr>
+    <% end %>
+  </tbody>
+</table>
+
+<br>
+
+<%= link_to 'New Audio Version', new_backoffice_weekly_challenge_bank_question_path %>

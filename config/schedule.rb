@@ -6,16 +6,13 @@
 # Example:
 #
 # set :output, "/path/to/my/cron_log.log"
+#
+
+set :output, 'log/whenever.log'
 set :environment, "development"
 
-#
-every 1.minutes do
-  # command "/usr/bin/some_great_command"
-
-  runner "WeeklyChallenge.create(question_id: Question.power_link_sample_question, exp: Date.today + 7)"
-  # runner "WeeklyChallenge.create(question_id: Question.find(14).id, exp: Date.today + 7)"
-
-  # rake "some:great:rake:task"
+every 2.minutes do
+  rake 'weekly_challenge:run_weekly_challenges'
 end
 #
 # every 4.days do

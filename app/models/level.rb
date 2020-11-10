@@ -1,5 +1,6 @@
 class Level < ApplicationRecord
     belongs_to :course
+    has_many :weekly_challenge_bank_questions, dependent: :destroy
     has_many :paths, dependent: :destroy
     has_many :errolments, dependent: :destroy
     has_many :students, through: :errolments

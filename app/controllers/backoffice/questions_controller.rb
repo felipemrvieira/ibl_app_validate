@@ -35,6 +35,7 @@ class Backoffice::QuestionsController < BackofficeController
     @question = Question.new
     authorize @question
     @path_id = params[:path]
+    @weekly_challenge_bank_question_id = params[:weekly_challenge_bank_question]
 
     if params[:course_id].present?
       @levels = Level.where(course_id: params[:course_id])

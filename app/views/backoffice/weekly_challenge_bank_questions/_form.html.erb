@@ -1,0 +1,27 @@
+<%= form_with(model: audio_version, local: true, url: path) do |form| %>
+  <% if audio_version.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(audio_version.errors.count, "error") %> prohibited this audio_version from being saved:</h2>
+
+      <ul>
+      <% audio_version.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="field form-group col-md-6">
+    <%= form.label :title %>
+    <%= form.text_field :title, class: "form-control" %>
+  </div>
+
+  <div class="field form-group col-md-6">
+    <%= form.label "Nível" %>
+    <%= collection_select(:audio_version, :level_id, Level.all, :id, :couse_level_title, {:prompt => true}, {:class=>'form-control'}) %>
+  </div>
+
+  <div class="actions">
+    <%= form.submit %>
+  </div>
+<% end %>

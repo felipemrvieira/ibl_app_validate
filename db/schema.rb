@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_10_25_215414) do
+ActiveRecord::Schema.define(version: 2020_11_04_195639) do
 
   create_table "achievements", force: :cascade do |t|
     t.string "description"
@@ -311,7 +311,9 @@ ActiveRecord::Schema.define(version: 2020_10_25_215414) do
     t.string "title"
     t.string "type_question"
     t.string "attachment"
+    t.integer "weekly_challenge_bank_question_id"
     t.index ["path_id"], name: "index_questions_on_path_id"
+    t.index ["weekly_challenge_bank_question_id"], name: "index_questions_on_weekly_challenge_bank_question_id"
   end
 
   create_table "quiz_questions", force: :cascade do |t|
@@ -421,6 +423,12 @@ ActiveRecord::Schema.define(version: 2020_10_25_215414) do
     t.index ["email"], name: "index_units_on_email", unique: true
     t.index ["reset_password_token"], name: "index_units_on_reset_password_token", unique: true
     t.index ["slug"], name: "index_units_on_slug", unique: true
+  end
+
+  create_table "weekly_challenge_bank_questions", force: :cascade do |t|
+    t.string "title"
+    t.integer "level_id"
+    t.index ["level_id"], name: "index_weekly_challenge_bank_questions_on_level_id"
   end
 
   create_table "weekly_challenge_quizzes", force: :cascade do |t|

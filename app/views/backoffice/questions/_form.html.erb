@@ -18,9 +18,15 @@
 
       <% if @path_id %>
         <div class="field form-group col-md-6">
-        <% caminho = "#{Path.find(@path_id).level.course.title} >> #{Path.find(@path_id).level.title} >> #{Path.find(@path_id).title}" %>
+          <% caminho = "#{Path.find(@path_id).level.course.title} >> #{Path.find(@path_id).level.title} >> #{Path.find(@path_id).title}" %>
           <%= form.label caminho %>
           <%= form.hidden_field :path_id, :value => @path_id, :class=>'form-control' %>
+        </div>
+      <% elsif @weekly_challenge_bank_question_id %>
+        <div class="field form-group col-md-6">
+          <% caminho = "#{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).level.course.title} >> #{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).level.title} >> #{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).title}" %>
+          <%= form.label caminho %>
+          <%= form.hidden_field :weekly_challenge_bank_question_id, :value => @weekly_challenge_bank_question_id, :class=>'form-control' %>
         </div>
       <% else %>
 
