@@ -9,9 +9,9 @@
 #
 
 set :output, 'log/whenever.log'
-set :environment, "development"
+# set :environment, "development"
 
-every 2.minutes do
+every 7.minutes do
   rake 'weekly_challenge:run_weekly_challenges'
 end
 #
