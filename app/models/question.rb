@@ -4,8 +4,9 @@ class Question < ApplicationRecord
   # Uploader do CarrierWave tambem utilizado em audio.rb
   mount_uploader :attachment, AttachmentUploader
 
-  belongs_to :path
-  belongs_to :weekly_challenge_bank_question
+  belongs_to :path, optional: true
+  belongs_to :weekly_challenge_bank_question, optional: true
+
   has_many :quiz_questions, dependent: :destroy
   has_many :question_errors, dependent: :destroy
   has_many :quizzes, through: :quiz_questions

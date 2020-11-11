@@ -126,6 +126,7 @@ class Backoffice::QuestionsController < BackofficeController
     def question_params
       params.require(:question).permit(
         :title, :description, :path_id, :type_question, :attachment,
+        :weekly_challenge_bank_question_id,
         question_options_attributes: [:id, :correct, :option_description, :_destroy],
         question_texts_attributes: [:id, :student_answer, :_destroy],
         question_combinations_attributes: [:id, :label, :order, :_destroy]
