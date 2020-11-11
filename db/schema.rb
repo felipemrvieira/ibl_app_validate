@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_11_04_195639) do
+ActiveRecord::Schema.define(version: 2020_11_11_144904) do
 
   create_table "achievements", force: :cascade do |t|
     t.string "description"
@@ -446,6 +446,8 @@ ActiveRecord::Schema.define(version: 2020_11_04_195639) do
     t.date "exp"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "level_id"
+    t.index ["level_id"], name: "index_weekly_challenges_on_level_id"
     t.index ["question_id"], name: "index_weekly_challenges_on_question_id"
   end
 

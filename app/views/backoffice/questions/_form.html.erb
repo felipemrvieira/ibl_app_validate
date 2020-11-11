@@ -26,7 +26,7 @@
         <div class="field form-group col-md-6">
           <% caminho = "#{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).level.course.title} >> #{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).level.title} >> #{WeeklyChallengeBankQuestion.find(@weekly_challenge_bank_question_id).title}" %>
           <%= form.label caminho %>
-          <%= form.text_field :weekly_challenge_bank_question_id, :value => @weekly_challenge_bank_question_id, :class=>'form-control' %>
+          <%= form.hidden_field :weekly_challenge_bank_question_id, :value => @weekly_challenge_bank_question_id, :class=>'form-control' %>
         </div>
       <% else %>
 

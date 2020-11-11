@@ -47,9 +47,9 @@
             <tr>
               <td><%= question.title %></td>
               <td><%= raw question.description %></td>
-              <td><%= question.path.level.course.title %></td>
-              <td><%= question.path.level.title %></td>
-              <td><%= question.path.title %></td>
+              <td><%= question.weekly_challenge_bank_question.level.course.title %></td>
+              <td><%= question.weekly_challenge_bank_question.level.title %></td>
+              <td><%= question.weekly_challenge_bank_question.title %></td>
               <td>
                 <%= link_to backoffice_question_path(question), class: "btn btn-default btn-circle" do %>
                     <i class="fa fa-search"></i>

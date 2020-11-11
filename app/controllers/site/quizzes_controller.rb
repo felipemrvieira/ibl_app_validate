@@ -77,17 +77,27 @@ class Site::QuizzesController < ApplicationController
     @level = current_student.levels.find(params[:id])
     @pagy, @paths = pagy(@level.paths.all.order(:id), items: 6)
 
-    @weekly_challenge_question = WeeklyChallenge.last.question
-    @weekly_challenge_id = WeeklyChallenge.last.id
+    if @level.weekly_challenges.any?
+      @weekly_challenge_question = @level.weekly_challenges.last.question
+      @weekly_challenge_id = @level.weekly_challenges.last.id
+      date = @level.weekly_challenges.last.exp - Date.today
+      @weekly_challenge_exp = date.to_i
 
-    date = WeeklyChallenge.last.exp - Date.today
-    @weekly_challenge_exp = date.to_i
+      last_level_challenge = @level.weekly_challenges.last
 
-    # Valida se o estudante já realizou o último quiz
-    if current_student.weekly_challenges.any?
-      @show_challenge_button = current_student.weekly_challenges.last.id != WeeklyChallenge.last.id
+      if last_level_challenge.exp >= Date.today
+        @show_challenge_button = true
+        # valida se o estudante ja fez o desafio
+        challenge_done = WeeklyChallengeQuiz.where(student_id: current_student.id, weekly_challenge_id: last_level_challenge.id).any?
+        if challenge_done
+          @show_challenge_button = false
+        end
+      else
+        @show_challenge_button = false
+      end
+
     else
-      @show_challenge_button = true
+      @show_challenge_button = false
     end
 
     # Valida se o estudante já leu a instrução
