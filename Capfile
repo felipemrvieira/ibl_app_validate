@@ -1,10 +1,12 @@
 require "capistrano/setup"
 require "capistrano/deploy"
+require "capistrano/bundler"
+require 'capistrano/rails'
+require "capistrano/rails/migrations"
+require "capistrano/rails/assets"
 require "capistrano/scm/git"
 require 'capistrano/rbenv'
 require 'capistrano/puma'
-require 'capistrano/rails'
-require "capistrano/rails/migrations"
 
 
 set :rbenv_type, :user
