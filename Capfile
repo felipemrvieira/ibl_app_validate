@@ -8,7 +8,7 @@ require "capistrano/rails/migrations"
 
 
 set :rbenv_type, :user
-set :rbenv_ruby, '2.5.0'
+set :rbenv_ruby, '2.6.3'
 
 install_plugin Capistrano::SCM::Git
 install_plugin Capistrano::Puma
