@@ -60,7 +60,7 @@ GEM
       geocoder
       railties (>= 5)
       warden
-    autoprefixer-rails (10.1.0.0)
+    autoprefixer-rails (10.0.1.2)
       execjs
     awesome_print (1.8.0)
     aws-eventstream (1.1.0)
