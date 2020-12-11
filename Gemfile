@@ -105,11 +105,10 @@ group :development do
   gem "memory_profiler"
   gem 'derailed_benchmarks'
 
-  gem "capistrano", "~> 3.10", require: false
-  gem "capistrano-rails", "~> 1.3", require: false
+  gem 'capistrano', '3.11', require: false
+  gem 'capistrano-rails', '~> 1.4', require: false
   gem 'capistrano3-puma', require: false
-  gem 'capistrano-rvm', require: false
-
+  gem 'capistrano-rbenv', '~> 2.1', '>= 2.1.4', require: false
 end
 
 group :test do

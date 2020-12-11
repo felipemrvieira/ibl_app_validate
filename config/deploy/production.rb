@@ -1,9 +1,9 @@
 set :branch, 'master'
-set :server_address, '142.93.201.22'
- 
+set :server_address, '157.230.222.238'
+
 ask(:password, nil, echo: false)
 server fetch(:server_address), user: "deploy", roles: %w{app db web}
- 
+
 set :nginx_server_name, fetch(:server_address)
 set :puma_preload_app, true
 
@@ -15,7 +15,6 @@ set :puma_preload_app, true
 # server "example.com", user: "deploy", roles: %w{app db web}, my_property: :my_value
 # server "example.com", user: "deploy", roles: %w{app web}, other_property: :other_value
 # server "db.example.com", user: "deploy", roles: %w{db}
-
 
 
 # role-based syntax
