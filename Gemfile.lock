@@ -62,7 +62,6 @@ GEM
       warden
     autoprefixer-rails (10.0.1.2)
       execjs
-    awesome_print (1.8.0)
     aws-eventstream (1.1.0)
     aws-partitions (1.405.0)
     aws-sdk-core (3.110.0)
@@ -390,7 +389,6 @@ PLATFORMS
 
 DEPENDENCIES
   authtrail
-  awesome_print
   better_errors
   bootsnap (>= 1.1.0)
   bootstrap (>= 4.3.1)
